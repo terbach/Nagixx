@@ -13,7 +13,25 @@ namespace Nagixx;
 
 class Nagixx {
 
+    /**
+     * @var
+     */
+    protected $warningStart = 0;
 
+    /**
+     * @var
+     */
+    protected $warningEnd = 0;
+
+    /**
+     * @var
+     */
+    protected $criticalStart = 0;
+
+    /**
+     * @var
+     */
+    protected $criticalEnd = 0;
 
     /**
      * @var IPlugin
