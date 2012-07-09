@@ -10,7 +10,6 @@ namespace Nagixx;
  *
  * @category lib
  */
-
 class Nagixx {
 
     /**
@@ -67,7 +66,7 @@ class Nagixx {
             throw new Exception();
         }
 
-        
+
         echo $resultStatus->getStatusText();
         echo $resultStatus->getStatusMessage();
         exit ($resultStatus->getStatusNumber());

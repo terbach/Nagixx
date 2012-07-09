@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Build file for project Nagixx
+
+ @author terbach <terbach@netbixx.com>
+ @version 1.0.0.1
+ @since 0.5.0.1
+ @copyright 2012 netbixx GmbH (http://www.netbixx.com)
+
+ @category Build
+ @package Ant
+-->
+
+<project name="pixxcore" default="ci" basedir="../.." xmlns:doxygen="antlib:org.doxygen.tools">
+    <description>Build file for Nagixx</description>
+
+    <!-- PROPERTIES -->
+    <property name="projectFolder" location="${basedir}" />
+    <property name="buildFolder" location="${basedir}/../build" />
+    <property name="logFolder" location="${buildFolder}/logs" />
+    <property name="codeCoverageFolder" location="${buildFolder}/codeCoverage" />
+    <property name="docsFolder" location="${buildFolder}/javadoc" />
+    <property name="testsFolder" location="${projectFolder}/tests" />
+
+    <!-- TARGETS -->
+    <target name="ci" depends="clean, prepare">
+        <antcall target="tests" />
+        <antcall target="metrics" />
+        <antcall target="documentation" />
+    </target>
+
+    <target name="tests">
+        <exec executable="phpunit"
+              failonerror="false">
+
+            <arg line="--configuration ${testsFolder}/phpunit.xml" />
+        </exec>
+    </target>
+
+    <target name="metrics">
+        <antcall target="phpcpd" />
+        <antcall target="pdepend" />
+        <antcall target="phpmd" />
+        <antcall target="phploc" />
+        <!-- <antcall target="phpcs" /> -->
+    </target>
+
+    <target name="phpcpd">
+        <exec executable="phpcpd"
+              failonerror="false"
+              dir="${projectFolder}">
+
+            <arg line="--suffixes php,phtml
+                       --exclude build
+                       --log-pmd ${logFolder}/phpcpd.xml
+                       --quiet
+                       ${projectFolder}" />
+        </exec>
+    </target>
+
+    <target name="pdepend">
+        <exec executable="pdepend"
+              failonerror="false"
+              dir="${projectFolder}">
+
+            <arg line="--jdepend-xml=${logFolder}/pdepend.xml"/>
+            <arg value="--suffix=php,phtml" />
+            <arg value="--ignore=build/**" />
+            <arg value="--jdepend-chart=${logFolder}/dependencies.svg" />
+            <arg value="--overview-pyramid=${logFolder}/overview-pyramid.svg" />
+            <arg value="${projectFolder}" />
+        </exec>
+    </target>
+
+    <target name="phpmd">
+        <exec executable="phpmd"
+              failonerror="false"
+              dir="${projectFolder}">
+
+            <arg line="${projectFolder}
+                       xml
+                       codesize,design,naming,unusedcode
+                       --suffixes php,phtml
+                       --exclude build/**
+                       --reportfile ${logFolder}/phpmd.xml" />
+        </exec>
+    </target>
+
+    <target name="phploc">
+        <exec executable="phploc"
+              failonerror="false">
+
+            <arg line="--log-csv ${logFolder}/phploc.csv ${projectFolder}" />
+        </exec>
+    </target>
+
+    <target name="phpcs">
+        <exec executable="phpcs"
+              failonerror="false"
+              dir="${projectFolder}">
+
+            <arg line="--tab-width=4
+                       --encoding=UTF-8
+                       --standard=PEAR
+                       --report=checkstyle
+                       --report-file=${logFolder}/phpcs.xml
+                       ${projectFolder}" />
+        </exec>
+    </target>
+
+    <target name="documentation">
+        <exec dir="${basedir}"
+              executable="phpdoc"
+              failonerror="false">
+
+            <arg line="-q on
+                       -t ${docsFolder}
+                       -d ${projectFolder}
+                       -ti ${ant.project.name}
+                       -pp on
+                       -ue on
+                       -s on
+                       -o HTML:frames:earthli
+                       -i tests/,build/" />
+         </exec>
+    </target>
+
+    <target name="setup">
+        <tstamp>
+            <format property="DATE_DE" pattern="dd.MM yyyy" locale="de,DE" />
+            <format property="TIME_DE" pattern="HH:mm" locale="de,DE" />
+        </tstamp>
+    </target>
+
+    <target name="prepare" depends="setup, clean">
+        <mkdir dir="${buildFolder}" />
+        <mkdir dir="${logFolder}" />
+        <mkdir dir="${codeCoverageFolder}" />
+        <mkdir dir="${docsFolder}" />
+        <mkdir dir="${schemaSpyDocFolder}" />
+    </target>
+
+    <target name="clean">
+        <delete dir="${buildFolder}" />
+    </target>
+</project>

@@ -1,0 +1,58 @@
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="index.php"
+         cacheTokens="false"
+         colors="true"
+         convertErrorsToExceptions="false"
+         convertNoticesToExceptions="false"
+         convertWarningsToExceptions="false"
+         forceCoversAnnotation="false"
+         mapTestClassNameToCoveredClassName="false"
+         printerClass="PHPUnit_TextUI_ResultPrinter"
+         processIsolation="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
+         strict="false"
+         verbose="false">
+
+    <!-- TestSuite(s) -->
+    <testsuites>
+        <testsuite name="Nagixx">
+            <directory>source</directory>
+        </testsuite>
+    </testsuites>
+
+    <!-- CodeCoverage -->
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../lib</directory>
+            <exclude>
+            </exclude>
+        </whitelist>
+
+        <blacklist>
+        </blacklist>
+    </filter>
+
+    <!-- Logging -->
+    <logging>
+        <log type="coverage-html"
+             target="../../build/codeCoverage"
+             title="Nagixx"
+             charset="UTF-8"
+             yui="true"
+             highlight="true"
+             lowUpperBound="35"
+             highLowerBound="70" />
+
+        <log type="coverage-clover"
+             target="../../build/logs/clover.xml" />
+
+        <log type="junit"
+             target="../../build/logs/phpunit.xml"
+             logIncompleteSkipped="true" />
+    </logging>
+</phpunit>
