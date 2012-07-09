@@ -20,12 +20,20 @@ class Status {
     const NAGIOS_STATUS_NUMBER_OK = 0;
     const NAGIOS_STATUS_NUMBER_WARNING = 1;
     const NAGIOS_STATUS_NUMBER_CRITICAL = 2;
+    const NAGIOS_STATUS_NUMBER_UNKNOWN = 3;
     const NAGIOS_STATUS_NUMBER_DEPENDENT = 4;
 
-    const NAGIOS_STATUS_TEXT_OK = 'OK';
-    const NAGIOS_STATUS_TEXT_WARNING = 'WARNING';
-    const NAGIOS_STATUS_TEXT_CRITICAL = 'CRITICAL';
-    const NAGIOS_STATUS_TEXT_DEPENDENT = 'DEPENDENT ';
+    const NAGIOS_STATUS_TEXT_SERVICE_OK = 'OK';
+    const NAGIOS_STATUS_TEXT_SERVICE_WARNING = 'WARNING';
+    const NAGIOS_STATUS_TEXT_SERVICE_CRITICAL = 'CRITICAL';
+    const NAGIOS_STATUS_TEXT_SERVICE_UNKNOWN = 'UNKNOWN';
+    const NAGIOS_STATUS_TEXT_SERVICE_DEPENDENT = 'DEPENDENT ';
+
+    const NAGIOS_STATUS_TEXT_HOST_OK = 'UP';
+    const NAGIOS_STATUS_TEXT_HOST_WARNING = 'UP or DOWN/UNREACHABLE';
+    const NAGIOS_STATUS_TEXT_HOST_CRITICAL = 'DOWN/UNREACHABLE';
+    const NAGIOS_STATUS_TEXT_HOST_UNKNOWN = 'DOWN/UNREACHABLE';
+    const NAGIOS_STATUS_TEXT_HOST_DEPENDENT = 'DEPENDENT ';
 
     /**
      * var
@@ -35,12 +43,32 @@ class Status {
     /**
      * var
      */
-    protected $statusText = self::NAGIOS_STATUS_TEXT_OK;
+    protected $statusText = self::NAGIOS_STATUS_TEXT_SERVICE_OK;
 
     /**
      * var
      */
     protected $statusMessage = '';
+
+    /**
+     *@var boolean
+     */
+    protected $startInfiniteWarning = false;
+
+    /**
+     *@var boolean
+     */
+    protected $endInfiniteWarning = false;
+
+    /**
+     *@var boolean
+     */
+    protected $startInfiniteCritical = false;
+
+    /**
+     *@var boolean
+     */
+    protected $endInfiniteCritical = false;
 
     /**
      * ...
@@ -49,9 +77,9 @@ class Status {
      * @param type $statusText
      * @param type $message
      */
-    public function __construct($statusNumber = self::NAGIOS_STATUS_NUMBER_OK, $statusText = self::NAGIOS_STATUS_TEXT_OK, $message = '') {
+    public function __construct($statusNumber = self::NAGIOS_STATUS_NUMBER_OK, $statusText = self::NAGIOS_STATUS_TEXT_SERVICE_OK, $message = '') {
         $this->setStatusNumber($statusNumber);
-        $this->setStatusTest($statusText);
+        $this->setStatusText($statusText);
         $this->setStatusMessage($message);
     }
 
@@ -82,7 +110,7 @@ class Status {
      *
      */
     public function setStatusText($statusText) {
-        $this->statusText = trim($statusText);
+        $this->statusText = $statusText;
     }
 
     /**
@@ -92,7 +120,11 @@ class Status {
      *
      */
     public function getStatusText() {
-        return trim($this->statusText);
+        if (strlen(trim($this->statusText))) {
+            return ' - ' . $this->statusText;
+        }
+
+        return '';
     }
 
     /**
@@ -102,7 +134,7 @@ class Status {
      *
      */
     public function setStatusMessage($message) {
-        $this->statusMessage = trim($message);
+        $this->statusMessage = $message;
     }
 
     /**
@@ -112,6 +144,6 @@ class Status {
      *
      */
     public function getStatusMessage() {
-        return trim($this->statusMessage);
+        return $this->statusMessage;
     }
 }

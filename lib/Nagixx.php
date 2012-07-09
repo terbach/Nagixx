@@ -14,27 +14,7 @@ namespace Nagixx;
 class Nagixx {
 
     /**
-     * @var
-     */
-    protected $warningStart = 0;
-
-    /**
-     * @var
-     */
-    protected $warningEnd = 0;
-
-    /**
-     * @var
-     */
-    protected $criticalStart = 0;
-
-    /**
-     * @var
-     */
-    protected $criticalEnd = 0;
-
-    /**
-     * @var IPlugin
+     * @var Plugin
      */
     protected $plugin = null;
 
@@ -43,18 +23,18 @@ class Nagixx {
      *
      * @param IPlugin $plugin
      */
-    public function __construct(IPlugin $plugin) {
+    public function __construct(Plugin $plugin) {
         $this->plugin = $plugin;
     }
 
     /**
      * ...
      *
-     * @param IPlugin $plugin
+     * @param Plugin $plugin
      *
      * @return void
      */
-    public function setPlugin(IPlugin $plugin) {
+    public function setPlugin(Plugin $plugin) {
         $this->plugin = $plugin;
     }
 
@@ -87,7 +67,9 @@ class Nagixx {
             throw new Exception();
         }
 
-        echo trim($resultStatus->getStatusText());
+        
+        echo $resultStatus->getStatusText();
+        echo $resultStatus->getStatusMessage();
         exit ($resultStatus->getStatusNumber());
     }
 }
