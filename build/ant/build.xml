@@ -12,7 +12,7 @@
  @package Ant
 -->
 
-<project name="pixxcore" default="ci" basedir="../.." xmlns:doxygen="antlib:org.doxygen.tools">
+<project name="nagixx" default="ci" basedir="../..">
     <description>Build file for Nagixx</description>
 
     <!-- PROPERTIES -->
