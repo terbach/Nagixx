@@ -33,10 +33,24 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     /**
      * Tests
      */
-    public function testDefaultConstructAbstrct() {
+    public function testDefaultConstructAbstract() {
         require_once dirname(__FILE__) . '/../../lib/Plugin.php';
 
         $plugin = new \ReflectionClass('Nagixx\Plugin');
         $this->assertTrue($plugin->isAbstract());
+    }
+
+    /**
+     * Tests
+     */
+    public function testGetPluginDescription() {
+        $this->assertSame('PluginMock', $this->NagixxPluginMock->getPluginDescription());
+    }
+
+    /**
+     * Tests
+     */
+    public function testGetPluginVersion() {
+        $this->assertSame('1.0', $this->NagixxPluginMock->getPluginVersion());
     }
 }

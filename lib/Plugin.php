@@ -16,6 +16,16 @@ abstract class Plugin {
     /**
      * @var Status
      */
+    protected $pluginDescription = null;
+
+    /**
+     * @var Status
+     */
+    protected $pluginVersion = null;
+
+    /**
+     * @var Status
+     */
     protected $status = null;
 
     /**

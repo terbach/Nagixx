@@ -18,12 +18,6 @@
         <action>StoreString</action>
     </option>
 
-    <option name="phpunit">
-        <long_name>--configuration</long_name>
-        <description>Critical threshold.</description>
-        <action>StoreString</action>
-    </option>
-
     <option name="timeout">
         <short_name>-t</short_name>
         <long_name>--timeout</long_name>
@@ -43,5 +37,11 @@
         <long_name>--verbose</long_name>
         <description>Turn on verbose output.</description>
         <action>StoreTrue</action>
+    </option>
+
+    <option name="phpunit">
+        <long_name>--configuration</long_name>
+        <description>Critical threshold.</description>
+        <action>StoreString</action>
     </option>
 </command>
