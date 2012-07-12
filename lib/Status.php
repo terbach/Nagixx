@@ -41,6 +41,11 @@ class Status {
     protected $statusNumber = self::NAGIOS_STATUS_NUMBER_OK;
 
     /**
+     * @var string
+     */
+    protected $shortDescription = '';
+
+    /**
      * var
      */
     protected $statusText = self::NAGIOS_STATUS_TEXT_SERVICE_OK;
@@ -51,34 +56,15 @@ class Status {
     protected $statusMessage = '';
 
     /**
-     *@var boolean
-     */
-    protected $startInfiniteWarning = false;
-
-    /**
-     *@var boolean
-     */
-    protected $endInfiniteWarning = false;
-
-    /**
-     *@var boolean
-     */
-    protected $startInfiniteCritical = false;
-
-    /**
-     *@var boolean
-     */
-    protected $endInfiniteCritical = false;
-
-    /**
      * ...
      *
      * @param type $statusNumber
      * @param type $statusText
      * @param type $message
      */
-    public function __construct($statusNumber = self::NAGIOS_STATUS_NUMBER_OK, $statusText = self::NAGIOS_STATUS_TEXT_SERVICE_OK, $message = '') {
+    public function __construct($statusNumber = self::NAGIOS_STATUS_NUMBER_OK, $shortDescription = '', $statusText = self::NAGIOS_STATUS_TEXT_SERVICE_OK, $message = '') {
         $this->setStatusNumber($statusNumber);
+        $this->setShortPluginDescription($shortDescription);
         $this->setStatusText($statusText);
         $this->setStatusMessage($message);
     }
@@ -109,8 +95,18 @@ class Status {
      * @param
      *
      */
+    public function setShortPluginDescription($shortDescription) {
+        $this->shortDescription = $shortDescription;
+    }
+
+    /**
+     * ...
+     *
+     * @param
+     *
+     */
     public function setStatusText($statusText) {
-        $this->statusText = $statusText;
+        $this->statusText = ' ' . $statusText;
     }
 
     /**
@@ -120,11 +116,17 @@ class Status {
      *
      */
     public function getStatusText() {
-        if (strlen(trim($this->statusText))) {
-            return ' - ' . $this->statusText;
-        }
+        return $this->statusText . ' - ';
+    }
 
-        return '';
+    /**
+     * ...
+     *
+     * @param
+     *
+     */
+    public function getShortPluginDescription() {
+        return $this->shortDescription;
     }
 
     /**
@@ -144,6 +146,10 @@ class Status {
      *
      */
     public function getStatusMessage() {
+        if (strlen(trim($this->statusMessage))) {
+            return $this->statusMessage;
+        }
+
         return $this->statusMessage;
     }
 }

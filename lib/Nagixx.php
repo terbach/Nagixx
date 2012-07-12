@@ -2,6 +2,9 @@
 
 namespace Nagixx;
 
+use Nagixx\Status;
+use Nagixx\Formatter;
+
 /**
  * @author terbach <terbach@netbixx.com>
  * @version 1.0.0.0
@@ -18,12 +21,24 @@ class Nagixx {
     protected $plugin = null;
 
     /**
+     * @var Formatter
+     */
+    protected $formatter = null;
+
+    /**
      * ...
      *
-     * @param IPlugin $plugin
+     * @param Plugin $plugin
+     * @param Formatter $formatter
      */
-    public function __construct(Plugin $plugin) {
-        $this->plugin = $plugin;
+    public function __construct(Plugin $plugin = null, Formatter $formatter = null) {
+        if (null !== $plugin) {
+            $this->plugin = $plugin;
+        }
+
+        if (null !== $formatter) {
+            $this->formatter = $formatter;
+        }
     }
 
     /**
@@ -40,9 +55,7 @@ class Nagixx {
     /**
      * ...
      *
-     * @param IPlugin $plugin
-     *
-     * @return void
+     * @return Plugin
      */
     public function getPlugin() {
         return $this->plugin;
@@ -51,7 +64,27 @@ class Nagixx {
     /**
      * ...
      *
-     * @return int
+     * @param Plugin $plugin
+     *
+     * @return void
+     */
+    public function setFormatter(Formatter $formatter) {
+        $this->formatter = $formatter;
+    }
+
+    /**
+     * ...
+     *
+     * @return Formatter
+     */
+    public function getFormatter() {
+        return $this->formatter;
+    }
+
+    /**
+     * ...
+     *
+     * @return Formatter
      *
      * @throws Nagixx\Exception
      */
@@ -62,13 +95,17 @@ class Nagixx {
 
         /* @var $resultStatus Status */
         $resultStatus = $this->plugin->execute();
+
         if (! $resultStatus instanceof Status) {
             throw new Exception();
         }
 
+        if (null === $this->formatter) {
+            throw new Exception();
+        }
 
-        echo $resultStatus->getStatusText();
-        echo $resultStatus->getStatusMessage();
-        exit ($resultStatus->getStatusNumber());
+        $this->formatter->setStatus($resultStatus);
+
+        return $this->formatter;
     }
 }

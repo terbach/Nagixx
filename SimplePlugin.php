@@ -16,35 +16,8 @@ class SimplePlugin extends Plugin {
     /**
      *
      */
-    protected $pluginDescription = 'Simple Nagios-Plugin-Check for demonstration.';
-
-    /**
-     *
-     */
-    protected $pluginVersion = '1.0.0';
-
-    /**
-     *
-     */
     protected function initPlugin() {
-        $this->setPluginDescription($this->pluginDescription);
-        $this->setPluginVersion($this->pluginVersion);
-    }
-
-    /**
-     *
-     * @param string $pluginVersion
-     */
-    protected function setPluginVersion($pluginVersion) {
-        $this->pluginVersion = trim($pluginVersion);
-    }
-
-    /**
-     *
-     * @param string $pluginVersion
-     */
-    protected function setPluginDescription($pluginDescription) {
-        $this->pluginDescription = trim($pluginDescription);
+        $this->setConfigFile('SimplePlugin.xml');
     }
 
     /**
@@ -54,10 +27,20 @@ class SimplePlugin extends Plugin {
         /**
          * Process you test here...
          */
+        $value = 10;
 
+        /**
+         * ...
+         */
+        $this->calcStatus($value);
+
+        /**
+         * ...
+         */
         $this->status->setStatusNumber(Status::NAGIOS_STATUS_NUMBER_OK);
+        $this->status->setShortPluginDescription('SiPlugin');
         $this->status->setStatusText(Status::NAGIOS_STATUS_TEXT_SERVICE_OK);
-        $this->status->setStatusMessage(" Nagios-SimplePlugin-Check finished successfully!\n");
+        $this->status->setStatusMessage("Nagios-SimplePlugin-Check finished successfully!\n");
 
         return $this->status;
     }

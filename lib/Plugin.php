@@ -14,16 +14,6 @@ namespace Nagixx;
 abstract class Plugin {
 
     /**
-     *
-     */
-    protected $pluginDescription = 'Your plugin description.';
-
-    /**
-     *
-     */
-    protected $pluginVersion = 'Your plugin version.';
-
-    /**
      * @var Status
      */
     protected $status = null;
@@ -32,6 +22,11 @@ abstract class Plugin {
      * @var Console_CommandLine
      */
     protected $commandLine = null;
+
+    /**
+     * @var string
+     */
+    protected $configFile = null;
 
     /**
      * @var array
@@ -44,11 +39,42 @@ abstract class Plugin {
     protected $option = array();
 
     /**
+     * @var array
+     */
+    protected $thresholdWarning = array();
+
+    /**
+     * @var array
+     */
+    protected $thresholdCritical = array();
+
+    /**
+     * @var bool
+     */
+    protected $isOk = false;
+
+    /**
+     * @var bool
+     */
+    protected $isWarning = false;
+
+    /**
+     * @var bool
+     */
+    protected $isCritical = false;
+
+    /**
      * Timeout for the plugin. Nagios preferred default 10s.
      *
      * @var int
      */
     protected $timeout = 10;
+
+    /**
+     *
+     * @var type
+     */
+    protected $timer = 0;
 
     /**
      *
@@ -63,17 +89,28 @@ abstract class Plugin {
         $this->status = new Status();
         $this->initPlugin();
 
-        $this->commandLine = new \Console_CommandLine(array('description' => $this->getPluginDescription(),
-                                                            'version' => $this->getPluginVersion()));
+        $this->commandLine = \Console_CommandLine::fromXmlFile($this->configFile);
         $commandLineResult = $this->commandLine->parse();
         $this->argument = $commandLineResult->args;
         $this->option = $commandLineResult->options;
 
-        if ($this->hasCommandLineOptionValue('timeout')) {
+        if ($this->hasCommandLineOption('timeout')) {
             $this->setTimeout($this->getCommandLineOptionValue('timeout'));
         } else {
             $this->setTimeout($this->timeout);
         }
+
+        $this->thresholdWarning = $this->parseThreshold($this->getCommandLineOptionValue('warning'));
+        $this->thresholdCritical = $this->parseThreshold($this->getCommandLineOptionValue('critical'));
+    }
+
+    /**
+     * ...
+     *
+     * @param type $configFile
+     */
+    protected function setConfigFile($configFile) {
+        $this->configFile = $configFile;
     }
 
     /**
@@ -124,10 +161,8 @@ abstract class Plugin {
      *
      * @throws Exception
      */
-    protected function hasCommandLineOptionValue($option) {
-        $value = null;
-
-        if (in_array(trim($option), $this->option)) {
+    protected function hasCommandLineOption($checkOption) {
+        if (null !== $this->option[trim($checkOption)]) {
             return true;
         }
 
@@ -163,14 +198,14 @@ abstract class Plugin {
      * @return array
      */
     protected function parseThreshold($threshold) {
-        $regExNullEnd('~([0-9.]*)~i');
-        $regExStartInfinite('~^([0-9.]*):$~i');
-        $regExInfinteEnd('/^~:)[0-9.]*)$/i');
-        $regExNonStartEnd('~^@([0-9.]*):([0-9.]*)$~i');
+        $regExNullEnd = '~([0-9.]*)~i';
+        $regExStartInfinite = '~^([0-9.]*):$~i';
+        $regExInfiniteEnd = '/^~:([0-9.]*)$/i';
+        $regExNonStartEnd = '~^@([0-9.]*):([0-9.]*)$~i';
 
         $matchesNullEndCount = preg_match_all($regExNullEnd, $threshold, $matchesNullEnd);
         $matchesStartInfiniteCount = preg_match_all($regExStartInfinite, $threshold, $matchesStartInfinite);
-        $matchesInfiniteEndCount = preg_match_all($regExInfinteEnd, $threshold, $matchesInfiniteEnd);
+        $matchesInfiniteEndCount = preg_match_all($regExInfiniteEnd, $threshold, $matchesInfiniteEnd);
         $matchesNonStartEndCount = preg_match_all($regExNonStartEnd, $threshold, $matchesNonStartEnd);
 
         if ($matchesNullEndCount) {
@@ -209,42 +244,96 @@ abstract class Plugin {
      */
     protected function setTimeout($timeout) {
         $this->timeout = $timeout;
+
+        set_time_limit($this->getTimeout());
+    }
+
+    /**
+     * ...
+     *
+     * @param int $timeout
+     */
+    protected function getTimeout() {
+        return (int) $this->timeout;
+    }
+
+    /**
+     * ...
+     *
+     * @param int | float $value
+     *
+     * @return
+     */
+    protected function calcStatus($value) {
+
+        /* OK */
+        if (false) {
+
+        }
+
+        /* WARNING */
+        if (false) {
+
+        }
+
+        /* CRITICAL */
+        if (false) {
+
+        }
     }
 
     /**
      *...
      *
-     * @param arary $thresholdWarning
-     * @param arary $thresholdCritical
-     *
      * @return boolean
      */
-    public function isOk(array $thresholdWarning, array $thresholdCritical) {
-        return true;
+    public function isOk() {
+        return $this->isOk;
     }
 
     /**
      *...
      *
-     * @param arary $thresholdWarning
-     * @param arary $thresholdCritical
-     *
      * @return boolean
      */
-    public function isWarning(array $thresholdWarning, array $thresholdCritical) {
-        return true;
+    public function isWarning() {
+        return $this->isWarning;
     }
 
     /**
      *...
      *
-     * @param arary $thresholdWarning
-     * @param arary $thresholdCritical
-     *
      * @return boolean
      */
-    public function isCritical(array $thresholdWarning, array $thresholdCritical) {
-        return true;
+    public function isCritical() {
+        return $this->isOk;
+    }
+
+    /**
+     * ...
+     */
+    protected function startTimer() {
+        $this->timer = microtime();
+    }
+
+    /**
+     * ...
+     *
+     * @return type
+     */
+    protected function getTimer() {
+        return $this->timer;
+    }
+
+    /**
+     * ...
+     *
+     * @return type
+     */
+    protected function getTimerDiff() {
+        $time = microtime();
+
+        return $time - $this->timer;
     }
 
     /**
@@ -255,24 +344,6 @@ abstract class Plugin {
      * @return void
      */
     protected abstract function initPlugin();
-
-    /**
-     * ...
-     *
-     * @param string $pluginDescription
-     *
-     * @return void
-     */
-    protected abstract function setPluginDescription($pluginDescription);
-
-    /**
-     * ...
-     *
-     * @param string $pluginVersion
-     *
-     * @return void
-     */
-    protected abstract function setPluginVersion($pluginVersion);
 
     /**
      * ...

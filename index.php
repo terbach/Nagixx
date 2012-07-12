@@ -29,14 +29,21 @@ require_once 'SimplePlugin.php';
 /**
 *@var Plugin
 */
-$plugin = new SimplePlugin;
+$plugin = new SimplePlugin();
+
+/**
+ * @var Formatter
+ */
+$formatter = new Nagixx\Formatter();
 
 /**
 *@var Nagixx
 */
-$nagixx = new Nagixx\Nagixx( $plugin);
+$nagixx = new Nagixx\Nagixx($plugin, $formatter);
 
 /**
  * Now we run the plugin...
  */
-$nagixx->execute();
+$resultFormatter = $nagixx->execute();
+echo $resultFormatter->getOutput();
+exit($resultFormatter->getStatus()->getStatusNumber());
