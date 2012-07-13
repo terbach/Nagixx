@@ -23,6 +23,14 @@ class PluginMock extends Plugin {
         $this->pluginVersion = '1.0';
     }
 
+    public function setCritical($value) {
+        $this->option['critical'] = $value;
+    }
+
+    public function setArgument1($value) {
+        $this->option['argument1'] = $value;
+    }
+
     public function hasCommandLineOption($checkOption) {
         return parent::hasCommandLineOption($checkOption);
     }
@@ -37,6 +45,10 @@ class PluginMock extends Plugin {
 
     public function getCommandLineArgumentValue($option) {
         return parent::getCommandLineArgumentValue($option);
+    }
+
+    public function parseThreshold($value) {
+        return parent::parseThreshold($value);
     }
 
     public function calcStatus($value) {
@@ -59,7 +71,7 @@ class PluginMock extends Plugin {
      *
      */
     public function startTimer() {
-        parent::startTimer();
+        return parent::startTimer();
     }
 
     /**

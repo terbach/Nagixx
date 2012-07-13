@@ -147,11 +147,9 @@ abstract class Plugin {
      * @param string $option
      *
      * @return bool
-     *
-     * @throws Exception
      */
     protected function hasCommandLineArgument($checkArgument) {
-        if (in_array(trim($checkArgument), $this->argument) && null !== $this->argument[trim($checkArgument)]) {
+        if (array_key_exists(trim($checkArgument), $this->argument) && (null !== $this->argument[trim($checkArgument)])) {
             return true;
         }
 
@@ -164,20 +162,14 @@ abstract class Plugin {
      * @param string $argument
      *
      * @return mixed
-     *
-     * @throws Exception
      */
     protected function getCommandLineArgumentValue($argument) {
         $value = null;
 
-        try {
-            if ($this->hasCommandLineArgument($argument)) {
-                $value = $this->argument[trim($argument)];
-            } else {
-                return null;
-            }
-        } catch (\Exception $e) {
-            throw new Exception('', 1, true);
+        if ($this->hasCommandLineArgument($argument)) {
+            $value = $this->argument[trim($argument)];
+        } else {
+            return null;
         }
 
         return $value;
@@ -189,11 +181,9 @@ abstract class Plugin {
      * @param string $option
      *
      * @return bool
-     *
-     * @throws Exception
      */
     protected function hasCommandLineOption($checkOption) {
-        if (in_array(trim($checkOption), $this->option) && null !== $this->option[trim($checkOption)]) {
+        if (array_key_exists(trim($checkOption), $this->option) && (null !== $this->option[trim($checkOption)])) {
             return true;
         }
 
@@ -206,20 +196,14 @@ abstract class Plugin {
      * @param string $option
      *
      * @return mixed
-     *
-     * @throws Exception
      */
-    protected function getCommandLineOptionValue($option) {
+    protected function getCommandLineOptionValue($checkOption) {
         $value = null;
 
-        try {
-            if ($this->hasCommandLineOption($option)) {
-                $value = $this->option[trim($option)];
-            } else {
-                return null;
-            }
-        } catch (\Exception $e) {
-            throw new Exception('', 1, true);
+        if ($this->hasCommandLineOption($checkOption)) {
+            $value = $this->option[trim($checkOption)];
+        } else {
+            return null;
         }
 
         return $value;
@@ -346,15 +330,19 @@ abstract class Plugin {
 
     /**
      * ...
+     *
+     * @return float
      */
     protected function startTimer() {
         $this->timer = microtime();
+
+        return $this->timer;
     }
 
     /**
      * ...
      *
-     * @return type
+     * @return float
      */
     protected function getTimer() {
         return $this->timer;
@@ -363,12 +351,12 @@ abstract class Plugin {
     /**
      * ...
      *
-     * @return type
+     * @return float
      */
     protected function getTimerDiff() {
         $time = microtime();
 
-        return $time - $this->timer;
+        return $time - $this->getTimer();
     }
 
     /**

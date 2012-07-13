@@ -91,10 +91,31 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     /**
      * Tests
      */
+    public function testHasCommandLineOptionTrue() {
+        $this->NagixxPluginMock->setCritical(10);
+        $hasOption = null;
+
+        $hasOption = $this->NagixxPluginMock->hasCommandLineOption('critical');
+        $this->assertTrue($hasOption);
+    }
+
+    /**
+     * Tests
+     */
     public function testGetCommandLineOptionValueNotPresent() {
         $value = $this->NagixxPluginMock->getCommandLineOptionValue('critical');
 
         $this->assertNull($value);
+    }
+
+    /**
+     * Tests
+     */
+    public function testGetCommandLineOptionValuePresent() {
+        $this->NagixxPluginMock->setCritical(10);
+        $value = $this->NagixxPluginMock->getCommandLineOptionValue('critical');
+
+        $this->assertSame(10, $value);
     }
 
     /**
@@ -115,6 +136,13 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
         $value = $this->NagixxPluginMock->getCommandLineArgumentValue('critical');
 
         $this->assertNull($value);
+    }
+
+    /**
+     * Tests
+     */
+    public function testParseThreshold() {
+        $this->assertTrue(is_array($this->NagixxPluginMock->parseThreshold(5)));
     }
 
     /**
@@ -148,21 +176,17 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     /**
      * Tests
      */
-    public function testStartTimer() {
-
-    }
-
-    /**
-     * Tests
-     */
-    public function testGetTimer() {
-
+    public function testTimer() {
+        $time = $this->NagixxPluginMock->startTimer();
+        $this->assertSame($time, $this->NagixxPluginMock->getTimer());
     }
 
     /**
      * Tests
      */
     public function testGetTimerDiff() {
-
+        $time = $this->NagixxPluginMock->startTimer();
+        $this->assertSame($time, $this->NagixxPluginMock->getTimer());
+        $this->assertNotSame($time, $this->NagixxPluginMock->getTimerDiff());
     }
 }
