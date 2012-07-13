@@ -38,11 +38,29 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     /**
      * Tests
      */
-    public function testDefaultConstructAbstract() {
+    public function testAbstract() {
         require_once dirname(__FILE__) . '/../../lib/Plugin.php';
 
         $plugin = new \ReflectionClass('Nagixx\Plugin');
         $this->assertTrue($plugin->isAbstract());
+
+        $initPlugin = $plugin->getMethod('initPlugin');
+        $execute = $plugin->getMethod('execute');
+        $this->assertTrue($initPlugin->isAbstract());
+        $this->assertTrue($execute->isAbstract());
+    }
+
+    /**
+     * Tests
+     */
+    public function testAbstractIsConcrete() {
+        $plugin = new \ReflectionClass('Nagixx\PluginMock');
+        $this->assertFalse($plugin->isAbstract());
+
+        $initPlugin = $plugin->getMethod('initPlugin');
+        $execute = $plugin->getMethod('execute');
+        $this->assertFalse($initPlugin->isAbstract());
+        $this->assertFalse($execute->isAbstract());
     }
 
     /**
@@ -99,15 +117,52 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($value);
     }
 
+    /**
+     * Tests
+     */
+    public function testCalcStatus() {
+        $this->assertNull($this->NagixxPluginMock->calcStatus(5));
+    }
+
+    /**
+     * Tests
+     */
     public function testIsOkFalse() {
         $this->assertFalse($this->NagixxPluginMock->isOk());
     }
 
+    /**
+     * Tests
+     */
     public function testIsWarningFalse() {
         $this->assertFalse($this->NagixxPluginMock->isWarning());
     }
 
+    /**
+     * Tests
+     */
     public function testIsCriticalFalse() {
         $this->assertFalse($this->NagixxPluginMock->isCritical());
+    }
+
+    /**
+     * Tests
+     */
+    public function testStartTimer() {
+
+    }
+
+    /**
+     * Tests
+     */
+    public function testGetTimer() {
+
+    }
+
+    /**
+     * Tests
+     */
+    public function testGetTimerDiff() {
+
     }
 }

@@ -39,6 +39,10 @@ class PluginMock extends Plugin {
         return parent::getCommandLineArgumentValue($option);
     }
 
+    public function calcStatus($value) {
+        return parent::calcStatus($value);
+    }
+
     public function isOk() {
         return parent::isOk();
     }
@@ -49,6 +53,27 @@ class PluginMock extends Plugin {
 
     public function isCritical() {
         return parent::isCritical();
+    }
+
+    /**
+     *
+     */
+    public function startTimer() {
+        parent::startTimer();
+    }
+
+    /**
+     *
+     */
+    public function getTimer() {
+        return parent::getTimer();
+    }
+
+    /**
+     *
+     */
+    public function getTimerDiff() {
+        return parent::getTimerDiff();
     }
 
     /**
