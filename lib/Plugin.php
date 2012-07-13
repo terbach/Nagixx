@@ -222,30 +222,30 @@ abstract class Plugin {
         $regExInfiniteEnd = '/^~:([0-9.]*)$/i';
         $regExNonStartEnd = '~^@([0-9.]*):([0-9.]*)$~i';
 
-        $matchesNullEndCount = preg_match_all($regExNullEnd, $threshold, $matchesNullEnd);
-        $matchesStartInfiniteCount = preg_match_all($regExStartInfinite, $threshold, $matchesStartInfinite);
-        $matchesInfiniteEndCount = preg_match_all($regExInfiniteEnd, $threshold, $matchesInfiniteEnd);
-        $matchesNonStartEndCount = preg_match_all($regExNonStartEnd, $threshold, $matchesNonStartEnd);
+        $matchNullEndCount = preg_match_all($regExNullEnd, $threshold, $matchesNullEnd);
+        $matchStartInfCount = preg_match_all($regExStartInfinite, $threshold, $matchesStartInfinite);
+        $matchInfEndCount = preg_match_all($regExInfiniteEnd, $threshold, $matchesInfiniteEnd);
+        $matchNoStartEndCount = preg_match_all($regExNonStartEnd, $threshold, $matchesNonStartEnd);
 
-        if ($matchesNullEndCount) {
+        if ($matchNullEndCount) {
             $thresholdNegation = false;
             $thresholdStart = 0;
             $thresholdEnd = $matchesNullEnd[1];
         }
 
-        if ($matchesStartInfiniteCount) {
+        if ($matchStartInfCount) {
             $thresholdNegation = false;
             $thresholdStart = $matchesStartInfinite[1];
             $thresholdEnd = INF;
         }
 
-        if ($matchesInfiniteEndCount) {
+        if ($matchInfEndCount) {
             $thresholdNegation = false;
             $thresholdStart = -INF;
             $thresholdEnd = $matchesInfiniteEnd[1];
         }
 
-        if ($matchesNonStartEndCount) {
+        if ($matchNoStartEndCount) {
             $thresholdNegation = true;
             $thresholdStart = -INF;
             $thresholdEnd = $matchesInfiniteEnd[1];
