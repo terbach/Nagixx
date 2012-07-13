@@ -7,8 +7,8 @@ use Nagixx\Formatter;
 
 /**
  * @author terbach <terbach@netbixx.com>
- * @version 1.0.0.0
- * @since 0.5.0.1
+ * @version 1.0.0
+ * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
  * @category lib

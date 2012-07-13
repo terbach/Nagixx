@@ -4,8 +4,8 @@ namespace Nagixx;
 
 /**
  * @author terbach <terbach@netbixx.com>
- * @version 1.0.0.0
- * @since 0.5.0.1
+ * @version 1.0.0
+ * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
  * @category lib
@@ -144,6 +144,23 @@ abstract class Plugin {
     /**
      * ...
      *
+     * @param string $option
+     *
+     * @return bool
+     *
+     * @throws Exception
+     */
+    protected function hasCommandLineArgument($checkArgument) {
+        if (in_array(trim($checkArgument), $this->argument) && null !== $this->argument[trim($checkArgument)]) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * ...
+     *
      * @param string $argument
      *
      * @return mixed
@@ -154,7 +171,11 @@ abstract class Plugin {
         $value = null;
 
         try {
-            $value = $this->argument[trim($argument)];
+            if ($this->hasCommandLineArgument($argument)) {
+                $value = $this->argument[trim($argument)];
+            } else {
+                return null;
+            }
         } catch (\Exception $e) {
             throw new Exception('', 1, true);
         }
@@ -172,7 +193,7 @@ abstract class Plugin {
      * @throws Exception
      */
     protected function hasCommandLineOption($checkOption) {
-        if (null !== $this->option[trim($checkOption)]) {
+        if (in_array(trim($checkOption), $this->option) && null !== $this->option[trim($checkOption)]) {
             return true;
         }
 
@@ -192,7 +213,11 @@ abstract class Plugin {
         $value = null;
 
         try {
-            $value = $this->option[trim($option)];
+            if ($this->hasCommandLineOption($option)) {
+                $value = $this->option[trim($option)];
+            } else {
+                return null;
+            }
         } catch (\Exception $e) {
             throw new Exception('', 1, true);
         }
