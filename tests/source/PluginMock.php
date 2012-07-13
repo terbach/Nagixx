@@ -70,27 +70,6 @@ class PluginMock extends Plugin {
     /**
      *
      */
-    public function startTimer() {
-        return parent::startTimer();
-    }
-
-    /**
-     *
-     */
-    public function getTimer() {
-        return parent::getTimer();
-    }
-
-    /**
-     *
-     */
-    public function getTimerDiff() {
-        return parent::getTimerDiff();
-    }
-
-    /**
-     *
-     */
     public function execute() {
         return new Status();
     }

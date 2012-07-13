@@ -110,8 +110,13 @@ abstract class Plugin {
             $this->setTimeout($this->timeout);
         }
 
-        $this->thresholdWarning = $this->parseThreshold($this->getCommandLineOptionValue('warning'));
-        $this->thresholdCritical = $this->parseThreshold($this->getCommandLineOptionValue('critical'));
+        if ($this->hasCommandLineOption('warning')) {
+            $this->thresholdWarning = $this->parseThreshold($this->getCommandLineOptionValue('warning'));
+        }
+
+        if ($this->hasCommandLineOption('critical')) {
+            $this->thresholdCritical = $this->parseThreshold($this->getCommandLineOptionValue('critical'));
+        }
     }
 
     /**
@@ -248,7 +253,7 @@ abstract class Plugin {
         if ($matchNoStartEndCount) {
             $thresholdNegation = true;
             $thresholdStart = -INF;
-            $thresholdEnd = $matchesInfiniteEnd[1];
+            $thresholdEnd = $matchesNonStartEnd[1];
         }
 
         return array('start' => $thresholdStart,
@@ -326,37 +331,6 @@ abstract class Plugin {
      */
     public function isCritical() {
         return $this->isOk;
-    }
-
-    /**
-     * ...
-     *
-     * @return float
-     */
-    protected function startTimer() {
-        $this->timer = microtime();
-
-        return $this->timer;
-    }
-
-    /**
-     * ...
-     *
-     * @return float
-     */
-    protected function getTimer() {
-        return $this->timer;
-    }
-
-    /**
-     * ...
-     *
-     * @return float
-     */
-    protected function getTimerDiff() {
-        $time = microtime();
-
-        return $time - $this->getTimer();
     }
 
     /**

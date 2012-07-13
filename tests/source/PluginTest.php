@@ -172,21 +172,4 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     public function testIsCriticalFalse() {
         $this->assertFalse($this->NagixxPluginMock->isCritical());
     }
-
-    /**
-     * Tests
-     */
-    public function testTimer() {
-        $time = $this->NagixxPluginMock->startTimer();
-        $this->assertSame($time, $this->NagixxPluginMock->getTimer());
-    }
-
-    /**
-     * Tests
-     */
-    public function testGetTimerDiff() {
-        $time = $this->NagixxPluginMock->startTimer();
-        $this->assertSame($time, $this->NagixxPluginMock->getTimer());
-        $this->assertNotSame($time, $this->NagixxPluginMock->getTimerDiff());
-    }
 }
