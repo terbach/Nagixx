@@ -53,6 +53,7 @@
 
             <arg line="--suffixes php,phtml
                        --exclude build
+                       --exclude tests
                        --log-pmd ${logFolder}/phpcpd.xml
                        --quiet
                        ${projectFolder}" />
@@ -66,7 +67,7 @@
 
             <arg line="--jdepend-xml=${logFolder}/pdepend.xml"/>
             <arg value="--suffix=php,phtml" />
-            <arg value="--ignore=build/**" />
+            <arg value="--ignore=build/**,tests/**" />
             <arg value="--jdepend-chart=${logFolder}/dependencies.svg" />
             <arg value="--overview-pyramid=${logFolder}/overview-pyramid.svg" />
             <arg value="${projectFolder}" />
@@ -82,7 +83,7 @@
                        xml
                        codesize,design,naming,unusedcode
                        --suffixes php,phtml
-                       --exclude build/**
+                       --exclude build/**,tests/**
                        --reportfile ${logFolder}/phpmd.xml" />
         </exec>
     </target>
