@@ -318,7 +318,21 @@ abstract class Plugin {
      * @return void
      */
     protected function calcStatus($value) {
+        if (false === $this->thresholdWarning['negation']) {
+            $this->calcSimpleStatus($value);
+        } else {
+            $this->calcNegatedStatus($value);
+        }
+    }
 
+    /**
+     * ...
+     *
+     * @param int | float $value
+     *
+     * @return void
+     */
+    protected function calcSimpleStatus($value) {
         /* OK */
         if (-self::INFINITE === $this->thresholdWarning['start']) {
             if ($this->thresholdWarning['end'] < $value && $this->thresholdCritical['end'] < $value) {
@@ -431,6 +445,48 @@ abstract class Plugin {
 
                 return;
             }
+        }
+    }
+
+    /**
+     * ...
+     *
+     * @param int | float $value
+     *
+     * @return void
+     */
+    protected function calcNegatedStatus($value) {
+        /* OK */
+        if (   ($this->thresholdWarning['start'] > $value && $value < $this->thresholdCritical['start'])
+            || ($this->thresholdWarning['end'] < $value && $value > $this->thresholdCritical['end'])) {
+
+            $this->isOk = true;
+            $this->isWarning = false;
+            $this->isCritical = false;
+
+            return;
+        }
+
+        /* WARNING */
+        if (   ($this->thresholdWarning['start'] < $value && $value > $this->thresholdCritical['start'])
+            && ($this->thresholdWarning['end'] > $value && $value > $this->thresholdCritical['end'])) {
+
+            $this->isOk = false;
+            $this->isWarning = true;
+            $this->isCritical = false;
+
+            return;
+        }
+
+        /* CRITICAL */
+        if (   ($this->thresholdWarning['start'] < $value && $value > $this->thresholdCritical['start'])
+            && ($this->thresholdWarning['end'] > $value && $value < $this->thresholdCritical['end'])) {
+
+            $this->isOk = false;
+            $this->isWarning = false;
+            $this->isCritical = true;
+
+            return;
         }
     }
 

@@ -208,9 +208,9 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($this->NagixxPluginMock->isWarning());
         $this->assertFalse($this->NagixxPluginMock->isCritical());
 
-        $value = 9;
-        $warningValue = '@10:15';
-        $criticalValue = '@5:25';
+        $value = 4;
+        $warningValue = '@5:25';
+        $criticalValue = '@10:15';
 
         $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
         $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
@@ -297,9 +297,9 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($this->NagixxPluginMock->isWarning());
         $this->assertFalse($this->NagixxPluginMock->isCritical());
 
-        $value = 5;
-        $warningValue = '@8:10';
-        $criticalValue = '@4:15';
+        $value = 7;
+        $warningValue = '@5:25';
+        $criticalValue = '@10:15';
 
         $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
         $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
@@ -386,9 +386,9 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($this->NagixxPluginMock->isWarning());
         $this->assertTrue($this->NagixxPluginMock->isCritical());
 
-        $value = 1;
-        $warningValue = '@8:10';
-        $criticalValue = '@5:15';
+        $value = 14;
+        $warningValue = '@5:25';
+        $criticalValue = '@10:15';
 
         $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
         $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
