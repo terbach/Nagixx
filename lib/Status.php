@@ -3,64 +3,76 @@
 namespace Nagixx;
 
 /**
+ * The class holds the informations after the check is done from the plugin.
+ *
  * @author terbach <terbach@netbixx.com>
+ * @license See licence file LICENCE.md
  * @version 1.0.0
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
  * @category lib
- * @package Plugin
  */
-
 class Status {
 
     /**
-     *
+     * The int values, Nagios evaluates to the check result.
      */
     const NAGIOS_STATUS_NUMBER_OK = 0;
     const NAGIOS_STATUS_NUMBER_WARNING = 1;
     const NAGIOS_STATUS_NUMBER_CRITICAL = 2;
     const NAGIOS_STATUS_NUMBER_UNKNOWN = 3;
-    const NAGIOS_STATUS_NUMBER_DEPENDENT = 4;
 
+    /**
+     * The string values, Nagios evaluates to the check result for Service-Checks.
+     */
     const NAGIOS_STATUS_TEXT_SERVICE_OK = 'OK';
     const NAGIOS_STATUS_TEXT_SERVICE_WARNING = 'WARNING';
     const NAGIOS_STATUS_TEXT_SERVICE_CRITICAL = 'CRITICAL';
     const NAGIOS_STATUS_TEXT_SERVICE_UNKNOWN = 'UNKNOWN';
-    const NAGIOS_STATUS_TEXT_SERVICE_DEPENDENT = 'DEPENDENT ';
 
+    /**
+     * The string values, Nagios evaluates to the check result for Host-Checks.
+     */
     const NAGIOS_STATUS_TEXT_HOST_OK = 'UP';
     const NAGIOS_STATUS_TEXT_HOST_WARNING = 'UP or DOWN/UNREACHABLE';
     const NAGIOS_STATUS_TEXT_HOST_CRITICAL = 'DOWN/UNREACHABLE';
     const NAGIOS_STATUS_TEXT_HOST_UNKNOWN = 'DOWN/UNREACHABLE';
-    const NAGIOS_STATUS_TEXT_HOST_DEPENDENT = 'DEPENDENT ';
 
     /**
-     * var
+     * The return code to be evaluated from nagios.
+     *
+     * var int
      */
     protected $statusNumber = self::NAGIOS_STATUS_NUMBER_OK;
 
     /**
+     * The short string to be evaluated from nagios.
+     *
      * @var string
      */
     protected $shortDescription = '';
 
     /**
-     * var
+     * The return string to be evaluated from nagios.
+     *
+     * var string
      */
     protected $statusText = self::NAGIOS_STATUS_TEXT_SERVICE_OK;
 
     /**
-     * var
+     * The message, to indicate some informations about the check, which was performed by the plugin.
+     *
+     * var string
      */
     protected $statusMessage = '';
 
     /**
-     * ...
+     * The constructor.
      *
-     * @param type $statusNumber
-     * @param type $statusText
-     * @param type $message
+     * @param int $statusNumber
+     * @param string $statusText
+     * @param string $message
      */
     public function __construct($statusNumber = self::NAGIOS_STATUS_NUMBER_OK, $shortDescription = '', $statusText = self::NAGIOS_STATUS_TEXT_SERVICE_OK, $message = '') {
         $this->setStatusNumber($statusNumber);
@@ -70,9 +82,9 @@ class Status {
     }
 
     /**
-     * ...
+     * Set the status number.
      *
-     * @param
+     * @param int $statusNumber
      *
      */
     public function setStatusNumber($statusNumber) {
@@ -80,9 +92,9 @@ class Status {
     }
 
     /**
-     * ...
+     * Returns the current status number.
      *
-     * @param
+     * @return int
      *
      */
     public function getStatusNumber() {
@@ -90,9 +102,9 @@ class Status {
     }
 
     /**
-     * ...
+     * Set the short description of the plugin to be shown on the result line in Nagios.
      *
-     * @param
+     * @param string $shortDescription
      *
      */
     public function setShortPluginDescription($shortDescription) {
@@ -100,9 +112,9 @@ class Status {
     }
 
     /**
-     * ...
+     * Set the status text (some short informations)about the check.
      *
-     * @param
+     * @param string $statusText
      *
      */
     public function setStatusText($statusText) {
@@ -110,9 +122,9 @@ class Status {
     }
 
     /**
-     * ...
+     * Returns the status text.
      *
-     * @param
+     * @return string
      *
      */
     public function getStatusText() {
@@ -120,9 +132,9 @@ class Status {
     }
 
     /**
-     * ...
+     * Returns the short plugin description.
      *
-     * @param
+     * @return string
      *
      */
     public function getShortPluginDescription() {
@@ -130,9 +142,9 @@ class Status {
     }
 
     /**
-     * ...
+     * Set the status message for the check.
      *
-     * @param
+     * @param string $message
      *
      */
     public function setStatusMessage($message) {
@@ -140,9 +152,9 @@ class Status {
     }
 
     /**
-     * ...
+     * Return the status message from the plugins check.
      *
-     * @param
+     * @return string
      *
      */
     public function getStatusMessage() {

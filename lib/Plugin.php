@@ -3,14 +3,16 @@
 namespace Nagixx;
 
 /**
+ * The template for concrete plugins.
+ *
  * @author terbach <terbach@netbixx.com>
+ * @license See licence file LICENCE.md
  * @version 1.0.0
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
  * @category lib
  */
-
 abstract class Plugin {
 
     /**
@@ -19,41 +21,57 @@ abstract class Plugin {
     const INFINITE = 99999999999;
 
     /**
-     * @var Status
+     * The description of the plugin.
+     *
+     * @var string
      */
     protected $pluginDescription = null;
 
     /**
-     * @var Status
+     * The plugins version.
+     *
+     * @var string
      */
     protected $pluginVersion = null;
 
     /**
-     * @var Status
+     * The status object for holding the informations of the check.
+     *
+     * @var Nagixx\Status
      */
     protected $status = null;
 
     /**
-     * @var Console_CommandLine
+     * The commandline object holding the commandline arguments and options.
+     *
+     * @var \Console_CommandLine
      */
     protected $commandLine = null;
 
     /**
+     * The configuration file for the plugin. There the acceptable arguments and options for the commandline are defined.
+     *
      * @var string
      */
     protected $configFile = null;
 
     /**
+     * The commandline arguments.
+     *
      * @var array
      */
     protected $argument = array();
 
     /**
+     * The commandline options.
+     *
      * @var array
      */
     protected $option = array();
 
     /**
+     * The thresholdObject for the warnings commandline options.
+     *
      * @var array
      */
     protected $thresholdWarning = array('start' => null,
@@ -61,6 +79,8 @@ abstract class Plugin {
                                         'negation' => null);
 
     /**
+     * The thresholdObject for the criticals commandline options.
+     *
      * @var array
      */
     protected $thresholdCritical = array('start' => null,
@@ -68,42 +88,42 @@ abstract class Plugin {
                                          'negation' => null);
 
     /**
+     * Is true when the current check results in the correct range.
+     *
      * @var bool
      */
     protected $isOk = false;
 
     /**
+     * Is true when the current check results in the warning range.
+     *
      * @var bool
      */
     protected $isWarning = false;
 
     /**
+     * Is true when the current check results in the critical range.
+     *
      * @var bool
      */
     protected $isCritical = false;
 
     /**
-     * Timeout for the plugin. Nagios preferred default 10s.
+     * Timeout for the plugin. Nagios default is 10s.
      *
      * @var int
      */
     protected $timeout = 10;
 
     /**
-     * Hostname where to run the check. Default to 127.0.0.1
+     * Hostname where to run the check. Defaults to 127.0.0.1
      *
      * @var string
      */
     protected $hostname = '127.0.0.1';
 
     /**
-     *
-     * @var time
-     */
-    protected $executionTimer = 0;
-
-    /**
-     * ...
+     * The plugins constructor. Will call the abstract method init() to inizialize the users concrete plugin.
      */
     public function __construct() {
         $this->status = new Status();
@@ -134,7 +154,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Inject the configuration files name.
      *
      * @param type $configFile
      */
@@ -143,7 +163,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Returns the description of the plugin.
      *
      * return string
      */
@@ -152,7 +172,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Returns the version of the plugin.
      *
      * return string
      */
@@ -161,7 +181,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Inject the warnings threshold array.
      *
      * @param array $threshold
      *
@@ -172,7 +192,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Inject the criticals threshold array.
      *
      * @param array $threshold
      *
@@ -183,7 +203,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Check if the plugin is called with a specific commandline argument.
      *
      * @param string $option
      *
@@ -198,7 +218,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * If set, returns the value of the commandline argument.
      *
      * @param string $argument
      *
@@ -217,7 +237,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Check if the plugin is called with a specific commandline option.
      *
      * @param string $option
      *
@@ -232,7 +252,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * If set, returns the value of the commandline option.
      *
      * @param string $option
      *
@@ -251,9 +271,9 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Parse the given threshold expression from the commendline. Normally it's the -c | -w option from Nagios.
      *
-     * @param
+     * @param string
      *
      * @return array
      */
@@ -311,7 +331,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Checks and calculates the range (ok | warning | critical) in which the current value belongs to.
      *
      * @param int | float $value
      *
@@ -326,7 +346,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * The specific method for calculating non negotiated expressions.
      *
      * @param int | float $value
      *
@@ -412,7 +432,7 @@ abstract class Plugin {
 
                 return;
             }
-        } 
+        }
 
         /* CRITICAL */
         if (-self::INFINITE === $this->thresholdWarning['start']) {
@@ -457,7 +477,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * The specific method for calculating negotiated expressions.
      *
      * @param int | float $value
      *
@@ -499,7 +519,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Inject the scripts execution timeout in seconds.
      *
      * @param int $timeout
      */
@@ -510,7 +530,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Returns the scripts execution timeout in seconds.
      *
      * @param int $timeout
      */
@@ -519,7 +539,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Inject the hostname, where to do the check.
      *
      * @param string $host
      */
@@ -528,7 +548,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * Return the hostname, where to do the check.
      *
      * @return string
      */
@@ -537,7 +557,7 @@ abstract class Plugin {
     }
 
     /**
-     *...
+     * Check if the current value, after the check, is evaluated inside the correct (OK) range.
      *
      * @return boolean
      */
@@ -546,7 +566,7 @@ abstract class Plugin {
     }
 
     /**
-     *...
+     * Check if the current value, after the check, is evaluated inside the warning range.
      *
      * @return boolean
      */
@@ -555,7 +575,7 @@ abstract class Plugin {
     }
 
     /**
-     *...
+     * Check if the current value, after the check, is evaluated inside the critical range.
      *
      * @return boolean
      */
@@ -564,7 +584,7 @@ abstract class Plugin {
     }
 
     /**
-     * ...
+     * The right place to initialize the concrete plugin. The method is automatically called inside the standard constructor.
      *
      * @param int $pluginVersion
      *
@@ -573,7 +593,7 @@ abstract class Plugin {
     protected abstract function initPlugin();
 
     /**
-     * ...
+     * This method is automatically called from Nagixx, to perform the plugins check.
      *
      * @return Status
      */

@@ -3,15 +3,29 @@
 namespace Nagixx;
 
 /**
+ * The nagixx exception type.
+ *
  * @author terbach <terbach@netbixx.com>
+ * @license See licence file LICENCE.md
  * @version 1.0.0
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
  * @category lib
- * @package Plugin
  */
-
 class Exception extends \Exception {
 
+    /**
+     * The nagixx exception types constructor.
+     *
+     * @param string $message
+     * @param int $code
+     * @param \Exception $exception
+     *
+     * @return void
+     */
+    public function __construct($message, $code = 0, \Exception $exception = null) {
+
+        parent::__construct($message, $code, $exception);
+    }
 }

@@ -3,7 +3,10 @@
 namespace Nagixx;
 
 /**
+ * Testing Nagixx\Formatter.
+ *
  * @author terbach <terbach@netbixx.com>
+ * @license See licence file LICENCE.md
  * @version 1.0.0
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
@@ -13,7 +16,7 @@ namespace Nagixx;
 class FormatterTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var
+     * @var Nagixx\Formatter
      */
     private $NagixxFormatter;
 

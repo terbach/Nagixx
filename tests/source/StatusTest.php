@@ -5,6 +5,8 @@ namespace Nagixx;
 use Nagixx\Status;
 
 /**
+ * Testing Nagixx\Status.
+ *
  * @author terbach <terbach@netbixx.com>
  * @version 1.0.0
  * @since 1.0.0
@@ -15,7 +17,7 @@ use Nagixx\Status;
 class StatusTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var
+     * @var Nagixx\Status
      */
     private $NagixxStatus;
 

@@ -6,7 +6,10 @@ use Nagixx\Status;
 use Nagixx\Formatter;
 
 /**
+ * The dispatcher of Nagixx. Here the worfklow is handled.
+ *
  * @author terbach <terbach@netbixx.com>
+ * @license See licence file LICENCE.md
  * @version 1.0.0
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
@@ -16,20 +19,24 @@ use Nagixx\Formatter;
 class Nagixx {
 
     /**
+     * The concrete plugin to make the check.
+     *
      * @var Plugin
      */
     protected $plugin = null;
 
     /**
-     * @var Formatter
+     * The formatter for handling the output of the status.
+     *
+     * @var Nagixx\Formatter
      */
     protected $formatter = null;
 
     /**
-     * ...
+     * The constructor.
      *
-     * @param Plugin $plugin
-     * @param Formatter $formatter
+     * @param Nagixx\Plugin $plugin
+     * @param Nagixx\Formatter $formatter
      */
     public function __construct(Plugin $plugin = null, Formatter $formatter = null) {
         if (null !== $plugin) {
@@ -42,9 +49,9 @@ class Nagixx {
     }
 
     /**
-     * ...
+     * Inject the concrete plugin.
      *
-     * @param Plugin $plugin
+     * @param Nagixx\Plugin $plugin
      *
      * @return void
      */
@@ -53,18 +60,18 @@ class Nagixx {
     }
 
     /**
-     * ...
+     * Returns the concrete plugin.
      *
-     * @return Plugin
+     * @return Nagixx\Plugin
      */
     public function getPlugin() {
         return $this->plugin;
     }
 
     /**
-     * ...
+     * Inject the formatter.
      *
-     * @param Plugin $plugin
+     * @param Nagixx\Formatter $plugin
      *
      * @return void
      */
@@ -73,35 +80,35 @@ class Nagixx {
     }
 
     /**
-     * ...
+     * Returns the formatter
      *
-     * @return Formatter
+     * @return Nagixx\Formatter
      */
     public function getFormatter() {
         return $this->formatter;
     }
 
     /**
-     * ...
+     * Execute the check. Delegate the method to the injected concrete plugin.
      *
-     * @return Formatter
+     * @return Nagixx\Formatter
      *
      * @throws Nagixx\Exception
      */
     public function execute() {
         if (null === $this->plugin) {
-            throw new Exception();
+            throw new Exception('No plugin injected (Type: Nagixx\Plugin)!');
         }
 
         /* @var $resultStatus Status */
         $resultStatus = $this->plugin->execute();
 
         if (! $resultStatus instanceof Status) {
-            throw new Exception();
+            throw new Exception('Result not of type Nagixx\Status');
         }
 
         if (null === $this->formatter) {
-            throw new Exception();
+            throw new Exception('No formatter injected (Type: Nagixx\Formatter)!');
         }
 
         $this->formatter->setStatus($resultStatus);

@@ -6,7 +6,10 @@ require_once 'PluginMock.php';
 require_once 'PluginMockNoStatus.php';
 
 /**
+ * Testing Nagixx.
+ *
  * @author terbach <terbach@netbixx.com>
+ * @license See licence file LICENCE.md
  * @version 1.0.0
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
@@ -16,7 +19,7 @@ require_once 'PluginMockNoStatus.php';
 class NagixxTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var
+     * @var Nagixx
      */
     private $Nagixx;
 
