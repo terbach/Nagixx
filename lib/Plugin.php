@@ -14,6 +14,11 @@ namespace Nagixx;
 abstract class Plugin {
 
     /**
+     * INFINITE
+     */
+    const INFINITE = 99999999999;
+
+    /**
      * @var Status
      */
     protected $pluginDescription = null;
@@ -51,12 +56,16 @@ abstract class Plugin {
     /**
      * @var array
      */
-    protected $thresholdWarning = array();
+    protected $thresholdWarning = array('start' => null,
+                                        'end' => null,
+                                        'negation' => null);
 
     /**
      * @var array
      */
-    protected $thresholdCritical = array();
+    protected $thresholdCritical = array('start' => null,
+                                         'end' => null,
+                                         'negation' => null);
 
     /**
      * @var bool
@@ -81,10 +90,11 @@ abstract class Plugin {
     protected $timeout = 10;
 
     /**
+     * Hostname where to run the check. Default to 127.0.0.1
      *
-     * @var type
+     * @var string
      */
-    protected $timer = 0;
+    protected $hostname = '127.0.0.1';
 
     /**
      *
@@ -108,6 +118,10 @@ abstract class Plugin {
             $this->setTimeout($this->getCommandLineOptionValue('timeout'));
         } else {
             $this->setTimeout($this->timeout);
+        }
+
+        if ($this->hasCommandLineOption('hostname')) {
+            $this->setHostname($this->getCommandLineOptionValue('hostname'));
         }
 
         if ($this->hasCommandLineOption('warning')) {
@@ -144,6 +158,28 @@ abstract class Plugin {
      */
     public function getPluginVersion() {
         return trim($this->pluginVersion);
+    }
+
+    /**
+     * ...
+     *
+     * @param array $threshold
+     *
+     * @return void
+     */
+    public function setThresholdWarning(array $threshold) {
+        $this->thresholdWarning = $threshold;
+    }
+
+    /**
+     * ...
+     *
+     * @param array $threshold
+     *
+     * @return void
+     */
+    public function setThresholdCritical(array $threshold) {
+        $this->thresholdCritical = $threshold;
     }
 
     /**
@@ -222,43 +258,180 @@ abstract class Plugin {
      * @return array
      */
     protected function parseThreshold($threshold) {
-        $regExNullEnd = '~([0-9.]*)~i';
+        $regExNullEnd = '~^([0-9.]*)~i';
+        $regExStartEnd = '~^([0-9.]*):([0-9.]*)$~i';
         $regExStartInfinite = '~^([0-9.]*):$~i';
         $regExInfiniteEnd = '/^~:([0-9.]*)$/i';
         $regExNonStartEnd = '~^@([0-9.]*):([0-9.]*)$~i';
 
         $matchNullEndCount = preg_match_all($regExNullEnd, $threshold, $matchesNullEnd);
+        $matchStartEndCount = preg_match_all($regExStartEnd, $threshold, $matchesStartEnd);
         $matchStartInfCount = preg_match_all($regExStartInfinite, $threshold, $matchesStartInfinite);
         $matchInfEndCount = preg_match_all($regExInfiniteEnd, $threshold, $matchesInfiniteEnd);
         $matchNoStartEndCount = preg_match_all($regExNonStartEnd, $threshold, $matchesNonStartEnd);
 
+        /* 15 */
         if ($matchNullEndCount) {
             $thresholdNegation = false;
             $thresholdStart = 0;
-            $thresholdEnd = $matchesNullEnd[1];
+            $thresholdEnd = $matchesNullEnd[0][0];
         }
 
+        /* 15:17 */
+        if ($matchStartEndCount) {
+            $thresholdNegation = false;
+            $thresholdStart = $matchesStartEnd[1][0];
+            $thresholdEnd = $matchesStartEnd[2][0];
+        }
+
+        /* 15: */
         if ($matchStartInfCount) {
             $thresholdNegation = false;
-            $thresholdStart = $matchesStartInfinite[1];
-            $thresholdEnd = INF;
+            $thresholdStart = $matchesStartInfinite[0][0];
+            $thresholdEnd = self::INFINITE;
         }
 
+        /* ~:15 */
         if ($matchInfEndCount) {
             $thresholdNegation = false;
-            $thresholdStart = -INF;
-            $thresholdEnd = $matchesInfiniteEnd[1];
+            $thresholdStart = -self::INFINITE;
+            $thresholdEnd = $matchesInfiniteEnd[1][0];
         }
 
+        /* @10:15 */
         if ($matchNoStartEndCount) {
             $thresholdNegation = true;
-            $thresholdStart = -INF;
-            $thresholdEnd = $matchesNonStartEnd[1];
+            $thresholdStart = $matchesNonStartEnd[1][0];
+            $thresholdEnd = $matchesNonStartEnd[2][0];
         }
 
-        return array('start' => $thresholdStart,
-                     'end' => $thresholdEnd,
+        return array('start' => (int) $thresholdStart,
+                     'end' => (int) $thresholdEnd,
                      'negation' => (bool) $thresholdNegation);
+    }
+
+    /**
+     * ...
+     *
+     * @param int | float $value
+     *
+     * @return void
+     */
+    protected function calcStatus($value) {
+
+        /* OK */
+        if (-self::INFINITE === $this->thresholdWarning['start']) {
+            if ($this->thresholdWarning['end'] < $value && $this->thresholdCritical['end'] < $value) {
+
+                $this->isOk = true;
+                $this->isWarning = false;
+                $this->isCritical = false;
+
+                return;
+            }
+        } else if (0 !== $this->thresholdWarning['start'] && self::INFINITE !== $this->thresholdWarning['end']) {
+            if (   ($this->thresholdWarning['start'] < $value && $value < $this->thresholdWarning['end'])
+                && ($this->thresholdCritical['start'] < $value && $value < $this->thresholdCritical['end'])) {
+
+                $this->isOk = true;
+                $this->isWarning = false;
+                $this->isCritical = false;
+
+                return;
+            }
+        } else if (0 !== $this->thresholdWarning['start'] && self::INFINITE === $this->thresholdWarning['end']) {
+            if ($this->thresholdWarning['start'] > $value && $this->thresholdCritical['start'] > $value) {
+
+                $this->isOk = true;
+                $this->isWarning = false;
+                $this->isCritical = false;
+
+                return;
+            }
+        } else {
+            if (   ($this->thresholdWarning['start'] > $value && $value < $this->thresholdCritical['start'])
+                || ($this->thresholdWarning['end'] < $value && $value > $this->thresholdCritical['end'])) {
+
+                $this->isOk = true;
+                $this->isWarning = false;
+                $this->isCritical = false;
+
+                return;
+            }
+        }
+
+        /* WARNING */
+        if (0 !== $this->thresholdWarning['start'] && self::INFINITE !== $this->thresholdWarning['end']) {
+            if (   ($this->thresholdWarning['start'] > $value && $value > $this->thresholdCritical['start'])
+                || ($this->thresholdWarning['end'] < $value && $value < $this->thresholdCritical['end'])) {
+
+                $this->isOk = false;
+                $this->isWarning = true;
+                $this->isCritical = false;
+
+                return;
+            }
+        } else if (0 !== $this->thresholdWarning['start'] && self::INFINITE === $this->thresholdWarning['end']) {
+            if ($this->thresholdWarning['start'] < $value && $value < $this->thresholdCritical['start']) {
+
+                $this->isOk = false;
+                $this->isWarning = true;
+                $this->isCritical = false;
+
+                return;
+            }
+        } else {
+            if (   ($this->thresholdWarning['start'] < $value && $value > $this->thresholdCritical['start'])
+                && ($this->thresholdWarning['end'] > $value && $value > $this->thresholdCritical['end'])) {
+
+                $this->isOk = false;
+                $this->isWarning = true;
+                $this->isCritical = false;
+
+                return;
+            }
+        }
+
+        /* CRITICAL */
+        if (-self::INFINITE === $this->thresholdWarning['start']) {
+            if ($this->thresholdWarning['end'] > $value && $this->thresholdCritical['end'] > $value) {
+
+                $this->isOk = false;
+                $this->isWarning = false;
+                $this->isCritical = true;
+
+                return;
+            }
+        } else if (0 !== $this->thresholdWarning['start'] && self::INFINITE !== $this->thresholdWarning['end']) {
+            if (   ($this->thresholdWarning['start'] > $value && $value < $this->thresholdCritical['start'])
+                || ($this->thresholdWarning['end'] < $value && $value > $this->thresholdCritical['end'])) {
+
+                $this->isOk = false;
+                $this->isWarning = false;
+                $this->isCritical = true;
+
+                return;
+            }
+        } else if (0 !== $this->thresholdWarning['start'] && self::INFINITE === $this->thresholdWarning['end']) {
+            if ($this->thresholdWarning['start'] < $value && $value > $this->thresholdCritical['start']) {
+
+                $this->isOk = false;
+                $this->isWarning = false;
+                $this->isCritical = true;
+
+                return;
+            }
+        } else {
+            if (   ($this->thresholdWarning['start'] < $value && $value > $this->thresholdCritical['start'])
+                && ($this->thresholdWarning['end'] > $value && $value < $this->thresholdCritical['end'])) {
+
+                $this->isOk = false;
+                $this->isWarning = false;
+                $this->isCritical = true;
+
+                return;
+            }
+        }
     }
 
     /**
@@ -284,26 +457,19 @@ abstract class Plugin {
     /**
      * ...
      *
-     * @param int | float $value
-     *
-     * @return
+     * @param string $host
      */
-    protected function calcStatus($value) {
+    protected function setHostname($host) {
+        $this->hostname = (string) $host;
+    }
 
-        /* OK */
-        if (false) {
-
-        }
-
-        /* WARNING */
-        if (false) {
-
-        }
-
-        /* CRITICAL */
-        if (false) {
-
-        }
+    /**
+     * ...
+     *
+     * @return string
+     */
+    protected function getHostname() {
+        return (string) $this->hostname;
     }
 
     /**
@@ -330,7 +496,7 @@ abstract class Plugin {
      * @return boolean
      */
     public function isCritical() {
-        return $this->isOk;
+        return $this->isCritical;
     }
 
     /**

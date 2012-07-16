@@ -80,6 +80,16 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     /**
      * Tests
      */
+    public function testSetHostname() {
+        $this->assertSame('127.0.0.1', $this->NagixxPluginMock->getHostname());
+
+        $this->NagixxPluginMock->setHostname('check.org');
+        $this->assertSame('check.org', $this->NagixxPluginMock->getHostname());
+    }
+
+    /**
+     * Tests
+     */
     public function testHasCommandLineOptionFalse() {
         $hasOption = null;
 
@@ -141,35 +151,253 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     /**
      * Tests
      */
-    public function testParseThreshold() {
-        $this->assertTrue(is_array($this->NagixxPluginMock->parseThreshold(5)));
-    }
+    public function testParseThresholdCalcStatusOkWarningCriticalOK() {
+        $value = 17;
+        $warningValue = 15;
+        $criticalValue = 10;
 
-    /**
-     * Tests
-     */
-    public function testCalcStatus() {
-        $this->assertNull($this->NagixxPluginMock->calcStatus(5));
-    }
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
 
-    /**
-     * Tests
-     */
-    public function testIsOkFalse() {
-        $this->assertFalse($this->NagixxPluginMock->isOk());
-    }
-
-    /**
-     * Tests
-     */
-    public function testIsWarningFalse() {
+        $this->assertTrue($this->NagixxPluginMock->isOk());
         $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $value = 12;
+        $warningValue = '10:15';
+        $criticalValue = '5:20';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertTrue($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $value = 9;
+        $warningValue = '10:';
+        $criticalValue = '15:';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertTrue($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $value = 17;
+        $warningValue = '~:15';
+        $criticalValue = '~:10';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertTrue($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $value = 9;
+        $warningValue = '@10:15';
+        $criticalValue = '@5:25';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertTrue($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
     }
 
     /**
      * Tests
      */
-    public function testIsCriticalFalse() {
+    public function testParseThresholdCalcStatusOkWarningCriticalWarning() {
+        $value = 12;
+        $warningValue = 15;
+        $criticalValue = 10;
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertTrue($this->NagixxPluginMock->isWarning());
         $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $value = 17;
+        $warningValue = '10:15';
+        $criticalValue = '5:20';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertTrue($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $value = 7;
+        $warningValue = '10:15';
+        $criticalValue = '5:20';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertTrue($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $value = 12;
+        $warningValue = '10:';
+        $criticalValue = '15:';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertTrue($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $value = 12;
+        $warningValue = '~:15';
+        $criticalValue = '~:10';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertTrue($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $value = 5;
+        $warningValue = '@8:10';
+        $criticalValue = '@4:15';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertTrue($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+    }
+
+    /**
+     * Tests
+     */
+    public function testParseThresholdCalcStatusOkWarningCriticalCritical() {
+        $value = 9;
+        $warningValue = 15;
+        $criticalValue = 10;
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertTrue($this->NagixxPluginMock->isCritical());
+
+        $value = 22;
+        $warningValue = '10:15';
+        $criticalValue = '5:20';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertTrue($this->NagixxPluginMock->isCritical());
+
+        $value = 4;
+        $warningValue = '10:15';
+        $criticalValue = '5:20';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertTrue($this->NagixxPluginMock->isCritical());
+
+        $value = 19;
+        $warningValue = '10:';
+        $criticalValue = '15:';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertTrue($this->NagixxPluginMock->isCritical());
+
+        $value = 9;
+        $warningValue = '~:10';
+        $criticalValue = '~:15';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertTrue($this->NagixxPluginMock->isCritical());
+
+        $value = 1;
+        $warningValue = '@8:10';
+        $criticalValue = '@5:15';
+
+        $warning = $this->NagixxPluginMock->parseThreshold($warningValue);
+        $critical = $this->NagixxPluginMock->parseThreshold($criticalValue);
+        $this->NagixxPluginMock->setThresholdWarning($warning);
+        $this->NagixxPluginMock->setThresholdCritical($critical);
+        $this->NagixxPluginMock->calcStatus($value);
+
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertTrue($this->NagixxPluginMock->isCritical());
     }
 }

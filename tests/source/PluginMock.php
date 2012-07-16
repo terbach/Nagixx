@@ -14,6 +14,10 @@ use Nagixx\Plugin;
  */
 class PluginMock extends Plugin {
 
+    public function __construct() {
+        parent::__construct();
+    }
+
     /**
      *
      */
@@ -23,16 +27,36 @@ class PluginMock extends Plugin {
         $this->pluginVersion = '1.0';
     }
 
+    public function setThresholdWarning(array $threshold) {
+        parent::setThresholdWarning($threshold);
+    }
+
+    public function setThresholdCritical(array $threshold) {
+        parent::setThresholdCritical($threshold);
+    }
+
     public function setCritical($value) {
         $this->option['critical'] = $value;
+    }
+
+    public function setWarning($value) {
+        $this->option['warning'] = $value;
     }
 
     public function setArgument1($value) {
         $this->option['argument1'] = $value;
     }
 
-    public function hasCommandLineOption($checkOption) {
-        return parent::hasCommandLineOption($checkOption);
+    public function setHostname($hostname) {
+        return parent::setHostname($hostname);
+    }
+
+    public function getHostname() {
+        return parent::getHostname();
+    }
+
+    public function hasCommandLineOption($checkArgument) {
+        return parent::hasCommandLineOption($checkArgument);
     }
 
     public function getCommandLineOptionValue($option) {
