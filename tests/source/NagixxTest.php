@@ -3,6 +3,7 @@
 namespace Nagixx;
 
 require_once 'PluginMock.php';
+require_once 'PluginMockNoStatus.php';
 
 /**
  * @author terbach <terbach@netbixx.com>
@@ -130,6 +131,18 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
      */
     public function testExecuteNoFormatter() {
         $plugin = new PluginMock();
+        $Nagixx = new Nagixx($plugin);
+
+        $this->setExpectedException('Nagixx\Exception');
+
+        $Nagixx->execute();
+    }
+
+    /**
+     * Tests
+     */
+    public function testExecutePluginMockNoStatus() {
+        $plugin = new PluginMockNoStatus();
         $Nagixx = new Nagixx($plugin);
 
         $this->setExpectedException('Nagixx\Exception');

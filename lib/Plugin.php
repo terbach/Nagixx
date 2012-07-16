@@ -335,7 +335,7 @@ abstract class Plugin {
     protected function calcSimpleStatus($value) {
         /* OK */
         if (-self::INFINITE === $this->thresholdWarning['start']) {
-            if ($this->thresholdWarning['end'] < $value && $this->thresholdCritical['end'] < $value) {
+            if ($this->thresholdWarning['end'] <= $value && $this->thresholdCritical['end'] <= $value) {
 
                 $this->isOk = true;
                 $this->isWarning = false;
@@ -344,8 +344,8 @@ abstract class Plugin {
                 return;
             }
         } else if (0 !== $this->thresholdWarning['start'] && self::INFINITE !== $this->thresholdWarning['end']) {
-            if (   ($this->thresholdWarning['start'] < $value && $value < $this->thresholdWarning['end'])
-                && ($this->thresholdCritical['start'] < $value && $value < $this->thresholdCritical['end'])) {
+            if (   ($this->thresholdWarning['start'] <= $value && $value <= $this->thresholdWarning['end'])
+                && ($this->thresholdCritical['start'] <= $value && $value <= $this->thresholdCritical['end'])) {
 
                 $this->isOk = true;
                 $this->isWarning = false;
@@ -354,7 +354,7 @@ abstract class Plugin {
                 return;
             }
         } else if (0 !== $this->thresholdWarning['start'] && self::INFINITE === $this->thresholdWarning['end']) {
-            if ($this->thresholdWarning['start'] > $value && $this->thresholdCritical['start'] > $value) {
+            if ($this->thresholdWarning['start'] >= $value && $this->thresholdCritical['start'] >= $value) {
 
                 $this->isOk = true;
                 $this->isWarning = false;
@@ -363,8 +363,8 @@ abstract class Plugin {
                 return;
             }
         } else {
-            if (   ($this->thresholdWarning['start'] > $value && $value < $this->thresholdCritical['start'])
-                || ($this->thresholdWarning['end'] < $value && $value > $this->thresholdCritical['end'])) {
+            if (   ($this->thresholdWarning['start'] >= $value && $value <= $this->thresholdCritical['start'])
+                || ($this->thresholdWarning['end'] <= $value && $value >= $this->thresholdCritical['end'])) {
 
                 $this->isOk = true;
                 $this->isWarning = false;
@@ -375,9 +375,18 @@ abstract class Plugin {
         }
 
         /* WARNING */
-        if (0 !== $this->thresholdWarning['start'] && self::INFINITE !== $this->thresholdWarning['end']) {
-            if (   ($this->thresholdWarning['start'] > $value && $value > $this->thresholdCritical['start'])
-                || ($this->thresholdWarning['end'] < $value && $value < $this->thresholdCritical['end'])) {
+        if (-self::INFINITE === $this->thresholdWarning['start']) {
+            if ($this->thresholdWarning['end'] >= $value && $this->thresholdCritical['end'] <= $value) {
+
+                $this->isOk = false;
+                $this->isWarning = true;
+                $this->isCritical = false;
+
+                return;
+            }
+        } else if (0 !== $this->thresholdWarning['start'] && self::INFINITE !== $this->thresholdWarning['end']) {
+            if (   ($this->thresholdWarning['start'] >= $value && $value >= $this->thresholdCritical['start'])
+                || ($this->thresholdWarning['end'] <= $value && $value <= $this->thresholdCritical['end'])) {
 
                 $this->isOk = false;
                 $this->isWarning = true;
@@ -386,7 +395,7 @@ abstract class Plugin {
                 return;
             }
         } else if (0 !== $this->thresholdWarning['start'] && self::INFINITE === $this->thresholdWarning['end']) {
-            if ($this->thresholdWarning['start'] < $value && $value < $this->thresholdCritical['start']) {
+            if ($this->thresholdWarning['start'] <= $value && $value <= $this->thresholdCritical['start']) {
 
                 $this->isOk = false;
                 $this->isWarning = true;
@@ -394,9 +403,8 @@ abstract class Plugin {
 
                 return;
             }
-        } else {
-            if (   ($this->thresholdWarning['start'] < $value && $value > $this->thresholdCritical['start'])
-                && ($this->thresholdWarning['end'] > $value && $value > $this->thresholdCritical['end'])) {
+        } else if (0 === $this->thresholdWarning['start'] && self::INFINITE !== $this->thresholdWarning['end']) {
+            if ($this->thresholdWarning['end'] >= $value && $value >= $this->thresholdCritical['end']) {
 
                 $this->isOk = false;
                 $this->isWarning = true;
@@ -404,11 +412,11 @@ abstract class Plugin {
 
                 return;
             }
-        }
+        } 
 
         /* CRITICAL */
         if (-self::INFINITE === $this->thresholdWarning['start']) {
-            if ($this->thresholdWarning['end'] > $value && $this->thresholdCritical['end'] > $value) {
+            if ($this->thresholdWarning['end'] >= $value && $this->thresholdCritical['end'] >= $value) {
 
                 $this->isOk = false;
                 $this->isWarning = false;
@@ -417,8 +425,8 @@ abstract class Plugin {
                 return;
             }
         } else if (0 !== $this->thresholdWarning['start'] && self::INFINITE !== $this->thresholdWarning['end']) {
-            if (   ($this->thresholdWarning['start'] > $value && $value < $this->thresholdCritical['start'])
-                || ($this->thresholdWarning['end'] < $value && $value > $this->thresholdCritical['end'])) {
+            if (   ($this->thresholdWarning['start'] >= $value && $value <= $this->thresholdCritical['start'])
+                || ($this->thresholdWarning['end'] <= $value && $value >= $this->thresholdCritical['end'])) {
 
                 $this->isOk = false;
                 $this->isWarning = false;
@@ -427,7 +435,7 @@ abstract class Plugin {
                 return;
             }
         } else if (0 !== $this->thresholdWarning['start'] && self::INFINITE === $this->thresholdWarning['end']) {
-            if ($this->thresholdWarning['start'] < $value && $value > $this->thresholdCritical['start']) {
+            if ($this->thresholdWarning['start'] <= $value && $value >= $this->thresholdCritical['start']) {
 
                 $this->isOk = false;
                 $this->isWarning = false;
@@ -436,8 +444,8 @@ abstract class Plugin {
                 return;
             }
         } else {
-            if (   ($this->thresholdWarning['start'] < $value && $value > $this->thresholdCritical['start'])
-                && ($this->thresholdWarning['end'] > $value && $value < $this->thresholdCritical['end'])) {
+            if (   ($this->thresholdWarning['start'] <= $value && $value >= $this->thresholdCritical['start'])
+                && ($this->thresholdWarning['end'] >= $value && $value <= $this->thresholdCritical['end'])) {
 
                 $this->isOk = false;
                 $this->isWarning = false;
@@ -468,8 +476,8 @@ abstract class Plugin {
         }
 
         /* WARNING */
-        if (   ($this->thresholdWarning['start'] < $value && $value > $this->thresholdCritical['start'])
-            && ($this->thresholdWarning['end'] > $value && $value > $this->thresholdCritical['end'])) {
+        if (   ($this->thresholdWarning['start'] <= $value && $value > $this->thresholdCritical['start'])
+            && ($this->thresholdWarning['end'] >= $value && $value > $this->thresholdCritical['end'])) {
 
             $this->isOk = false;
             $this->isWarning = true;
@@ -480,7 +488,7 @@ abstract class Plugin {
 
         /* CRITICAL */
         if (   ($this->thresholdWarning['start'] < $value && $value > $this->thresholdCritical['start'])
-            && ($this->thresholdWarning['end'] > $value && $value < $this->thresholdCritical['end'])) {
+            && ($this->thresholdWarning['end'] >= $value && $value <= $this->thresholdCritical['end'])) {
 
             $this->isOk = false;
             $this->isWarning = false;
