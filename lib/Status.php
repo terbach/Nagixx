@@ -71,6 +71,7 @@ class Status {
      * The constructor.
      *
      * @param int $statusNumber
+     * @param string $shortDescription
      * @param string $statusText
      * @param string $message
      */

@@ -35,8 +35,8 @@ class Nagixx {
     /**
      * The constructor.
      *
-     * @param Nagixx\Plugin $plugin
-     * @param Nagixx\Formatter $formatter
+     * @param Plugin $plugin
+     * @param Formatter $formatter
      */
     public function __construct(Plugin $plugin = null, Formatter $formatter = null) {
         if (null !== $plugin) {
@@ -51,7 +51,7 @@ class Nagixx {
     /**
      * Inject the concrete plugin.
      *
-     * @param Nagixx\Plugin $plugin
+     * @param Plugin $plugin
      *
      * @return void
      */
@@ -62,7 +62,7 @@ class Nagixx {
     /**
      * Returns the concrete plugin.
      *
-     * @return Nagixx\Plugin
+     * @return Plugin
      */
     public function getPlugin() {
         return $this->plugin;
@@ -91,9 +91,9 @@ class Nagixx {
     /**
      * Execute the check. Delegate the method to the injected concrete plugin.
      *
-     * @return Nagixx\Formatter
+     * @return Formatter
      *
-     * @throws Nagixx\Exception
+     * @throws Exception
      */
     public function execute() {
         if (null === $this->plugin) {

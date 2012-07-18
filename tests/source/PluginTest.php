@@ -20,7 +20,7 @@ require_once 'PluginMock.php';
 class PluginTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Nagix\PluginMock
+     * @var PluginMock
      */
     private $NagixxPluginMock;
 

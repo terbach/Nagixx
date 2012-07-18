@@ -18,7 +18,7 @@ abstract class Plugin {
     /**
      * INFINITE
      */
-    const INFINITE = 99999999999;
+    const INFINITE = 999999999;
 
     /**
      * The description of the plugin.
@@ -37,7 +37,7 @@ abstract class Plugin {
     /**
      * The status object for holding the informations of the check.
      *
-     * @var Nagixx\Status
+     * @var Status
      */
     protected $status = null;
 
@@ -156,7 +156,7 @@ abstract class Plugin {
     /**
      * Inject the configuration files name.
      *
-     * @param type $configFile
+     * @param string $configFile
      */
     protected function setConfigFile($configFile) {
         $this->configFile = $configFile;
@@ -205,7 +205,7 @@ abstract class Plugin {
     /**
      * Check if the plugin is called with a specific commandline argument.
      *
-     * @param string $option
+     * @param $checkArgument
      *
      * @return bool
      */
@@ -239,7 +239,7 @@ abstract class Plugin {
     /**
      * Check if the plugin is called with a specific commandline option.
      *
-     * @param string $option
+     * @param $checkOption
      *
      * @return bool
      */
@@ -254,7 +254,7 @@ abstract class Plugin {
     /**
      * If set, returns the value of the commandline option.
      *
-     * @param string $option
+     * @param $checkOption
      *
      * @return mixed
      */
@@ -278,6 +278,9 @@ abstract class Plugin {
      * @return array
      */
     protected function parseThreshold($threshold) {
+        $thresholdStart = null;
+        $thresholdEnd = null;
+        $thresholdNegation = false;
         $regExNullEnd = '~^([0-9.]*)~i';
         $regExStartEnd = '~^([0-9.]*):([0-9.]*)$~i';
         $regExStartInfinite = '~^([0-9.]*):$~i';
@@ -532,7 +535,7 @@ abstract class Plugin {
     /**
      * Returns the scripts execution timeout in seconds.
      *
-     * @param int $timeout
+     * @return int
      */
     protected function getTimeout() {
         return (int) $this->timeout;
@@ -585,8 +588,6 @@ abstract class Plugin {
 
     /**
      * The right place to initialize the concrete plugin. The method is automatically called inside the standard constructor.
-     *
-     * @param int $pluginVersion
      *
      * @return void
      */

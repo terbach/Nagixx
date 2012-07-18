@@ -18,7 +18,7 @@ class Formatter {
     /**
      * The status object for holding all the informations of the plugins status.
      *
-     * @var Nagixx\Status
+     * @var Status
      */
     protected $status = null;
 
