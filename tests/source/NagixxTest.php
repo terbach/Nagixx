@@ -96,7 +96,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
         $Nagixx->setPlugin($plugin);
         $Nagixx->setFormatter($formatter);
 
-        /* @var $result Nagixx\Formatter */
+        /* @var $result Formatter */
         $resultFormatter = $Nagixx->execute();
 
         $this->assertInstanceOf('Nagixx\Formatter', $resultFormatter);
@@ -111,7 +111,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
         $formatter = new Formatter();
         $Nagixx = new Nagixx($plugin, $formatter);
 
-        /* @var $result Nagixx\Formatter */
+        /* @var $result Formatter */
         $resultFormatter = $Nagixx->execute();
 
         $this->assertInstanceOf('Nagixx\Formatter', $resultFormatter);
