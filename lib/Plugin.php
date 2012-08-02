@@ -18,7 +18,7 @@ abstract class Plugin {
     /**
      * INFINITE
      */
-    const INFINITE = 999999999;
+    const INFINITE = PHP_INT_MAX;
 
     /**
      * The description of the plugin.

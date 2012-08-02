@@ -75,7 +75,8 @@ class Status {
      * @param string $statusText
      * @param string $message
      */
-    public function __construct($statusNumber = self::NAGIOS_STATUS_NUMBER_OK, $shortDescription = '', $statusText = self::NAGIOS_STATUS_TEXT_SERVICE_OK, $message = '') {
+    public function __construct($statusNumber = self::NAGIOS_STATUS_NUMBER_OK, $shortDescription = '',
+                                $statusText = self::NAGIOS_STATUS_TEXT_SERVICE_OK, $message = '') {
         $this->setStatusNumber($statusNumber);
         $this->setShortPluginDescription($shortDescription);
         $this->setStatusText($statusText);
