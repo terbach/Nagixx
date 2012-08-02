@@ -49,7 +49,8 @@ abstract class Plugin {
     protected $commandLine = null;
 
     /**
-     * The configuration file for the plugin. There the acceptable arguments and options for the commandline are defined.
+     * The configuration file for the plugin.
+     * There the acceptable arguments and options for the commandline are defined.
      *
      * @var string
      */
@@ -210,7 +211,9 @@ abstract class Plugin {
      * @return bool
      */
     protected function hasCommandLineArgument($checkArgument) {
-        if (array_key_exists(trim($checkArgument), $this->argument) && (null !== $this->argument[trim($checkArgument)])) {
+        if (array_key_exists(trim($checkArgument), $this->argument)
+            && (null !== $this->argument[trim($checkArgument)])) {
+
             return true;
         }
 
@@ -587,7 +590,8 @@ abstract class Plugin {
     }
 
     /**
-     * The right place to initialize the concrete plugin. The method is automatically called inside the standard constructor.
+     * The right place to initialize the concrete plugin.
+     * The method is automatically called inside the standard constructor.
      *
      * @return void
      */
