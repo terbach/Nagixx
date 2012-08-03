@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace Nagixx;
 
@@ -22,7 +22,7 @@ class Exception extends \Exception {
      * @param int $code
      * @param \Exception $exception
      *
-     * @return void
+     * @return \Nagixx\Exception
      */
     public function __construct($message, $code = 0, \Exception $exception = null) {
 
