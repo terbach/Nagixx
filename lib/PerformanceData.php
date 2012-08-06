@@ -2,6 +2,8 @@
 
 namespace Nagixx;
 
+use Nagixx\Exception;
+
 /**
  * @author terbach <terbach@netbixx.com>
  * @license See licence file LICENCE.md
@@ -119,7 +121,7 @@ class PerformanceData {
         }
 
         if (! $found) {
-            throw new \RangeException('Key ' . strip_tags(trim($key)) . ' not existing!');
+            throw new Exception('Key ' . strip_tags(trim($key)) . ' not existing!');
         }
     }
 
