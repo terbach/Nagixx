@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<!--
+ CommandLine configuration file for ExtendedPlugin.php
+
+ @author terbach <terbach@netbixx.com>
+ @license See licence file LICENCE.md
+ @version 1.0.0
+ @since 1.0.0
+ @copyright 2012 netbixx GmbH (http://www.netbixx.com)
+
+ @category Build
+ @package Ant
+-->
+<command>
+    <description>ExtendedPlugin for Nagios.</description>
+    <version>1.0.0</version>
+
+    <option name="warning">
+        <short_name>-w</short_name>
+        <long_name>--warning</long_name>
+        <description>Warning threshold.</description>
+        <action>StoreString</action>
+    </option>
+
+    <option name="critical">
+        <short_name>-c</short_name>
+        <long_name>--critical</long_name>
+        <description>Critical threshold.</description>
+        <action>StoreString</action>
+    </option>
+
+    <option name="timeout">
+        <short_name>-t</short_name>
+        <long_name>--timeout</long_name>
+        <description>Timeout for the plugin.</description>
+        <action>StoreInt</action>
+    </option>
+
+    <option name="hostname">
+        <short_name>-H</short_name>
+        <long_name>--hostname</long_name>
+        <description>The hostname or IP to check.</description>
+        <action>StoreString</action>
+    </option>
+
+    <option name="verbose">
+        <short_name>-v</short_name>
+        <long_name>--verbose</long_name>
+        <description>Turn on verbose output.</description>
+        <action>StoreTrue</action>
+    </option>
+</command>

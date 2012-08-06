@@ -24,14 +24,14 @@ function _autoloader($class) {
 /**
  * Require our simple plugin for demonstration purposes.
  */
-require_once 'SimplePlugin.php';
+require_once 'ExtendedPlugin.php';
 
 /**
  * Our custom plugin.
  *
 *@var Nagixx\Plugin
 */
-$plugin = new SimplePlugin();
+$plugin = new ExtendedPlugin();
 
 /**
  * The formatter of the console output. This output is eveluated by Nagios.
@@ -48,10 +48,11 @@ $formatter = new Nagixx\Formatter();
 $nagixx = new Nagixx\Nagixx($plugin, $formatter);
 
 /**
- * Now we run the plugin and get back s formatter which holds a status object.
+ * Now we run the plugin and get back a formatter which holds a status object and a performanceData object.
  */
 $resultFormatter = $nagixx->execute();
-echo $resultFormatter->getOutput();
+echo $resultFormatter->getOutput(true);
 
 /* This exit code is evaluated by Nagios and very important! */
+echo "\n";
 exit($resultFormatter->getStatus()->getStatusNumber());

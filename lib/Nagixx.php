@@ -2,6 +2,7 @@
 
 namespace Nagixx;
 
+use Nagixx\PerformanceData;
 use Nagixx\Status;
 use Nagixx\Formatter;
 
@@ -28,7 +29,7 @@ class Nagixx {
     /**
      * The formatter for handling the output of the status.
      *
-     * @var Nagixx\Formatter
+     * @var Formatter
      */
     protected $formatter = null;
 
@@ -71,9 +72,7 @@ class Nagixx {
     /**
      * Inject the formatter.
      *
-     * @param Nagixx\Formatter $plugin
-     *
-     * @return void
+     * @param Formatter $plugin
      */
     public function setFormatter(Formatter $formatter) {
         $this->formatter = $formatter;
@@ -109,6 +108,10 @@ class Nagixx {
 
         if (null === $this->formatter) {
             throw new Exception('No formatter injected (Type: Nagixx\Formatter)!');
+        }
+
+        if (null !== $this->plugin->getPerformanceData()) {
+            $this->formatter->setPerformanceData($this->plugin->getPerformanceData());
         }
 
         $this->formatter->setStatus($resultStatus);

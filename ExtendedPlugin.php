@@ -14,13 +14,13 @@ use Nagixx\Status;
  *
  * @category lib
  */
-class SimplePlugin extends Plugin {
+class ExtendedPlugin extends Plugin {
 
     /**
      * Initializing the commandline arguments and options for th plugin.
      */
     protected function initPlugin() {
-        $this->setConfigFile('SimplePlugin.xml');
+        $this->setConfigFile('ExtendedPlugin.xml');
     }
 
     /**
@@ -44,15 +44,20 @@ class SimplePlugin extends Plugin {
          */
         if ($this->isOk()) {
             $this->status->setStatusNumber(Status::NAGIOS_STATUS_NUMBER_OK);
-            $this->status->setShortPluginDescription('SimplePlugin');
+            $this->status->setShortPluginDescription('ExtendedPlugin');
             $this->status->setStatusText(Status::NAGIOS_STATUS_TEXT_SERVICE_OK);
-            $this->status->setStatusMessage("Nagios-SimplePlugin-Check finished successfully!");
+            $this->status->setStatusMessage("Nagios-ExtendedPlugin-Check finished successfully!");
         } /* else if ($this->isWarning()) {
          * ...
          * } else if ($this->isCritical()) {
          * ...
          * }
          */
+
+        $performanceData = new \Nagixx\PerformanceData();
+        $performanceData->addPerformanceData('sampleKey', 5, 3, 4, 2, 6);
+        $performanceData->addPerformanceData('secondKey', 25, 23, 24, 22, 26);
+        $this->setPerformanceData($performanceData);
 
         return $this->status;
     }

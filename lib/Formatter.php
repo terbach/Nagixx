@@ -23,6 +23,13 @@ class Formatter {
     protected $status = null;
 
     /**
+     * The value object holding the performance data.
+     *
+     * @var PerformanceData
+     */
+    protected $performanceData = null;
+
+    /**
      * Inject the status object.
      *
      * @param Status $status
@@ -41,16 +48,74 @@ class Formatter {
     }
 
     /**
-     * Return the information from the status object to be evaluated by Nagios.
+     * Inject the performanceData object.
+     *
+     * @param Status $status
+     */
+    public function setPerformanceData(PerformanceData $perfromanceData) {
+        $this->performanceData = $perfromanceData;
+    }
+
+    /**
+     * Returns the performanceData object.
+     *
+     * @return PerformanceData
+     */
+    public function getPerformanceData() {
+        return $this->performanceData;
+    }
+
+    /**
+     * Format the output of the performance data.
+     *
+     * @param string $html
      *
      * @return string
      */
-    public function getOutput() {
+    protected function formatPerformanceData($html) {
+        $html = '';
+
+        $html .= ' | ';
+
+        foreach($this->getPerformanceData()->getPerformanceDatas() as $currentPerformanceData) {
+            $index = 1;
+            foreach ($currentPerformanceData as $key => $value) {
+                if (1 == $index) {
+                    $html .= $key . '=' . $value;
+                } else {
+                    $html .= $value;
+                }
+
+                if ($index < 5) {
+                    $html .= ';';
+                }
+
+                $index++;
+            }
+
+            $html .= ' ';
+        }
+
+        return $html;
+    }
+
+    /**
+     * Return the information from the status object to be evaluated by Nagios.
+     *
+     * @param bool $printPerformanceData
+     *
+     * @return string
+     */
+    public function getOutput($printPerformanceData = false) {
         $html = '';
 
         $html = $this->status->getShortPluginDescription();
         $html .= $this->status->getStatusText();
         $html .= $this->status->getStatusMessage();
+
+        if ($printPerformanceData && (null !== $this->getPerformanceData() && count($this->getPerformanceData()->getPerformanceDatas()))) {
+            $html .= $this->formatPerformanceData($html);
+        }
 
         return $html;
     }

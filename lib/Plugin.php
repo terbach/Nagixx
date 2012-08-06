@@ -42,6 +42,13 @@ abstract class Plugin {
     protected $status = null;
 
     /**
+     * The value object holding the performance data.
+     *
+     * @var PerformanceData
+     */
+    protected $performanceData = null;
+
+    /**
      * The commandline object holding the commandline arguments and options.
      *
      * @var \Console_CommandLine
@@ -587,6 +594,26 @@ abstract class Plugin {
      */
     public function isCritical() {
         return $this->isCritical;
+    }
+
+    /**
+     * Inject the performanceData object.
+     *
+     * @param PerformanceData $performanceData
+     *
+     * @return void
+     */
+    public function setPerformanceData(PerformanceData $performanceData) {
+        $this->performanceData = $performanceData;
+    }
+
+    /**
+     * Returns the performanceData object
+     *
+     * @return PerformanceData
+     */
+    public function getPerformanceData() {
+        return $this->performanceData;
     }
 
     /**
