@@ -5,7 +5,7 @@ namespace Nagixx;
 use Nagixx\Plugin;
 
 /**
- * A PluginMock returning a wrong status object.
+ * An incrorrect PluginMock, returning a wrong status object.
  *
  * @author terbach <terbach@netbixx.com>
  * @license See licence file LICENCE.md
@@ -21,9 +21,6 @@ class PluginMockNoStatus extends Plugin {
         parent::__construct();
     }
 
-    /**
-     *
-     */
     protected function initPlugin() {
         $this->setConfigFile(dirname(__FILE__) . '/PluginTest.xml');
         $this->pluginDescription = 'PluginMock';
@@ -94,9 +91,6 @@ class PluginMockNoStatus extends Plugin {
         return parent::isCritical();
     }
 
-    /**
-     *
-     */
     public function execute() {
         return new \stdClass();
     }

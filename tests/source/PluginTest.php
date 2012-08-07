@@ -7,7 +7,7 @@ use Nagixx\Plugin;
 require_once 'PluginMock.php';
 
 /**
- * Testing Nagixx\Plugin.
+ * Testing Plugin.
  *
  * @author terbach <terbach@netbixx.com>
  * @license See licence file LICENCE.md
@@ -39,7 +39,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if plugin class is abstract.
      */
     public function testAbstract() {
         require_once dirname(__FILE__) . '/../../lib/Plugin.php';
@@ -54,7 +54,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if concrete plugin class is not abstract.
      */
     public function testAbstractIsConcrete() {
         $plugin = new \ReflectionClass('Nagixx\PluginMock');
@@ -67,21 +67,21 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test for correct plugin description.
      */
     public function testGetPluginDescription() {
         $this->assertSame('PluginMock', $this->NagixxPluginMock->getPluginDescription());
     }
 
     /**
-     * Tests
+     * Test for correct plugin version.
      */
     public function testGetPluginVersion() {
         $this->assertSame('1.0', $this->NagixxPluginMock->getPluginVersion());
     }
 
     /**
-     * Tests
+     * Test for correct hostname.
      */
     public function testSetHostname() {
         $this->assertSame('127.0.0.1', $this->NagixxPluginMock->getHostname());
@@ -91,7 +91,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test of correct detection for commandline options.
      */
     public function testHasCommandLineOptionFalse() {
         $hasOption = null;
@@ -102,7 +102,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test of correct detection for commandline options.
      */
     public function testHasCommandLineOptionTrue() {
         $this->NagixxPluginMock->setCritical(10);
@@ -113,7 +113,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test of correct detection for commandline option value.
      */
     public function testGetCommandLineOptionValueNotPresent() {
         $value = $this->NagixxPluginMock->getCommandLineOptionValue('critical');
@@ -122,7 +122,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test of correct detection for commandline option value.
      */
     public function testGetCommandLineOptionValuePresent() {
         $this->NagixxPluginMock->setCritical(10);
@@ -132,7 +132,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test of correct detection for commandline argument.
      */
     public function testHasCommandLineArgumentFalse() {
         $hasOption = null;
@@ -143,7 +143,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test of correct detection for commandline argument.
      */
     public function testGetCommandLineArgumentValueNotPresent() {
         $value = $this->NagixxPluginMock->getCommandLineArgumentValue('critical');
@@ -152,7 +152,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if thresholds are calculated correctly (ok).
      */
     public function testParseThresholdCalcStatusOkWarningCriticalOK() {
         $value = 17;
@@ -227,7 +227,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if thresholds are calculated correctly (ok).
      */
     public function testParseThresholdCalcStatusThresholdsOK() {
         $value = 15;
@@ -344,7 +344,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if thresholds are calculated correctly (warning).
      */
     public function testParseThresholdCalcStatusOkWarningCriticalWarning() {
         $value = 12;
@@ -433,7 +433,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if thresholds are calculated correctly (warning).
      */
     public function testParseThresholdCalcStatusThresholdsWarning() {
         $value = 14;
@@ -550,7 +550,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if thresholds are calculated correctly (critical).
      */
     public function testParseThresholdCalcStatusOkWarningCriticalCritical() {
         $value = 9;
@@ -639,7 +639,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if thresholds are calculated correctly (critical).
      */
     public function testParseThresholdCalcStatusThresholdsCritical() {
         $value = 9;

@@ -37,14 +37,14 @@ class ExceptionTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test the correct class type of the exception.
      */
     public function testConstruct() {
         $this->assertInstanceOf('Nagixx\Exception', new Exception('Testing the exception!'));
     }
 
     /**
-     * Tests
+     * Test the correct message.
      */
     public function testMessage() {
         $this->assertContains('Testing the exception!', $this->NagixxException->getMessage());

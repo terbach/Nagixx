@@ -5,7 +5,7 @@ namespace Nagixx;
 use Nagixx\Status;
 
 /**
- * Testing Nagixx\Status.
+ * Testing Status.
  *
  * @author terbach <terbach@netbixx.com>
  * @version 1.0.0
@@ -17,7 +17,7 @@ use Nagixx\Status;
 class StatusTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Nagixx\Status
+     * @var Status
      */
     private $NagixxStatus;
 
@@ -36,7 +36,7 @@ class StatusTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test the default constructur and the status settings.
      */
     public function testDefaultConstruct() {
         $this->assertEquals(0, $this->NagixxStatus->getStatusNumber());
@@ -46,7 +46,7 @@ class StatusTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test an individual constructor and the status settings.
      */
     public function testIndividualConstruct() {
         $this->NagixxStatus = null;

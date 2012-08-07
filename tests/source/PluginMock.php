@@ -5,7 +5,7 @@ namespace Nagixx;
 use Nagixx\Plugin;
 
 /**
- * A PluginMock.
+ * A correct PluginMock.
  *
  * @author terbach <terbach@netbixx.com>
  * @license See licence file LICENCE.md
@@ -21,9 +21,6 @@ class PluginMock extends Plugin {
         parent::__construct();
     }
 
-    /**
-     *
-     */
     protected function initPlugin() {
         $this->setConfigFile(dirname(__FILE__) . '/PluginTest.xml');
         $this->pluginDescription = 'PluginMock';
@@ -94,9 +91,6 @@ class PluginMock extends Plugin {
         return parent::isCritical();
     }
 
-    /**
-     *
-     */
     public function execute() {
         return new Status();
     }

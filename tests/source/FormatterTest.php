@@ -3,7 +3,7 @@
 namespace Nagixx;
 
 /**
- * Testing Nagixx\Formatter.
+ * Testing Formatter.
  *
  * @author terbach <terbach@netbixx.com>
  * @license See licence file LICENCE.md
@@ -35,14 +35,14 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test default constructor and testing correct formatter class type.
      */
     public function testConstruct() {
         $this->assertInstanceOf('Nagixx\Formatter', $this->NagixxFormatter);
     }
 
     /**
-     * Tests
+     * Test the getter/setter for the status object.
      */
     public function testSetGetStatus() {
         $status = new Status();
@@ -52,7 +52,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test the getter/setter for the performance data object.
      */
     public function testSetGetPerformanceData() {
         $performanceData = new PerformanceData();
@@ -62,7 +62,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test the output without performance data without function parameter.
      */
     public function testGetOutputWithoutPerformanceData1() {
         $status = new Status();
@@ -73,7 +73,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test the output without performance data with function parameter.
      */
     public function testGetOutputWithoutPerformanceData2() {
         $status = new Status();
@@ -84,7 +84,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test the output with performance data with function parameter.
      */
     public function testGetOutputWithPerformanceData() {
         $status = new Status();
@@ -103,7 +103,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test the output with performance data with function parameter, but without performanceDataValue object inside.
      */
     public function testGetOutputWithPerformanceDataNoValues() {
         $status = new Status();

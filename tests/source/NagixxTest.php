@@ -40,7 +40,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test the default constructor  with parameters, and correct class types of status and formatter objects.
      */
     public function testDefaultConstruct() {
         $plugin = new PluginMock();
@@ -52,7 +52,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if formatter returns null if not injected.
      */
     public function testConstructNullFormatter() {
         $plugin = new PluginMock();
@@ -62,7 +62,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if formatter and plugin return null if not injected.
      */
     public function testConstructNullPluginAndFormatter() {
         $Nagixx = new Nagixx();
@@ -72,7 +72,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test setter/getter for plugin and formatter.
      */
     public function testSetGetConstruct() {
         $formatter = new Formatter();
@@ -87,7 +87,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test default constructor without parameters. Status has to be correct class type and correct content.
      */
     public function testExecuteDefaultConstructorNull() {
         $plugin = new PluginMock();
@@ -104,7 +104,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test default constructor with parameters. Status has to be correct class type and correct content.
      */
     public function testExecuteDefaultConstructorNotNull() {
         $plugin = new PluginMock();
@@ -119,7 +119,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test for correct exception when executing without plugin and formatter.
      */
     public function testExecuteNoPluginAndFormatter() {
         $Nagixx = new Nagixx();
@@ -130,7 +130,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test for correct exception when executing without formatter.
      */
     public function testExecuteNoFormatter() {
         $plugin = new PluginMock();
@@ -142,7 +142,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test for correct exception when executing with plugin but no returning status object.
      */
     public function testExecutePluginMockNoStatus() {
         $plugin = new PluginMockNoStatus();

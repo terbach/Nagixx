@@ -3,7 +3,7 @@
 namespace Nagixx;
 
 /**
- * Testing Nagixx\PerformanceData.
+ * Testing PerformanceData.
  *
  * @author terbach <terbach@netbixx.com>
  * @license See licence file LICENCE.md
@@ -35,7 +35,7 @@ class PerformanceDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if units are used or not.
      */
     public function testUsesUnits() {
         $this->assertFalse(PerformanceData::usesUnits());
@@ -48,7 +48,7 @@ class PerformanceDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if correct unit is used when unit using is enabled.
      */
     public function testUseUnit() {
         PerformanceData::useUnits(true);
@@ -71,7 +71,7 @@ class PerformanceDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if correct array is returned when selecting by key.
      */
     public function testGetKey() {
         $this->NagixxPerformanceData->addPerformanceData('testKey', 100, 18, 17, 10, 115);
@@ -104,7 +104,7 @@ class PerformanceDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Tests
+     * Test if correct exception is thrown when getting not existing performance data object.
      */
     public function testGetKeyNotFound() {
         $this->NagixxPerformanceData->addPerformanceData('testKey', 100, 18, 17, 10, 115);

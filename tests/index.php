@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * The boostrap file which is run before the tests for loading the autoloader-function.
+ *
  * @author terbach <terbach@netbixx.com>
  * @version 1.0.0
  * @since 1.0.0
@@ -9,6 +11,7 @@
  * @category tests
  */
 spl_autoload_register('_autoloader');
+
 function _autoloader($class) {
     set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/../lib/');
 
