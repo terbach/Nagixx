@@ -1,6 +1,9 @@
 <?php
 
-namespace Nagixx;
+namespace Nagixx\Tests;
+
+use Nagixx\Exception;
+use Nagixx\PerformanceData;
 
 /**
  * Testing PerformanceData.
@@ -116,7 +119,7 @@ class PerformanceDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertArrayHasKey('min', $this->NagixxPerformanceData->getPerformanceData('testKey'));
         $this->assertArrayHasKey('max', $this->NagixxPerformanceData->getPerformanceData('testKey'));
 
-        $this->setExpectedException('\RangeException', 'Key testKeyFourth not existing!');
+        $this->setExpectedException('Nagixx\Exception', 'Key testKeyFourth not existing!');
 
         $valueObject = $this->NagixxPerformanceData->getPerformanceData('testKeyFourth');
     }

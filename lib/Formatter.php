@@ -113,7 +113,9 @@ class Formatter {
         $html .= $this->status->getStatusText();
         $html .= $this->status->getStatusMessage();
 
-        if ($printPerformanceData && (null !== $this->getPerformanceData() && count($this->getPerformanceData()->getPerformanceDatas()))) {
+        if ($printPerformanceData
+            && (null !== $this->getPerformanceData() && count($this->getPerformanceData()->getPerformanceDatas()))) {
+
             $html .= $this->formatPerformanceData($html);
         }
 

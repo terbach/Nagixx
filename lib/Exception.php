@@ -14,18 +14,4 @@ namespace Nagixx;
  * @category lib
  */
 class Exception extends \Exception {
-
-    /**
-     * The nagixx exception types constructor.
-     *
-     * @param string $message
-     * @param int $code
-     * @param \Exception $exception
-     *
-     * @return \Nagixx\Exception
-     */
-    public function __construct($message, $code = 0, \Exception $exception = null) {
-
-        parent::__construct($message, $code, $exception);
-    }
 }

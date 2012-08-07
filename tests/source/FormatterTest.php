@@ -1,6 +1,10 @@
 <?php
 
-namespace Nagixx;
+namespace Nagixx\Tests;
+
+use Nagixx\Formatter;
+use Nagixx\Status;
+use Nagixx\PerformanceData;
 
 /**
  * Testing Formatter.

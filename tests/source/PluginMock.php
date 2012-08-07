@@ -1,7 +1,8 @@
 <?php
 
-namespace Nagixx;
+namespace Nagixx\Tests;
 
+use Nagixx\Status;
 use Nagixx\Plugin;
 
 /**

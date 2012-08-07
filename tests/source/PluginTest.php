@@ -1,6 +1,6 @@
 <?php
 
-namespace Nagixx;
+namespace Nagixx\Tests;
 
 use Nagixx\Plugin;
 
@@ -57,7 +57,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
      * Test if concrete plugin class is not abstract.
      */
     public function testAbstractIsConcrete() {
-        $plugin = new \ReflectionClass('Nagixx\PluginMock');
+        $plugin = new \ReflectionClass('Nagixx\Tests\PluginMock');
         $this->assertFalse($plugin->isAbstract());
 
         $initPlugin = $plugin->getMethod('initPlugin');

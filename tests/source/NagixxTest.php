@@ -1,6 +1,9 @@
 <?php
 
-namespace Nagixx;
+namespace Nagixx\Tests;
+
+use Nagixx\Nagixx;
+use Nagixx\Formatter;
 
 require_once 'PluginMock.php';
 require_once 'PluginMockNoStatus.php';
@@ -53,6 +56,16 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * Test if formatter returns null if not injected.
+     */
+    public function testVersion() {
+        $version = Nagixx::version();
+        $regEx = '~[0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}~';
+
+        $this->assertRegExp($regEx, $version);
+    }
+
+    /**
+     * Tests
      */
     public function testConstructNullFormatter() {
         $plugin = new PluginMock();

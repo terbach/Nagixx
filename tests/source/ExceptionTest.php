@@ -1,6 +1,6 @@
 <?php
 
-namespace Nagixx;
+namespace Nagixx\Tests;
 
 use Nagixx\Exception;
 

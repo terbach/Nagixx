@@ -20,6 +20,11 @@ use Nagixx\Formatter;
 class Nagixx {
 
     /**
+     * The actual version of the Nagixx.
+     */
+    const VERSION = '1.1.0';
+
+    /**
      * The concrete plugin to make the check.
      *
      * @var Plugin
@@ -47,6 +52,10 @@ class Nagixx {
         if (null !== $formatter) {
             $this->formatter = $formatter;
         }
+    }
+
+    public static function version() {
+        return self::VERSION;
     }
 
     /**
