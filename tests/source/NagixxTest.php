@@ -1,6 +1,9 @@
 <?php
 
-namespace Nagixx;
+namespace Nagixx\Tests;
+
+use Nagixx\Nagixx;
+use Nagixx\Formatter;
 
 require_once 'PluginMock.php';
 require_once 'PluginMockNoStatus.php';
@@ -49,6 +52,16 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertSame($Nagixx->getPlugin(), $plugin);
         $this->assertSame($Nagixx->getFormatter(), $formatter);
+    }
+
+    /**
+     * Tests
+     */
+    public function testVersion() {
+        $version = Nagixx::version();
+        $regEx = '~[0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}~';
+
+        $this->assertRegExp($regEx, $version);
     }
 
     /**

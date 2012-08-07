@@ -10,7 +10,7 @@
  */
 spl_autoload_register('_autoloader');
 function _autoloader($class) {
-    set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/../lib/');
+    set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/../lib/' . PATH_SEPARATOR . dirname(__FILE__) . '/source/');
 
     $tmp = explode ('\\', $class);
     $clazz = end($tmp);

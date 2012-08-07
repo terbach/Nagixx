@@ -1,8 +1,9 @@
 <?php
 
-namespace Nagixx;
+namespace Nagixx\Tests;
 
 use Nagixx\Exception;
+use Nagixx\PerformanceData;
 
 /**
  * Testing Nagixx\PerformanceData.

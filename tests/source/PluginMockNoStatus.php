@@ -1,8 +1,9 @@
 <?php
 
-namespace Nagixx;
+namespace Nagixx\Tests;
 
 use Nagixx\Plugin;
+use Nagixx\Status;
 
 /**
  * A PluginMock returning a wrong status object.
