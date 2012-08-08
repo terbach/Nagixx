@@ -80,6 +80,10 @@ class PluginMockNoStatus extends Plugin {
         return parent::calcStatus($value);
     }
 
+    public function setStatusFlags($ok, $warn, $crit) {
+        parent::setStatusFlags($ok, $warn, $crit);
+    }
+
     public function isOk() {
         return parent::isOk();
     }

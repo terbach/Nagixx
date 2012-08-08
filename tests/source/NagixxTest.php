@@ -59,7 +59,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
      */
     public function testVersion() {
         $version = Nagixx::version();
-        $regEx = '~[0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}~';
+        $regEx = '~[0-9]{1,2}.[0-9]{1,2}.[0-9]{1,3}~';
 
         $this->assertRegExp($regEx, $version);
     }

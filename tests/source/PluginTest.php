@@ -152,6 +152,29 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
+     *
+     */
+    public function testSetStatusFlags() {
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $this->NagixxPluginMock->setStatusFlags(true, false, false);
+        $this->assertTrue($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $this->NagixxPluginMock->setStatusFlags(false, true, false);
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertTrue($this->NagixxPluginMock->isWarning());
+        $this->assertFalse($this->NagixxPluginMock->isCritical());
+
+        $this->NagixxPluginMock->setStatusFlags(false, false, true);
+        $this->assertFalse($this->NagixxPluginMock->isOk());
+        $this->assertFalse($this->NagixxPluginMock->isWarning());
+        $this->assertTrue($this->NagixxPluginMock->isCritical());
+    }
+    /**
      * Test if thresholds are calculated correctly (ok).
      */
     public function testParseThresholdCalcStatusOkWarningCriticalOK() {

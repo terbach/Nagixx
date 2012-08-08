@@ -22,7 +22,7 @@ class Nagixx {
     /**
      * The actual version of the Nagixx.
      */
-    const VERSION = '1.1.0';
+    const VERSION = '1.1.2';
 
     /**
      * The concrete plugin to make the check.
@@ -108,11 +108,13 @@ class Nagixx {
             throw new Exception('No plugin injected (Type: Nagixx\Plugin)!');
         }
 
+        $this->plugin->setStatus(new Status());
+
         /* @var $resultStatus Status */
         $resultStatus = $this->plugin->execute();
 
         if (! $resultStatus instanceof Status) {
-            throw new Exception('Result not of type Nagixx\Status');
+            throw new Exception('Result-Object not of type Nagixx\Status!');
         }
 
         if (null === $this->formatter) {
