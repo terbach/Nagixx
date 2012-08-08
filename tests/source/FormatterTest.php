@@ -36,6 +36,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
      */
     protected function tearDown () {
         $this->NagixxFormatter = null;
+        PerformanceData::useUnits(false);
     }
 
     /**
@@ -68,42 +69,54 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
     /**
      * Test the output without performance data without function parameter.
      */
-    public function testGetOutputWithoutPerformanceData1() {
+    public function testGetOutput() {
         $status = new Status();
 
         $this->NagixxFormatter->setStatus($status);
         $this->assertContains('OK', $this->NagixxFormatter->getOutput());
-        $this->assertNotContains('|', $this->NagixxFormatter->getOutput(false));
-    }
-
-    /**
-     * Test the output without performance data with function parameter.
-     */
-    public function testGetOutputWithoutPerformanceData2() {
-        $status = new Status();
-
-        $this->NagixxFormatter->setStatus($status);
-        $this->assertContains('OK', $this->NagixxFormatter->getOutput(false));
-        $this->assertNotContains('|', $this->NagixxFormatter->getOutput(false));
     }
 
     /**
      * Test the output with performance data with function parameter.
      */
-    public function testGetOutputWithPerformanceData() {
+    public function testGetOutputWithPerformanceDataNoUnit() {
         $status = new Status();
         $status->setShortPluginDescription('Description');
         $status->setStatusMessage('Finished!');
         $status->setStatusNumber(Status::NAGIOS_STATUS_NUMBER_OK);
         $status->setStatusText(Status::NAGIOS_STATUS_TEXT_HOST_OK);
+
         $performanceData = new PerformanceData();
         $performanceData->addPerformanceData('key', 4, 2, 3, 0, 5);
 
         $this->NagixxFormatter->setStatus($status);
         $this->NagixxFormatter->setPerformanceData($performanceData);
 
-        $this->assertContains('UP', $this->NagixxFormatter->getOutput(true));
-        $this->assertContains('|', $this->NagixxFormatter->getOutput(true));
+        $this->assertContains('UP', $this->NagixxFormatter->getOutput());
+        $this->assertContains('|', $this->NagixxFormatter->getPerformanceOutput());
+    }
+
+    /**
+     * Test the output with performance data with function parameter.
+     */
+    public function testGetOutputWithPerformanceDataWithUnit() {
+        $status = new Status();
+        $status->setShortPluginDescription('Description');
+        $status->setStatusMessage('Finished!');
+        $status->setStatusNumber(Status::NAGIOS_STATUS_NUMBER_OK);
+        $status->setStatusText(Status::NAGIOS_STATUS_TEXT_HOST_OK);
+
+        PerformanceData::useUnits(true);
+        PerformanceData::setUnit(PerformanceData::UNIT_PERCENT);
+        $performanceData = new PerformanceData();
+        $performanceData->addPerformanceData('key', 4, 2, 3, 0, 5);
+
+        $this->NagixxFormatter->setStatus($status);
+        $this->NagixxFormatter->setPerformanceData($performanceData);
+
+        $this->assertContains('UP', $this->NagixxFormatter->getOutput());
+        $this->assertContains('|', $this->NagixxFormatter->getPerformanceOutput());
+        $this->assertContains('%', $this->NagixxFormatter->getPerformanceOutput());
     }
 
     /**
@@ -120,7 +133,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
         $this->NagixxFormatter->setStatus($status);
         $this->NagixxFormatter->setPerformanceData($performanceData);
 
-        $this->assertContains('UP', $this->NagixxFormatter->getOutput(true));
-        $this->assertNotContains('|', $this->NagixxFormatter->getOutput(true));
+        $this->assertContains('UP', $this->NagixxFormatter->getOutput());
+        $this->assertNotContains('|', $this->NagixxFormatter->getPerformanceOutput());
     }
 }

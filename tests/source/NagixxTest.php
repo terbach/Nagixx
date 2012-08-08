@@ -4,6 +4,7 @@ namespace Nagixx\Tests;
 
 use Nagixx\Nagixx;
 use Nagixx\Formatter;
+use Nagixx\PerformanceData;
 
 require_once 'PluginMock.php';
 require_once 'PluginMockNoStatus.php';
@@ -164,5 +165,20 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
         $this->setExpectedException('Nagixx\Exception');
 
         $Nagixx->execute();
+    }
+
+    /**
+     * Test for setting performanceData to the formatter.
+     */
+    public function testExecutePluginMockSetPerformanceData() {
+        $plugin = new PluginMock();
+        $performanceData = new PerformanceData();
+        $formatter = new Formatter();
+        $Nagixx = new Nagixx($plugin, $formatter);
+
+        $Nagixx->getPlugin()->setPerformanceData($performanceData);
+        $Nagixx->execute();
+
+        $this->assertSame($performanceData, $Nagixx->getPlugin()->getPerformanceData());
     }
 }

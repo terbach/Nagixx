@@ -68,14 +68,10 @@ class Formatter {
     /**
      * Format the output of the performance data.
      *
-     * @param string $html
-     *
      * @return string
      */
-    protected function formatPerformanceData($html) {
-        $html = '';
-
-        $html .= ' | ';
+    protected function formatPerformanceData() {
+        $html = ' | ';
 
         foreach($this->getPerformanceData()->getPerformanceDatas() as $currentPerformanceData) {
             $index = 1;
@@ -84,6 +80,10 @@ class Formatter {
                     $html .= $key . '=' . $value;
                 } else {
                     $html .= $value;
+                }
+
+                if ($this->getPerformanceData()->usesUnits()) {
+                    $html .= $this->getPerformanceData()->getUnit();
                 }
 
                 if ($index < 5) {
@@ -102,19 +102,31 @@ class Formatter {
     /**
      * Return the information from the status object to be evaluated by Nagios.
      *
-     * @param bool $printPerformanceData
-     *
      * @return string
      */
-    public function getOutput($printPerformanceData = false) {
+    public function getOutput() {
         $html = '';
 
         $html = $this->status->getShortPluginDescription();
         $html .= $this->status->getStatusText();
         $html .= $this->status->getStatusMessage();
 
-        if ($printPerformanceData && (null !== $this->getPerformanceData() && count($this->getPerformanceData()->getPerformanceDatas()))) {
-            $html .= $this->formatPerformanceData($html);
+        return $html;
+    }
+
+    /**
+     * Return the information from the status object to be evaluated by Nagios.
+     *
+     * @param bool $printPerformanceData
+     *
+     * @return string
+     */
+    public function getPerformanceOutput() {
+        $html = '';
+
+        if (null !== $this->getPerformanceData() && count($this->getPerformanceData()->getPerformanceDatas())) {
+
+            $html = $this->formatPerformanceData();
         }
 
         return $html;

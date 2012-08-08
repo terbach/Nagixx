@@ -51,7 +51,8 @@ $nagixx = new Nagixx\Nagixx($plugin, $formatter);
  * Now we run the plugin and get back a formatter which holds a status object and a performanceData object.
  */
 $resultFormatter = $nagixx->execute();
-echo $resultFormatter->getOutput(true);
+echo $resultFormatter->getOutput();
+echo $resultFormatter->getPerformanceOutput();
 
 /* This exit code is evaluated by Nagios and very important! */
 echo "\n";
