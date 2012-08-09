@@ -41,36 +41,38 @@ class PerformanceDataTest extends \PHPUnit_Framework_TestCase {
      * Test if units are used or not.
      */
     public function testUsesUnits() {
-        $this->assertFalse(PerformanceData::usesUnits());
+        $performanceData = new PerformanceData();
+        $this->assertFalse($performanceData->usesUnits());
 
-        PerformanceData::useUnits();
-        $this->assertFalse(PerformanceData::usesUnits());
+        $performanceData->useUnits();
+        $this->assertFalse($performanceData->usesUnits());
 
-        PerformanceData::useUnits(true);
-        $this->assertTrue(PerformanceData::usesUnits());
+        $performanceData->useUnits(true);
+        $this->assertTrue($performanceData->usesUnits());
     }
 
     /**
      * Test if correct unit is used when unit using is enabled.
      */
     public function testUseUnit() {
-        PerformanceData::useUnits(true);
+        $performanceData = new PerformanceData();
+        $performanceData->useUnits(true);
 
-        PerformanceData::setUnit(PerformanceData::UNIT_BYTE);
-        $this->assertSame('B', PerformanceData::getUnit());
+        $performanceData->setUnit(PerformanceData::UNIT_BYTE);
+        $this->assertSame('B', $performanceData->getUnit());
 
-        PerformanceData::setUnit(PerformanceData::UNIT_PERCENT);
-        $this->assertSame('%', PerformanceData::getUnit());
+        $performanceData->setUnit(PerformanceData::UNIT_PERCENT);
+        $this->assertSame('%', $performanceData->getUnit());
 
-        PerformanceData::setUnit(PerformanceData::UNIT_TIME);
-        $this->assertSame('s', PerformanceData::getUnit());
+        $performanceData->setUnit(PerformanceData::UNIT_TIME);
+        $this->assertSame('s', $performanceData->getUnit());
 
-        PerformanceData::setUnit(PerformanceData::UNIT_COUNTER);
-        $this->assertSame('c', PerformanceData::getUnit());
+        $performanceData->setUnit(PerformanceData::UNIT_COUNTER);
+        $this->assertSame('c', $performanceData->getUnit());
 
         /* Not expected in Nagios, but I offer the possibility to do so. */
-        PerformanceData::setUnit('k');
-        $this->assertSame('k', PerformanceData::getUnit());
+        $performanceData->setUnit('k');
+        $this->assertSame('k', $performanceData->getUnit());
     }
 
     /**

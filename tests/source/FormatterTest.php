@@ -106,9 +106,9 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
         $status->setStatusNumber(Status::NAGIOS_STATUS_NUMBER_OK);
         $status->setStatusText(Status::NAGIOS_STATUS_TEXT_HOST_OK);
 
-        PerformanceData::useUnits(true);
-        PerformanceData::setUnit(PerformanceData::UNIT_PERCENT);
         $performanceData = new PerformanceData();
+        $performanceData->useUnits(true);
+        $performanceData->setUnit(PerformanceData::UNIT_PERCENT);
         $performanceData->addPerformanceData('key', 4, 2, 3, 0, 5);
 
         $this->NagixxFormatter->setStatus($status);

@@ -49,10 +49,4 @@
         <description>Turn on verbose output.</description>
         <action>StoreTrue</action>
     </option>
-
-    <option name="phpunit">
-        <long_name>--configuration</long_name>
-        <description>Critical threshold.</description>
-        <action>StoreString</action>
-    </option>
 </command>

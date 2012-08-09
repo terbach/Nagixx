@@ -26,12 +26,12 @@ class PerformanceData {
     /**
      * @var bool
      */
-    public static $useUnits = false;
+    protected $useUnits = false;
 
     /**
      * @var string
      */
-    public static $unit = null;
+    protected $unit = null;
 
     /**
      * @var array
@@ -52,8 +52,8 @@ class PerformanceData {
      *
      * @param bool $use
      */
-    public static function useUnits($use = false) {
-        self::$useUnits = (bool) $use;
+    public function useUnits($use = false) {
+        $this->useUnits = (bool) $use;
     }
 
     /**
@@ -61,8 +61,8 @@ class PerformanceData {
      *
      * @return bool
      */
-    public static function usesUnits() {
-        return (bool) self::$useUnits;
+    public function usesUnits() {
+        return (bool) $this->useUnits;
     }
 
     /**
@@ -70,8 +70,8 @@ class PerformanceData {
      *
      * @param string $unit
      */
-    public static function setUnit($unit) {
-        self::$unit = $unit;
+    public function setUnit($unit) {
+        $this->unit = $unit;
     }
 
     /**
@@ -79,8 +79,8 @@ class PerformanceData {
      *
      * @return string
      */
-    public static function getUnit() {
-        return self::$unit;
+    public function getUnit() {
+        return $this->unit;
     }
 
     /**
