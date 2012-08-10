@@ -180,7 +180,9 @@ class StatusCalculator {
      *
      * @return bool
      */
-    protected static function checkStatusWarning(Plugin $plugin, $value, array $thresholdWarning, array $thresholdCritical) {
+    protected static function checkStatusWarning(Plugin $plugin, $value, array $thresholdWarning,
+                                                                         array $thresholdCritical) {
+
         if (-Plugin::INFINITE === $thresholdWarning['start']) {
             if ($thresholdWarning['end'] >= $value && $thresholdCritical['end'] <= $value) {
 
