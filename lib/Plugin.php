@@ -135,8 +135,6 @@ abstract class Plugin {
 
     /**
      * The plugins constructor. Will call the abstract method init() to inizialize the users concrete plugin.
-     *
-     * @param Status $status
      */
     public function __construct() {
         $this->initPlugin();
@@ -170,8 +168,6 @@ abstract class Plugin {
         if ($this->hasCommandLineOption('critical')) {
             $this->thresholdCritical = $this->parseThreshold($this->getCommandLineOptionValue('critical'));
         }
-
-        StatusCalculator::setPlugin($this);
     }
 
     /**
@@ -312,7 +308,7 @@ abstract class Plugin {
      * @return void
      */
     protected function calcStatus($value) {
-        StatusCalculator::calcStatus($value, $this->thresholdWarning, $this->thresholdCritical);
+        StatusCalculator::calcStatus($this, $value, $this->thresholdWarning, $this->thresholdCritical);
     }
 
     /**

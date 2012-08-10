@@ -57,6 +57,8 @@ class ExtendedPlugin extends Plugin {
         $performanceData = new \Nagixx\PerformanceData();
         $performanceData->addPerformanceData('sampleKey', 5, 3, 4, 2, 6);
         $performanceData->addPerformanceData('secondKey', 25, 23, 24, 22, 26);
+        $performanceData->useUnits(true);
+        $performanceData->setUnit(\Nagixx\PerformanceData::UNIT_TIME);
         $this->setPerformanceData($performanceData);
 
         return $this->status;
