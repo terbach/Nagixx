@@ -1,7 +1,15 @@
 Nagixx
 ======
 
-Toolset for developing Nagios-Plugins with PHP.
+Toolset for developing Nagios-Plugins in an OO-Way with PHP.
+
+
+
+Release v1.1.3 :: 2012-0x-xx
+----------------------------
+
+- Added Nagios-Command definitions
+- Added logging capabilities for the plugin
 
 
 

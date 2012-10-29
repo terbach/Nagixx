@@ -14,13 +14,13 @@ use Nagixx\Status;
  *
  * @category lib
  */
-class ExtendedPlugin extends Plugin {
+class SimplePlugin extends Plugin {
 
     /**
      * Initializing the commandline arguments and options for th plugin.
      */
     protected function initPlugin() {
-        $this->setConfigFile('ExtendedPlugin.xml');
+        $this->setConfigFile(dirname(__FILE__) . '/SimplePlugin.xml');
     }
 
     /**
@@ -42,24 +42,17 @@ class ExtendedPlugin extends Plugin {
         /**
          * Now we can fill the status object with the correct values.
          */
-        if ($this->isOk()) {
+        // if ($this->isOk()) {
             $this->status->setStatusNumber(Status::NAGIOS_STATUS_NUMBER_OK);
-            $this->status->setShortPluginDescription('ExtendedPlugin');
+            $this->status->setShortPluginDescription('SimplePlugin');
             $this->status->setStatusText(Status::NAGIOS_STATUS_TEXT_SERVICE_OK);
-            $this->status->setStatusMessage("Nagios-ExtendedPlugin-Check finished successfully!");
-        } /* else if ($this->isWarning()) {
+            $this->status->setStatusMessage("Nagios-SimplePlugin-Check finished successfully!");
+        /* } else if ($this->isWarning()) {
          * ...
          * } else if ($this->isCritical()) {
          * ...
          * }
          */
-
-        $performanceData = new \Nagixx\PerformanceData();
-        $performanceData->addPerformanceData('sampleKey', 5, 3, 4, 2, 6);
-        $performanceData->addPerformanceData('secondKey', 25, 23, 24, 22, 26);
-        $performanceData->useUnits(true);
-        $performanceData->setUnit(\Nagixx\PerformanceData::UNIT_TIME);
-        $this->setPerformanceData($performanceData);
 
         return $this->status;
     }

@@ -1,0 +1,22 @@
+##############################################################################
+#
+# The command definition for nagios (e.g. /etc/nagios/objects/commands.cfg)
+#
+# @author terbach <terbach@netbixx.com>
+# @license See licence file LICENCE.md
+# @version 1.0.0
+# @since 1.1.3
+# @copyright 2012 netbixx GmbH (http://www.netbixx.com)
+#
+##############################################################################
+
+# 'check_nagixx' command definition
+define command{
+    command_name    check_nagixx_simple
+    command_line    $USER1$/nagios/check_nagixxSimple.php -H $HOSTADDRESS$ -w 1 -c 5 -v
+    }
+
+define command{
+    command_name    check_nagixx_extended
+    command_line    $USER1$/nagios/check_nagixxExtended.php -H $HOSTADDRESS$ -w 1 -c 5 -v
+    }

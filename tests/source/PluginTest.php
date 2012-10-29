@@ -3,6 +3,8 @@
 namespace Nagixx\Tests;
 
 use Nagixx\Plugin;
+use Nagixx\Logging\LoggerContainer;
+use Nagixx\Logging\Adapter\File;
 
 require_once 'PluginMock.php';
 
@@ -28,7 +30,9 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
      * Prepares the environment before running a test.
      */
     protected function setUp () {
-        $this->NagixxPluginMock = new PluginMock();
+
+        $logger = new LoggerContainer();
+        $this->NagixxPluginMock = new PluginMock($logger);
     }
 
     /**

@@ -73,9 +73,9 @@ class Formatter {
     protected function formatPerformanceData() {
         $html = ' | ';
 
-        foreach($this->getPerformanceData()->getPerformanceDatas() as $currentPerformanceData) {
+        foreach($this->getPerformanceData()->getPerformanceDatas() as $currentData) {
             $index = 1;
-            foreach ($currentPerformanceData as $key => $value) {
+            foreach ($currentData as $key => $value) {
                 if (1 == $index) {
                     $html .= $key . '=' . $value;
                 } else {
@@ -107,7 +107,6 @@ class Formatter {
     public function getOutput() {
         $html = '';
 
-        $html = $this->status->getShortPluginDescription();
         $html .= $this->status->getStatusText();
         $html .= $this->status->getStatusMessage();
 

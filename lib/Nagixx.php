@@ -22,7 +22,7 @@ class Nagixx {
     /**
      * The actual version of the Nagixx.
      */
-    const VERSION = '1.1.2';
+    const VERSION = '1.1.3';
 
     /**
      * The concrete plugin to make the check.
@@ -81,7 +81,7 @@ class Nagixx {
     /**
      * Inject the formatter.
      *
-     * @param Formatter $plugin
+     * @param Nagixx\Formatter $formatter
      */
     public function setFormatter(Formatter $formatter) {
         $this->formatter = $formatter;

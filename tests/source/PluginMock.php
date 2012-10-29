@@ -4,6 +4,8 @@ namespace Nagixx\Tests;
 
 use Nagixx\Status;
 use Nagixx\Plugin;
+use Nagixx\Logging\LoggerContainer;
+use Nagixx\Logging\Adapter\File;
 
 /**
  * A correct PluginMock.
@@ -18,8 +20,8 @@ use Nagixx\Plugin;
  */
 class PluginMock extends Plugin {
 
-    public function __construct() {
-        parent::__construct();
+    public function __construct(LoggerContainer $logger = null) {
+        parent::__construct($logger);
     }
 
     protected function initPlugin() {
@@ -80,8 +82,8 @@ class PluginMock extends Plugin {
         return parent::calcStatus($value);
     }
 
-    public function setStatusFlags($ok, $warn, $crit) {
-        parent::setStatusFlags($ok, $warn, $crit);
+    public function setStatusFlags($okValue, $warn, $crit) {
+        parent::setStatusFlags($okValue, $warn, $crit);
     }
 
     public function isOk() {

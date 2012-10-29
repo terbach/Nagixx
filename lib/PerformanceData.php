@@ -45,7 +45,7 @@ class PerformanceData {
      *                                  )
      * </code>
      */
-    protected $performanceDataValues = array();
+    protected $performanceValues = array();
 
     /**
      * Print units when outputting performance data to console.
@@ -94,7 +94,7 @@ class PerformanceData {
      * @param int | float $max
      */
     public function addPerformanceData($key, $value, $warn = 0, $crit = 0, $min = 0, $max = 0) {
-        $this->performanceDataValues[] = array($key => $value,
+        $this->performanceValues[] = array($key => $value,
                                                'warn' => $warn,
                                                'crit' => $crit,
                                                'min' => $min,
@@ -113,7 +113,7 @@ class PerformanceData {
     public function getPerformanceData($key) {
         $found = false;
 
-        foreach ($this->performanceDataValues as $currentValueObject) {
+        foreach ($this->performanceValues as $currentValueObject) {
 
             if (array_key_exists(strip_tags(trim($key)), $currentValueObject)) {
                 return $currentValueObject;
@@ -131,6 +131,6 @@ class PerformanceData {
      * @return array
      */
     public function getPerformanceDatas() {
-        return $this->performanceDataValues;
+        return $this->performanceValues;
     }
 }

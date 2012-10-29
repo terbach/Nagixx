@@ -4,13 +4,15 @@ namespace Nagixx;
 
 use Nagixx\Nagixx;
 use Nagixx\StatusCalculator;
+use Nagixx\Logging\LoggerContainer;
+use Nagixx\Logging\Adapter\File;
 
 /**
  * The template for concrete plugins.
  *
  * @author terbach <terbach@netbixx.com>
  * @license See licence file LICENCE.md
- * @version 1.0.0
+ * @version 1.2.0
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
@@ -43,6 +45,13 @@ abstract class Plugin {
      * @var Status
      */
     protected $status = null;
+
+    /**
+     * The logger object for logging messages.
+     *
+     * @var LoggerContainer
+     */
+    protected $logger = null;
 
     /**
      * The value object holding the performance data.
@@ -135,9 +144,16 @@ abstract class Plugin {
 
     /**
      * The plugins constructor. Will call the abstract method init() to inizialize the users concrete plugin.
+     *
+     * @param LoggerContainer $logger | null
      */
-    public function __construct() {
+    public function __construct(LoggerContainer $logger = null) {
         $this->initPlugin();
+
+        if (null != $logger) {
+            $this->logger = $logger = new LoggerContainer();
+            $logger->setAdapters(array(new File(dirname(__FILE__).'/nagixx.log')));
+        }
 
         try {
             $this->commandLine = \Console_CommandLine::fromXmlFile($this->configFile);
@@ -147,26 +163,41 @@ abstract class Plugin {
             if (4 === $e->getCode()) {
                 echo $e->getMessage();
             }
+
+            $logger->log($e->getMessage(), LoggerContainer::LOGLEVEL_ERROR);
         }
         $this->argument = $commandLineResult->args;
         $this->option = $commandLineResult->options;
 
         if ($this->hasCommandLineOption('timeout')) {
             $this->setTimeout($this->getCommandLineOptionValue('timeout'));
+            $logger->log('Set timeout: ' . $this->getCommandLineOptionValue('timeout'), LoggerContainer::LOGLEVEL_INFO);
         } else {
             $this->setTimeout($this->timeout);
+            if (null !== $logger) {
+                $logger->log('Set timeout: ' . $this->timeout, LoggerContainer::LOGLEVEL_INFO);
+            }
         }
 
         if ($this->hasCommandLineOption('hostname')) {
             $this->setHostname($this->getCommandLineOptionValue('hostname'));
+            if (null !== $logger) {
+                $logger->log('Set hostname: ' . $this->getCommandLineOptionValue('hostname'), LoggerContainer::LOGLEVEL_INFO);
+            }
         }
 
         if ($this->hasCommandLineOption('warning')) {
             $this->thresholdWarning = $this->parseThreshold($this->getCommandLineOptionValue('warning'));
+            if (null !== $logger) {
+                $logger->log('Set warning: ' . $this->getCommandLineOptionValue('warning'), LoggerContainer::LOGLEVEL_INFO);
+            }
         }
 
         if ($this->hasCommandLineOption('critical')) {
             $this->thresholdCritical = $this->parseThreshold($this->getCommandLineOptionValue('critical'));
+            if (null !== $logger) {
+                $logger->log('Set critical: ' . $this->getCommandLineOptionValue('critical'), LoggerContainer::LOGLEVEL_INFO);
+            }
         }
     }
 
@@ -361,12 +392,12 @@ abstract class Plugin {
     /**
      * Set the flags for each status (ok, warning, critical).
      *
-     * @param bool $ok
+     * @param bool $okValue
      * @param bool $warning
      * @param bool $critical
      */
-    public function setStatusFlags($ok, $warning, $critical) {
-        $this->isOk = (bool) $ok;
+    public function setStatusFlags($okValue, $warning, $critical) {
+        $this->isOk = (bool) $okValue;
         $this->isWarning = (bool) $warning;
         $this->isCritical = (bool) $critical;
     }
