@@ -11,4 +11,4 @@
  * @category tests
  */
 
-require_once '../nagios/autoload.php';
+require_once __DIR__ . '/../nagios/autoload.php';
