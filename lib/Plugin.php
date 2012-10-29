@@ -151,7 +151,6 @@ abstract class Plugin {
         $this->initPlugin();
 
         if (null != $logger) {
-            $logger = new LoggerContainer();
             $this->logger = $logger;
             $logger->setAdapters(array(new File(dirname(__FILE__).'/nagixx.log')));
         }
@@ -165,14 +164,19 @@ abstract class Plugin {
                 echo $e->getMessage();
             }
 
-            $logger->log($e->getMessage(), LoggerContainer::LOGLEVEL_ERROR);
+            if (null !== $logger) {
+                $logger->log($e->getMessage(), LoggerContainer::LOGLEVEL_ERROR);
+            }
         }
         $this->argument = $commandLineResult->args;
         $this->option = $commandLineResult->options;
 
         if ($this->hasCommandLineOption('timeout')) {
             $this->setTimeout($this->getCommandLineOptionValue('timeout'));
-            $logger->log('Set timeout: ' . $this->getCommandLineOptionValue('timeout'), LoggerContainer::LOGLEVEL_INFO);
+
+            if (null !== $logger) {
+                $logger->log('Set timeout: ' . $this->getCommandLineOptionValue('timeout'), LoggerContainer::LOGLEVEL_INFO);
+            }
         } else {
             $this->setTimeout($this->timeout);
             if (null !== $logger) {
