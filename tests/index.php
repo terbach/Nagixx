@@ -13,6 +13,6 @@
 
 require_once __DIR__ . '/../nagios/autoload.php';
 
-shell_exec('../php composer.phar install');
+shell_exec('php ../composer.phar install');
 
 require_once __DIR__ . '/../vendor/autoload.php';
