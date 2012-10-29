@@ -167,6 +167,8 @@ abstract class Plugin {
             if (null !== $logger) {
                 $logger->log($e->getMessage(), LoggerContainer::LOGLEVEL_ERROR);
             }
+
+            throw new $e;
         }
         $this->argument = $commandLineResult->args;
         $this->option = $commandLineResult->options;
