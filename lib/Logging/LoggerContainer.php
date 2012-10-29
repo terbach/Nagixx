@@ -2,6 +2,7 @@
 
 namespace Nagixx\Logging;
 
+use Nagixx\Exception as NagixxException;
 use Nagixx\Logging\Adapter\LoggingAdapterInterface;
 
 /**
@@ -65,7 +66,7 @@ class LoggerContainer {
     public function log($message, $severity) {
         if ($this->isEnabled() && (int) $severity >= $this->getSeverity()) {
             if(! count($this->adapters)) {
-                throw new \Exception(self::NOADAPTERMESSAGE, self::NOADAPTER);
+                throw new NagixxException(self::NOADAPTERMESSAGE, self::NOADAPTER);
             }
 
             /* @var $adapter LoggingAdapterInterface */
@@ -91,7 +92,7 @@ class LoggerContainer {
                 $this->adapters[] = $currentAdapter;
             }
             else {
-                throw new \Exception(self::WRONGCLASSMESSAGE, self::WRONGCLASS);
+                throw new NagixxException(self::WRONGCLASSMESSAGE, self::WRONGCLASS);
             }
         }
     }

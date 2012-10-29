@@ -1,8 +1,8 @@
 <?php
 
-namespace OxxTests\Logging\Adapter;
+namespace Nagixx\Tests\Logging\Adapter;
 
-use Oxx\Logging\Adapter\LoggingAdapter;
+use Nagixx\Logging\Adapter\LoggingAdapterInterface;
 
 /**
  * Description...
@@ -16,7 +16,7 @@ use Oxx\Logging\Adapter\LoggingAdapter;
  * @package Website
  * @subpackage Logging
  */
-class FileTestClass implements LoggingAdapter {
+class FileTestClass implements LoggingAdapterInterface {
 
     /**
      * Enter description here ...
@@ -43,7 +43,7 @@ class FileTestClass implements LoggingAdapter {
      * @throws \Exception
      */
     public function log($message, $severity) {
-        $date = date('D.M.Y');
+        $date = date('d.m.Y');
 
         $fHandle = fopen($this->file, 'a');
 

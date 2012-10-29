@@ -1,17 +1,15 @@
 <?php
 
-namespace OxxTests\Logging;
+namespace Nagixx\Tests\Logging;
 
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamFile;
 
-use Oxx\TestCase as OxxTestCase;
-use Oxx\Logging\LoggerContainer;
-use Oxx\Exception\ExceptionGeneral;
+use Nagixx\Logging\LoggerContainer;
 
-use OxxTests\Logging\Adapter\FileTestClass;
+use Nagixx\Tests\Logging\Adapter\FileTestClass;
 
 /**
  * Description...
@@ -24,7 +22,7 @@ use OxxTests\Logging\Adapter\FileTestClass;
  * @category Oxx
  * @package Tests
  */
-class LoggerContainerTest extends OxxTestCase {
+class LoggerContainerTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @var string
@@ -46,8 +44,6 @@ class LoggerContainerTest extends OxxTestCase {
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('rootDir'));
         $this->logFile = vfsStream::url('rootDir/' . $this->logFileName);
-
-        $this->fileLogger = new FileTestClass($this->logFile);
     }
 
     /**
@@ -55,6 +51,8 @@ class LoggerContainerTest extends OxxTestCase {
      */
     public function tearDown() {
         parent::tearDown();
+
+        $this->logFile = null;
     }
 
     /**
@@ -78,7 +76,7 @@ class LoggerContainerTest extends OxxTestCase {
 
         $this->assertSameSize(array(1), $adapters);
         foreach ($adapters as $adapter) {
-            $this->assertInstanceOf('Oxx\Logging\Adapter\LoggingAdapter', $adapter);
+            $this->assertInstanceOf('Nagixx\Logging\Adapter\LoggingAdapterInterface', $adapter);
         }
     }
 
@@ -94,7 +92,7 @@ class LoggerContainerTest extends OxxTestCase {
 
         $this->assertSameSize(array(1, 2), $adapters);
         foreach ($adapters as $adapter) {
-            $this->assertInstanceOf('Oxx\Logging\Adapter\LoggingAdapter', $adapter);
+            $this->assertInstanceOf('Nagixx\Logging\Adapter\LoggingAdapterInterface', $adapter);
         }
     }
 
@@ -105,7 +103,7 @@ class LoggerContainerTest extends OxxTestCase {
         $container = new LoggerContainer();
         $this->assertEmpty($container->getAdapters());
 
-        $this->setExpectedException('Oxx\Exception\ExceptionGeneral', 'Wrong class type for adapter!');
+        $this->setExpectedException('Nagixx\Exception', 'Wrong class type for adapter!');
 
         $container->setAdapters(array(new FileTestClass($this->logFile), new \stdClass()));
     }
@@ -122,7 +120,7 @@ class LoggerContainerTest extends OxxTestCase {
 
         $this->assertSameSize(array(1, 2), $adapters);
         foreach ($adapters as $adapter) {
-            $this->assertInstanceOf('Oxx\Logging\Adapter\LoggingAdapter', $adapter);
+            $this->assertInstanceOf('Nagixx\Logging\Adapter\LoggingAdapterInterface', $adapter);
         }
 
         $container->clearAdapters();
@@ -136,24 +134,66 @@ class LoggerContainerTest extends OxxTestCase {
         $container = new LoggerContainer();
         $this->assertEmpty($container->getAdapters());
 
-        $this->setExpectedException('\Oxx\Exception\ExceptionGeneral');
+        $this->setExpectedException('Nagixx\Exception');
         $container->log('', $container::LOGLEVEL_CRITICAL);
     }
 
     /**
      * @group all
      */
-    public function testlog() {
+    public function testLog() {
         $container = new LoggerContainer();
         $this->assertEmpty($container->getAdapters());
 
-        $container->setAdapters(array(new FileTestClass($this->logFile), new FileTestClass($this->logFile)));
+        $container->setAdapters(array(new FileTestClass($this->logFile)));
 
-        $container->log('MyMessage', $container::LOGLEVEL_DEBUG);
+        $container->log('MyMessage', $container::LOGLEVEL_INFO);
 
+        $this->assertTrue(file_exists($this->logFile));
         $logContent = file_get_contents($this->logFile);
 
         $this->assertContains('MyMessage', $logContent);
+        $this->assertContains(':: 2 ::', $logContent); // Loglevel::Info
+    }
+
+    /**
+     * @group all
+     */
+    public function testLogSeverity() {
+        $container = new LoggerContainer();
+        $this->assertEmpty($container->getAdapters());
+
+        $container->setAdapters(array(new FileTestClass($this->logFile)));
+
+        $container->log('MyMessage', $container::LOGLEVEL_DEBUG);
+
+        $this->assertFalse(file_exists($this->logFile));
+
+        $container->setSeverity($container::LOGLEVEL_DEBUG);
+        $container->log('MyMessage', $container::LOGLEVEL_DEBUG);
+        $container->log('MyMessage2', $container::LOGLEVEL_INFO);
+
+        $this->assertTrue(file_exists($this->logFile));
+        $logContent = file_get_contents($this->logFile);
+
+        $this->assertContains('MyMessage', $logContent);
+        $this->assertContains('MyMessage2', $logContent);
         $this->assertContains(':: 1 ::', $logContent); // Loglevel::Debug
+        $this->assertContains(':: 2 ::', $logContent); // Loglevel::Info
+    }
+
+    /**
+     * @group all
+     */
+    public function testLogEnabled() {
+        $container = new LoggerContainer();
+
+        $this->assertTrue($container->isEnabled());
+
+        $container->disable();
+        $this->assertFalse($container->isEnabled());
+
+        $container->enable();
+        $this->assertTrue($container->isEnabled());
     }
 }

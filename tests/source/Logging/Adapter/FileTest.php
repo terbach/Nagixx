@@ -1,16 +1,14 @@
 <?php
 
-namespace OxxTests\Logging\Adapter;
+namespace NagixxTests\Logging\Adapter;
 
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamFile;
 
-use Oxx\TestCase as OxxTestCase;
-use Oxx\Logging\LoggerContainer;
-use Oxx\Logging\Adapter\LoggingAdapter;
-use Oxx\Logging\Adapter\File;
+use Nagixx\Logging\LoggerContainer;
+use Nagixx\Logging\Adapter\File;
 
 /**
  * Description...
@@ -23,7 +21,7 @@ use Oxx\Logging\Adapter\File;
  * @category Oxx
  * @package Tests
  */
-class FileTest extends OxxTestCase {
+class FileTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @var string
@@ -51,7 +49,7 @@ class FileTest extends OxxTestCase {
     public function testConstruct() {
         $fileLogger = new File($this->logFile);
 
-        $this->assertInstanceOf('Oxx\Logging\Adapter\File', $fileLogger);
+        $this->assertInstanceOf('Nagixx\Logging\Adapter\File', $fileLogger);
     }
 
     /**
