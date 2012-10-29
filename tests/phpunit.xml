@@ -23,13 +23,13 @@
          mapTestClassNameToCoveredClassName="false"
          printerClass="PHPUnit_TextUI_ResultPrinter"
          processIsolation="false"
-         stopOnError="false"
-         stopOnFailure="false"
+         stopOnError="true"
+         stopOnFailure="true"
          stopOnIncomplete="false"
          stopOnSkipped="false"
          testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
          strict="false"
-         verbose="false">
+         verbose="true">
 
     <!-- TestSuite(s) -->
     <testsuites>

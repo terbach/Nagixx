@@ -151,7 +151,8 @@ abstract class Plugin {
         $this->initPlugin();
 
         if (null != $logger) {
-            $this->logger = $logger = new LoggerContainer();
+            $logger = new LoggerContainer();
+            $this->logger = $logger;
             $logger->setAdapters(array(new File(dirname(__FILE__).'/nagixx.log')));
         }
 

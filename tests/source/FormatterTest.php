@@ -29,6 +29,8 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
      */
     protected function setUp () {
         $this->NagixxFormatter = new Formatter();
+        $pfd = new PerformanceData;
+        $pfd->usesUnits(false);
     }
 
     /**
@@ -36,7 +38,6 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
      */
     protected function tearDown () {
         $this->NagixxFormatter = null;
-        PerformanceData::useUnits(false);
     }
 
     /**
