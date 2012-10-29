@@ -3,3 +3,5 @@
 /.idea
 /Nagixx.iml
 nagixx.log
+vendor
+/composer.lock

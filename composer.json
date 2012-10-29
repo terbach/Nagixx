@@ -1,0 +1,15 @@
+{
+    "name": "Nagixx",
+    "description": "PHP-Plugin-Framework for Nagios",
+    "license": "GPL Version 2, June 1991",
+    "keywords": [
+        "Nagios",
+        "PHP"
+    ],
+    "homepage": "https://github.com/terbach/Nagixx",
+    "minimum-stability": "beta",
+    "require": {
+        "php": ">=5.3.3",
+        "mikey179/vfsStream": ">=1.1.0"
+    }
+}
