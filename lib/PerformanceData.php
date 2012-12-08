@@ -13,7 +13,8 @@ use Nagixx\Exception;
  *
  * @package lib
  */
-class PerformanceData {
+class PerformanceData
+{
 
     /**
      * Units which can be used for the values.
@@ -52,8 +53,9 @@ class PerformanceData {
      *
      * @param bool $use
      */
-    public function useUnits($use = false) {
-        $this->useUnits = (bool) $use;
+    public function useUnits($use = false)
+    {
+        $this->useUnits = (bool)$use;
     }
 
     /**
@@ -61,8 +63,9 @@ class PerformanceData {
      *
      * @return bool
      */
-    public function usesUnits() {
-        return (bool) $this->useUnits;
+    public function usesUnits()
+    {
+        return (bool)$this->useUnits;
     }
 
     /**
@@ -70,7 +73,8 @@ class PerformanceData {
      *
      * @param string $unit
      */
-    public function setUnit($unit) {
+    public function setUnit($unit)
+    {
         $this->unit = $unit;
     }
 
@@ -79,7 +83,8 @@ class PerformanceData {
      *
      * @return string
      */
-    public function getUnit() {
+    public function getUnit()
+    {
         return $this->unit;
     }
 
@@ -93,12 +98,15 @@ class PerformanceData {
      * @param int | float $min
      * @param int | float $max
      */
-    public function addPerformanceData($key, $value, $warn = 0, $crit = 0, $min = 0, $max = 0) {
-        $this->performanceValues[] = array($key => $value,
-                                               'warn' => $warn,
-                                               'crit' => $crit,
-                                               'min' => $min,
-                                               'max' => $max);
+    public function addPerformanceData($key, $value, $warn = 0, $crit = 0, $min = 0, $max = 0)
+    {
+        $this->performanceValues[] = array(
+            $key => $value,
+            'warn' => $warn,
+            'crit' => $crit,
+            'min' => $min,
+            'max' => $max
+        );
     }
 
     /**
@@ -110,7 +118,8 @@ class PerformanceData {
      *
      * @throws Exception
      */
-    public function getPerformanceData($key) {
+    public function getPerformanceData($key)
+    {
         $found = false;
 
         foreach ($this->performanceValues as $currentValueObject) {
@@ -120,7 +129,7 @@ class PerformanceData {
             }
         }
 
-        if (! $found) {
+        if (!$found) {
             throw new Exception('Key ' . strip_tags(trim($key)) . ' not existing!');
         }
     }
@@ -130,7 +139,8 @@ class PerformanceData {
      *
      * @return array
      */
-    public function getPerformanceDatas() {
+    public function getPerformanceDatas()
+    {
         return $this->performanceValues;
     }
 }

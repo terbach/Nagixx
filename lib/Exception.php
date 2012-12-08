@@ -13,5 +13,6 @@ namespace Nagixx;
  *
  * @package lib
  */
-class Exception extends \Exception {
+class Exception extends \Exception
+{
 }

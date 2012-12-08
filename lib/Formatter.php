@@ -13,7 +13,8 @@ namespace Nagixx;
  *
  * @package lib
  */
-class Formatter {
+class Formatter
+{
 
     /**
      * The status object for holding all the informations of the plugins status.
@@ -34,7 +35,8 @@ class Formatter {
      *
      * @param Status $status
      */
-    public function setStatus(Status $status) {
+    public function setStatus(Status $status)
+    {
         $this->status = $status;
     }
 
@@ -43,7 +45,8 @@ class Formatter {
      *
      * @return Status
      */
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
 
@@ -52,7 +55,8 @@ class Formatter {
      *
      * @param PerformanceData $perfromanceData
      */
-    public function setPerformanceData(PerformanceData $perfromanceData) {
+    public function setPerformanceData(PerformanceData $perfromanceData)
+    {
         $this->performanceData = $perfromanceData;
     }
 
@@ -61,7 +65,8 @@ class Formatter {
      *
      * @return PerformanceData
      */
-    public function getPerformanceData() {
+    public function getPerformanceData()
+    {
         return $this->performanceData;
     }
 
@@ -70,10 +75,11 @@ class Formatter {
      *
      * @return string
      */
-    protected function formatPerformanceData() {
+    protected function formatPerformanceData()
+    {
         $html = ' | ';
 
-        foreach($this->getPerformanceData()->getPerformanceDatas() as $currentData) {
+        foreach ($this->getPerformanceData()->getPerformanceDatas() as $currentData) {
             $index = 1;
             foreach ($currentData as $key => $value) {
                 if (1 == $index) {
@@ -104,7 +110,8 @@ class Formatter {
      *
      * @return string
      */
-    public function getOutput() {
+    public function getOutput()
+    {
         $html = '';
 
         $html .= $this->status->getStatusText();
@@ -120,7 +127,8 @@ class Formatter {
      *
      * @return string
      */
-    public function getPerformanceOutput() {
+    public function getPerformanceOutput()
+    {
         $html = '';
 
         if (null !== $this->getPerformanceData() && count($this->getPerformanceData()->getPerformanceDatas())) {

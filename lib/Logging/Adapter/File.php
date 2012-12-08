@@ -13,7 +13,8 @@ namespace Nagixx\Logging\Adapter;
  *
  * @package lib\Logging\Adapter
  */
-class File implements LoggingAdapterInterface{
+class File implements LoggingAdapterInterface
+{
 
     /**
      * The file where to log the message.
@@ -27,8 +28,9 @@ class File implements LoggingAdapterInterface{
      *
      * @param string $file
      */
-    public function __construct($file) {
-        $this->file = (string) $file;
+    public function __construct($file)
+    {
+        $this->file = (string)$file;
     }
 
     /**
@@ -39,12 +41,13 @@ class File implements LoggingAdapterInterface{
      *
      * @throws \Exception
      */
-    public function log($message, $severity) {
+    public function log($message, $severity)
+    {
         $date = date('d.m.Y (H:i:s)');
 
         $fHandle = fopen($this->file, 'a');
 
-        if (! $fHandle) {
+        if (!$fHandle) {
             throw new \Exception(LoggingAdapterInterface::NOFILEMESSAGE . $this->file, LoggingAdapterInterface::NOFILE);
         }
 

@@ -14,19 +14,22 @@ use Nagixx\Status;
  *
  * @package nagios
  */
-class SimplePlugin extends Plugin {
+class SimplePlugin extends Plugin
+{
 
     /**
      * Initializing the commandline arguments and options for th plugin.
      */
-    protected function initPlugin() {
+    protected function initPlugin()
+    {
         $this->setConfigFile(dirname(__FILE__) . '/SimplePlugin.xml');
     }
 
     /**
      * The execution point (entry point) of the plugin.
      */
-    public function execute() {
+    public function execute()
+    {
         /**
          * Process your checks here...
          * We get a value of 10 from our looong running tests ;)
@@ -43,10 +46,10 @@ class SimplePlugin extends Plugin {
          * Now we can fill the status object with the correct values.
          */
         // if ($this->isOk()) {
-            $this->status->setStatusNumber(Status::NAGIOS_STATUS_NUMBER_OK);
-            $this->status->setShortPluginDescription('SimplePlugin');
-            $this->status->setStatusText(Status::NAGIOS_STATUS_TEXT_SERVICE_OK);
-            $this->status->setStatusMessage("Nagios-SimplePlugin-Check finished successfully!");
+        $this->status->setStatusNumber(Status::NAGIOS_STATUS_NUMBER_OK);
+        $this->status->setShortPluginDescription('SimplePlugin');
+        $this->status->setStatusText(Status::NAGIOS_STATUS_TEXT_SERVICE_OK);
+        $this->status->setStatusMessage("Nagios-SimplePlugin-Check finished successfully!");
         /* } else if ($this->isWarning()) {
          * ...
          * } else if ($this->isCritical()) {

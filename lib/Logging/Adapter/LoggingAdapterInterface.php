@@ -13,7 +13,8 @@ namespace Nagixx\Logging\Adapter;
  *
  * @package lib\Logging\Adapter
  */
-interface LoggingAdapterInterface {
+interface LoggingAdapterInterface
+{
 
     const NOFILE = 1;
     const NOFILEMESSAGE = 'Could not access file ';

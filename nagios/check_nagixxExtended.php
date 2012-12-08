@@ -1,9 +1,9 @@
 #!/usr/bin/php
 <?php
 
- /**
-  * An extended basic plugin to demonstrate, how to develop a custom plugin.
-  *
+/**
+ * An extended basic plugin to demonstrate, how to develop a custom plugin.
+ *
  * @author terbach <terbach@netbixx.com>
  * @license See licence file LICENCE.md
  * @version 1.0.0
@@ -34,7 +34,7 @@ $logger->setSeverity(Nagixx\Logging\LoggerContainer::LOGLEVEL_INFO);
  * Our custom plugin.
  *
  * @var Nagixx\Plugin
-*/
+ */
 $plugin = new ExtendedPlugin($logger);
 
 /**
@@ -48,7 +48,7 @@ $formatter = new Nagixx\Formatter();
  * The dispatcher.
  *
  * @var Nagixx\Nagixx
-*/
+ */
 $nagixx = new Nagixx\Nagixx($plugin, $formatter);
 
 /**

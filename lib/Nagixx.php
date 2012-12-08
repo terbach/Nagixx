@@ -16,7 +16,8 @@ use Nagixx\Formatter;
  *
  * @package lib
  */
-class Nagixx {
+class Nagixx
+{
 
     /**
      * The actual version of the Nagixx.
@@ -43,7 +44,8 @@ class Nagixx {
      * @param Plugin $plugin
      * @param Formatter $formatter
      */
-    public function __construct(Plugin $plugin = null, Formatter $formatter = null) {
+    public function __construct(Plugin $plugin = null, Formatter $formatter = null)
+    {
         if (null !== $plugin) {
             $this->plugin = $plugin;
         }
@@ -53,7 +55,8 @@ class Nagixx {
         }
     }
 
-    public static function version() {
+    public static function version()
+    {
         return self::VERSION;
     }
 
@@ -64,7 +67,8 @@ class Nagixx {
      *
      * @return void
      */
-    public function setPlugin(Plugin $plugin) {
+    public function setPlugin(Plugin $plugin)
+    {
         $this->plugin = $plugin;
     }
 
@@ -73,7 +77,8 @@ class Nagixx {
      *
      * @return Plugin
      */
-    public function getPlugin() {
+    public function getPlugin()
+    {
         return $this->plugin;
     }
 
@@ -82,7 +87,8 @@ class Nagixx {
      *
      * @param \Nagixx\Formatter $formatter
      */
-    public function setFormatter(Formatter $formatter) {
+    public function setFormatter(Formatter $formatter)
+    {
         $this->formatter = $formatter;
     }
 
@@ -91,7 +97,8 @@ class Nagixx {
      *
      * @return \Nagixx\Formatter
      */
-    public function getFormatter() {
+    public function getFormatter()
+    {
         return $this->formatter;
     }
 
@@ -102,7 +109,8 @@ class Nagixx {
      *
      * @throws Exception
      */
-    public function execute() {
+    public function execute()
+    {
         if (null === $this->plugin) {
             throw new Exception('No plugin injected (Type: Nagixx\Plugin)!');
         }
@@ -112,7 +120,7 @@ class Nagixx {
         /* @var $resultStatus Status */
         $resultStatus = $this->plugin->execute();
 
-        if (! $resultStatus instanceof Status) {
+        if (!$resultStatus instanceof Status) {
             throw new Exception('Result-Object not of type Nagixx\Status!');
         }
 

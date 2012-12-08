@@ -16,7 +16,8 @@ use Nagixx\Logging\Adapter\LoggingAdapterInterface;
  *
  * @package lib\Logging
  */
-class LoggerContainer {
+class LoggerContainer
+{
 
     const LOGLEVEL_DEBUG = 1;
     const LOGLEVEL_INFO = 2;
@@ -62,9 +63,10 @@ class LoggerContainer {
      *
      * @throws \Exception
      */
-    public function log($message, $severity) {
-        if ($this->isEnabled() && (int) $severity >= $this->getSeverity()) {
-            if(! count($this->adapters)) {
+    public function log($message, $severity)
+    {
+        if ($this->isEnabled() && (int)$severity >= $this->getSeverity()) {
+            if (!count($this->adapters)) {
                 throw new NagixxException(self::NOADAPTERMESSAGE, self::NOADAPTER);
             }
 
@@ -84,13 +86,13 @@ class LoggerContainer {
      *
      * @throws \Exception
      */
-    public function setAdapters(array $newAdapters){
+    public function setAdapters(array $newAdapters)
+    {
         /* @var $currentAdapter LoggingAdapterInterface */
         foreach ($newAdapters as $currentAdapter) {
             if ($currentAdapter instanceof LoggingAdapterInterface) {
                 $this->adapters[] = $currentAdapter;
-            }
-            else {
+            } else {
                 throw new NagixxException(self::WRONGCLASSMESSAGE, self::WRONGCLASS);
             }
         }
@@ -103,7 +105,8 @@ class LoggerContainer {
      *
      * @return void
      */
-    public function addAdapter(LoggingAdapterInterface $newAdapter){
+    public function addAdapter(LoggingAdapterInterface $newAdapter)
+    {
         $this->adapters[] = $newAdapter;
     }
 
@@ -112,7 +115,8 @@ class LoggerContainer {
      *
      * @return array
      */
-    public function getAdapters(){
+    public function getAdapters()
+    {
         return $this->adapters;
     }
 
@@ -121,7 +125,8 @@ class LoggerContainer {
      *
      * @return void
      */
-    public function clearAdapters() {
+    public function clearAdapters()
+    {
         $this->adapters = array();
     }
 
@@ -132,8 +137,9 @@ class LoggerContainer {
      *
      * @return void
      */
-    public function setSeverity($severity) {
-        $this->severity = (int) $severity;
+    public function setSeverity($severity)
+    {
+        $this->severity = (int)$severity;
     }
 
     /**
@@ -141,7 +147,8 @@ class LoggerContainer {
      *
      * @return int
      */
-    public function getSeverity() {
+    public function getSeverity()
+    {
         return $this->severity;
     }
 
@@ -150,7 +157,8 @@ class LoggerContainer {
      *
      * @return bool
      */
-    public function isEnabled() {
+    public function isEnabled()
+    {
         return $this->loggingIsEnabled;
     }
 
@@ -159,7 +167,8 @@ class LoggerContainer {
      *
      * @return void
      */
-    public function enable() {
+    public function enable()
+    {
         $this->loggingIsEnabled = true;
     }
 
@@ -168,7 +177,8 @@ class LoggerContainer {
      *
      * @return void
      */
-    public function disable() {
+    public function disable()
+    {
         $this->loggingIsEnabled = false;
     }
 }

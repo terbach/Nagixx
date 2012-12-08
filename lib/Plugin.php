@@ -18,7 +18,8 @@ use Nagixx\Logging\Adapter\File;
  *
  * @package lib
  */
-abstract class Plugin {
+abstract class Plugin
+{
 
     /**
      * INFINITE
@@ -94,18 +95,22 @@ abstract class Plugin {
      *
      * @var array
      */
-    protected $thresholdWarning = array('start' => null,
-                                        'end' => null,
-                                        'negation' => null);
+    protected $thresholdWarning = array(
+        'start' => null,
+        'end' => null,
+        'negation' => null
+    );
 
     /**
      * The thresholdObject for the criticals commandline options.
      *
      * @var array
      */
-    protected $thresholdCritical = array('start' => null,
-                                         'end' => null,
-                                         'negation' => null);
+    protected $thresholdCritical = array(
+        'start' => null,
+        'end' => null,
+        'negation' => null
+    );
 
     /**
      * Is true when the current check results in the correct range.
@@ -147,19 +152,19 @@ abstract class Plugin {
      *
      * @param LoggerContainer $logger | null
      */
-    public function __construct(LoggerContainer $logger = null) {
+    public function __construct(LoggerContainer $logger = null)
+    {
         $this->initPlugin();
 
         if (null != $logger) {
             $this->logger = $logger;
-            $logger->setAdapters(array(new File(dirname(__FILE__).'/nagixx.log')));
+            $logger->setAdapters(array(new File(dirname(__FILE__) . '/nagixx.log')));
         }
 
         try {
             $this->commandLine = \Console_CommandLine::fromXmlFile($this->configFile);
             $commandLineResult = $this->commandLine->parse();
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             if (4 === $e->getCode()) {
                 echo $e->getMessage();
             }
@@ -177,7 +182,10 @@ abstract class Plugin {
             $this->setTimeout($this->getCommandLineOptionValue('timeout'));
 
             if (null !== $logger) {
-                $logger->log('Set timeout: ' . $this->getCommandLineOptionValue('timeout'), LoggerContainer::LOGLEVEL_INFO);
+                $logger->log(
+                    'Set timeout: ' . $this->getCommandLineOptionValue('timeout'),
+                    LoggerContainer::LOGLEVEL_INFO
+                );
             }
         } else {
             $this->setTimeout($this->timeout);
@@ -189,21 +197,30 @@ abstract class Plugin {
         if ($this->hasCommandLineOption('hostname')) {
             $this->setHostname($this->getCommandLineOptionValue('hostname'));
             if (null !== $logger) {
-                $logger->log('Set hostname: ' . $this->getCommandLineOptionValue('hostname'), LoggerContainer::LOGLEVEL_INFO);
+                $logger->log(
+                    'Set hostname: ' . $this->getCommandLineOptionValue('hostname'),
+                    LoggerContainer::LOGLEVEL_INFO
+                );
             }
         }
 
         if ($this->hasCommandLineOption('warning')) {
             $this->thresholdWarning = $this->parseThreshold($this->getCommandLineOptionValue('warning'));
             if (null !== $logger) {
-                $logger->log('Set warning: ' . $this->getCommandLineOptionValue('warning'), LoggerContainer::LOGLEVEL_INFO);
+                $logger->log(
+                    'Set warning: ' . $this->getCommandLineOptionValue('warning'),
+                    LoggerContainer::LOGLEVEL_INFO
+                );
             }
         }
 
         if ($this->hasCommandLineOption('critical')) {
             $this->thresholdCritical = $this->parseThreshold($this->getCommandLineOptionValue('critical'));
             if (null !== $logger) {
-                $logger->log('Set critical: ' . $this->getCommandLineOptionValue('critical'), LoggerContainer::LOGLEVEL_INFO);
+                $logger->log(
+                    'Set critical: ' . $this->getCommandLineOptionValue('critical'),
+                    LoggerContainer::LOGLEVEL_INFO
+                );
             }
         }
     }
@@ -213,7 +230,8 @@ abstract class Plugin {
      *
      * @param string $configFile
      */
-    protected function setConfigFile($configFile) {
+    protected function setConfigFile($configFile)
+    {
         $this->configFile = $configFile;
     }
 
@@ -222,7 +240,8 @@ abstract class Plugin {
      *
      * return string
      */
-    public function getPluginDescription() {
+    public function getPluginDescription()
+    {
         return trim($this->pluginDescription);
     }
 
@@ -231,7 +250,8 @@ abstract class Plugin {
      *
      * return string
      */
-    public function getPluginVersion() {
+    public function getPluginVersion()
+    {
         return trim($this->pluginVersion);
     }
 
@@ -242,7 +262,8 @@ abstract class Plugin {
      *
      * @return void
      */
-    public function setThresholdWarning(array $threshold) {
+    public function setThresholdWarning(array $threshold)
+    {
         $this->thresholdWarning = $threshold;
     }
 
@@ -253,7 +274,8 @@ abstract class Plugin {
      *
      * @return void
      */
-    public function setThresholdCritical(array $threshold) {
+    public function setThresholdCritical(array $threshold)
+    {
         $this->thresholdCritical = $threshold;
     }
 
@@ -264,9 +286,11 @@ abstract class Plugin {
      *
      * @return bool
      */
-    protected function hasCommandLineArgument($checkArgument) {
+    protected function hasCommandLineArgument($checkArgument)
+    {
         if (array_key_exists(trim($checkArgument), $this->argument)
-            && (null !== $this->argument[trim($checkArgument)])) {
+            && (null !== $this->argument[trim($checkArgument)])
+        ) {
 
             return true;
         }
@@ -281,7 +305,8 @@ abstract class Plugin {
      *
      * @return mixed
      */
-    protected function getCommandLineArgumentValue($argument) {
+    protected function getCommandLineArgumentValue($argument)
+    {
         $value = null;
 
         if ($this->hasCommandLineArgument($argument)) {
@@ -300,7 +325,8 @@ abstract class Plugin {
      *
      * @return bool
      */
-    protected function hasCommandLineOption($checkOption) {
+    protected function hasCommandLineOption($checkOption)
+    {
         if (array_key_exists(trim($checkOption), $this->option) && (null !== $this->option[trim($checkOption)])) {
             return true;
         }
@@ -315,7 +341,8 @@ abstract class Plugin {
      *
      * @return mixed
      */
-    protected function getCommandLineOptionValue($checkOption) {
+    protected function getCommandLineOptionValue($checkOption)
+    {
         $value = null;
 
         if ($this->hasCommandLineOption($checkOption)) {
@@ -334,7 +361,8 @@ abstract class Plugin {
      *
      * @return array
      */
-    protected function parseThreshold($threshold) {
+    protected function parseThreshold($threshold)
+    {
         return StatusCalculator::parseThreshold($threshold);
     }
 
@@ -345,7 +373,8 @@ abstract class Plugin {
      *
      * @return void
      */
-    protected function calcStatus($value) {
+    protected function calcStatus($value)
+    {
         StatusCalculator::calcStatus($this, $value, $this->thresholdWarning, $this->thresholdCritical);
     }
 
@@ -354,7 +383,8 @@ abstract class Plugin {
      *
      * @param int $timeout
      */
-    protected function setTimeout($timeout) {
+    protected function setTimeout($timeout)
+    {
         $this->timeout = $timeout;
 
         set_time_limit($this->getTimeout());
@@ -365,8 +395,9 @@ abstract class Plugin {
      *
      * @return int
      */
-    protected function getTimeout() {
-        return (int) $this->timeout;
+    protected function getTimeout()
+    {
+        return (int)$this->timeout;
     }
 
     /**
@@ -374,8 +405,9 @@ abstract class Plugin {
      *
      * @param string $host
      */
-    protected function setHostname($host) {
-        $this->hostname = (string) $host;
+    protected function setHostname($host)
+    {
+        $this->hostname = (string)$host;
     }
 
     /**
@@ -383,8 +415,9 @@ abstract class Plugin {
      *
      * @return string
      */
-    protected function getHostname() {
-        return (string) $this->hostname;
+    protected function getHostname()
+    {
+        return (string)$this->hostname;
     }
 
     /**
@@ -392,7 +425,8 @@ abstract class Plugin {
      *
      * @param Status $status
      */
-    public function setStatus(Status $status) {
+    public function setStatus(Status $status)
+    {
         $this->status = $status;
     }
 
@@ -403,10 +437,11 @@ abstract class Plugin {
      * @param bool $warning
      * @param bool $critical
      */
-    public function setStatusFlags($okValue, $warning, $critical) {
-        $this->isOk = (bool) $okValue;
-        $this->isWarning = (bool) $warning;
-        $this->isCritical = (bool) $critical;
+    public function setStatusFlags($okValue, $warning, $critical)
+    {
+        $this->isOk = (bool)$okValue;
+        $this->isWarning = (bool)$warning;
+        $this->isCritical = (bool)$critical;
     }
 
     /**
@@ -414,7 +449,8 @@ abstract class Plugin {
      *
      * @return boolean
      */
-    public function isOk() {
+    public function isOk()
+    {
         return $this->isOk;
     }
 
@@ -423,7 +459,8 @@ abstract class Plugin {
      *
      * @return boolean
      */
-    public function isWarning() {
+    public function isWarning()
+    {
         return $this->isWarning;
     }
 
@@ -432,7 +469,8 @@ abstract class Plugin {
      *
      * @return boolean
      */
-    public function isCritical() {
+    public function isCritical()
+    {
         return $this->isCritical;
     }
 
@@ -443,7 +481,8 @@ abstract class Plugin {
      *
      * @return void
      */
-    public function setPerformanceData(PerformanceData $performanceData) {
+    public function setPerformanceData(PerformanceData $performanceData)
+    {
         $this->performanceData = $performanceData;
     }
 
@@ -452,7 +491,8 @@ abstract class Plugin {
      *
      * @return PerformanceData
      */
-    public function getPerformanceData() {
+    public function getPerformanceData()
+    {
         return $this->performanceData;
     }
 
@@ -462,12 +502,12 @@ abstract class Plugin {
      *
      * @return void
      */
-    protected abstract function initPlugin();
+    abstract protected function initPlugin();
 
     /**
      * This method is automatically called from Nagixx, to perform the plugins check.
      *
      * @return Status
      */
-    public abstract function execute();
+    abstract public function execute();
 }

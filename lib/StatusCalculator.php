@@ -15,7 +15,8 @@ use Nagixx\Plugin;
  *
  * @package lib
  */
-class StatusCalculator {
+class StatusCalculator
+{
 
     /**
      * Parse the given $threshold expression from the commendline. Normally it's the -c | -w option from Nagios.
@@ -24,7 +25,8 @@ class StatusCalculator {
      *
      * @return array
      */
-    public static function parseThreshold($threshold) {
+    public static function parseThreshold($threshold)
+    {
         $thresholdStart = null;
         $thresholdEnd = null;
         $thresholdNegation = false;
@@ -75,9 +77,11 @@ class StatusCalculator {
             $thresholdEnd = $matchesNonStartEnd[2][0];
         }
 
-        return array('start' => (int) $thresholdStart,
-                     'end' => (int) $thresholdEnd,
-                     'negation' => (bool) $thresholdNegation);
+        return array(
+            'start' => (int)$thresholdStart,
+            'end' => (int)$thresholdEnd,
+            'negation' => (bool)$thresholdNegation
+        );
     }
 
     /**
@@ -90,7 +94,8 @@ class StatusCalculator {
      *
      * @return void
      */
-    public static function calcStatus(Plugin $plugin, $value, array $thresholdWarning, array $thresholdCritical) {
+    public static function calcStatus(Plugin $plugin, $value, array $thresholdWarning, array $thresholdCritical)
+    {
         if (false === $thresholdWarning['negation']) {
             self::calcSimpleStatus($plugin, $value, $thresholdWarning, $thresholdCritical);
         } else {
@@ -108,7 +113,8 @@ class StatusCalculator {
      *
      * @return void
      */
-    public static function calcSimpleStatus(Plugin $plugin, $value, array $thresholdWarning, array $thresholdCritical) {
+    public static function calcSimpleStatus(Plugin $plugin, $value, array $thresholdWarning, array $thresholdCritical)
+    {
         $match = false;
 
         $match = self::checkStatusOk($plugin, $value, $thresholdWarning, $thresholdCritical);
@@ -134,7 +140,8 @@ class StatusCalculator {
      *
      * @return bool
      */
-    protected static function checkStatusOk(Plugin $plugin, $value, array $thresholdWarning, array $thresholdCritical) {
+    protected static function checkStatusOk(Plugin $plugin, $value, array $thresholdWarning, array $thresholdCritical)
+    {
         if (-Plugin::INFINITE === $thresholdWarning['start']) {
             if ($thresholdWarning['end'] <= $value && $thresholdCritical['end'] <= $value) {
 
@@ -142,28 +149,34 @@ class StatusCalculator {
 
                 return true;
             }
-        } else if (0 !== $thresholdWarning['start'] && Plugin::INFINITE !== $thresholdWarning['end']) {
-            if (   ($thresholdWarning['start'] <= $value && $value <= $thresholdWarning['end'])
-                && ($thresholdCritical['start'] <= $value && $value <= $thresholdCritical['end'])) {
-
-                $plugin->setStatusFlags(true, false, false);
-
-                return true;
-            }
-        } else if (0 !== $thresholdWarning['start'] && Plugin::INFINITE === $thresholdWarning['end']) {
-            if ($thresholdWarning['start'] >= $value && $thresholdCritical['start'] >= $value) {
-
-                $plugin->setStatusFlags(true, false, false);
-
-                return true;
-            }
         } else {
-            if (   ($thresholdWarning['start'] >= $value && $value <= $thresholdCritical['start'])
-                || ($thresholdWarning['end'] <= $value && $value >= $thresholdCritical['end'])) {
+            if (0 !== $thresholdWarning['start'] && Plugin::INFINITE !== $thresholdWarning['end']) {
+                if (($thresholdWarning['start'] <= $value && $value <= $thresholdWarning['end'])
+                    && ($thresholdCritical['start'] <= $value && $value <= $thresholdCritical['end'])
+                ) {
 
-                $plugin->setStatusFlags(true, false, false);
+                    $plugin->setStatusFlags(true, false, false);
 
-                return true;
+                    return true;
+                }
+            } else {
+                if (0 !== $thresholdWarning['start'] && Plugin::INFINITE === $thresholdWarning['end']) {
+                    if ($thresholdWarning['start'] >= $value && $thresholdCritical['start'] >= $value) {
+
+                        $plugin->setStatusFlags(true, false, false);
+
+                        return true;
+                    }
+                } else {
+                    if (($thresholdWarning['start'] >= $value && $value <= $thresholdCritical['start'])
+                        || ($thresholdWarning['end'] <= $value && $value >= $thresholdCritical['end'])
+                    ) {
+
+                        $plugin->setStatusFlags(true, false, false);
+
+                        return true;
+                    }
+                }
             }
         }
 
@@ -180,8 +193,12 @@ class StatusCalculator {
      *
      * @return bool
      */
-    protected static function checkStatusWarning(Plugin $plugin, $value, array $thresholdWarning,
-                                                                         array $thresholdCritical) {
+    protected static function checkStatusWarning(
+        Plugin $plugin,
+        $value,
+        array $thresholdWarning,
+        array $thresholdCritical
+    ) {
 
         if (-Plugin::INFINITE === $thresholdWarning['start']) {
             if ($thresholdWarning['end'] >= $value && $thresholdCritical['end'] <= $value) {
@@ -190,27 +207,34 @@ class StatusCalculator {
 
                 return true;
             }
-        } else if (0 !== $thresholdWarning['start'] && Plugin::INFINITE !== $thresholdWarning['end']) {
-            if (   ($thresholdWarning['start'] >= $value && $value >= $thresholdCritical['start'])
-                || ($thresholdWarning['end'] <= $value && $value <= $thresholdCritical['end'])) {
+        } else {
+            if (0 !== $thresholdWarning['start'] && Plugin::INFINITE !== $thresholdWarning['end']) {
+                if (($thresholdWarning['start'] >= $value && $value >= $thresholdCritical['start'])
+                    || ($thresholdWarning['end'] <= $value && $value <= $thresholdCritical['end'])
+                ) {
 
-                $plugin->setStatusFlags(false, true, false);
+                    $plugin->setStatusFlags(false, true, false);
 
-                return true;
-            }
-        } else if (0 !== $thresholdWarning['start'] && Plugin::INFINITE === $thresholdWarning['end']) {
-            if ($thresholdWarning['start'] <= $value && $value <= $thresholdCritical['start']) {
+                    return true;
+                }
+            } else {
+                if (0 !== $thresholdWarning['start'] && Plugin::INFINITE === $thresholdWarning['end']) {
+                    if ($thresholdWarning['start'] <= $value && $value <= $thresholdCritical['start']) {
 
-                $plugin->setStatusFlags(false, true, false);
+                        $plugin->setStatusFlags(false, true, false);
 
-                return true;
-            }
-        } else if (0 === $thresholdWarning['start'] && Plugin::INFINITE !== $thresholdWarning['end']) {
-            if ($thresholdWarning['end'] >= $value && $value >= $thresholdCritical['end']) {
+                        return true;
+                    }
+                } else {
+                    if (0 === $thresholdWarning['start'] && Plugin::INFINITE !== $thresholdWarning['end']) {
+                        if ($thresholdWarning['end'] >= $value && $value >= $thresholdCritical['end']) {
 
-                $plugin->setStatusFlags(false, true, false);
+                            $plugin->setStatusFlags(false, true, false);
 
-                return true;
+                            return true;
+                        }
+                    }
+                }
             }
         }
 
@@ -227,7 +251,12 @@ class StatusCalculator {
      *
      * @return bool
      */
-    protected static function checkStatusCritical(Plugin $plugin, $value, array $thresholdWarning, array $thresholdCritical) {
+    protected static function checkStatusCritical(
+        Plugin $plugin,
+        $value,
+        array $thresholdWarning,
+        array $thresholdCritical
+    ) {
         if (-Plugin::INFINITE === $thresholdWarning['start']) {
             if ($thresholdWarning['end'] >= $value && $thresholdCritical['end'] >= $value) {
 
@@ -235,28 +264,34 @@ class StatusCalculator {
 
                 return true;
             }
-        } else if (0 !== $thresholdWarning['start'] && Plugin::INFINITE !== $thresholdWarning['end']) {
-            if (   ($thresholdWarning['start'] >= $value && $value <= $thresholdCritical['start'])
-                || ($thresholdWarning['end'] <= $value && $value >= $thresholdCritical['end'])) {
-
-                $plugin->setStatusFlags(false, false, true);
-
-                return true;
-            }
-        } else if (0 !== $thresholdWarning['start'] && Plugin::INFINITE === $thresholdWarning['end']) {
-            if ($thresholdWarning['start'] <= $value && $value >= $thresholdCritical['start']) {
-
-                $plugin->setStatusFlags(false, false, true);
-
-                return true;
-            }
         } else {
-            if (   ($thresholdWarning['start'] <= $value && $value >= $thresholdCritical['start'])
-                && ($thresholdWarning['end'] >= $value && $value <= $thresholdCritical['end'])) {
+            if (0 !== $thresholdWarning['start'] && Plugin::INFINITE !== $thresholdWarning['end']) {
+                if (($thresholdWarning['start'] >= $value && $value <= $thresholdCritical['start'])
+                    || ($thresholdWarning['end'] <= $value && $value >= $thresholdCritical['end'])
+                ) {
 
-                $plugin->setStatusFlags(false, false, true);
+                    $plugin->setStatusFlags(false, false, true);
 
-                return true;
+                    return true;
+                }
+            } else {
+                if (0 !== $thresholdWarning['start'] && Plugin::INFINITE === $thresholdWarning['end']) {
+                    if ($thresholdWarning['start'] <= $value && $value >= $thresholdCritical['start']) {
+
+                        $plugin->setStatusFlags(false, false, true);
+
+                        return true;
+                    }
+                } else {
+                    if (($thresholdWarning['start'] <= $value && $value >= $thresholdCritical['start'])
+                        && ($thresholdWarning['end'] >= $value && $value <= $thresholdCritical['end'])
+                    ) {
+
+                        $plugin->setStatusFlags(false, false, true);
+
+                        return true;
+                    }
+                }
             }
         }
 
@@ -273,10 +308,12 @@ class StatusCalculator {
      *
      * @return void
      */
-    public static function calcNegatedStatus(Plugin $plugin, $value, array $thresholdWarning, array $thresholdCritical) {
+    public static function calcNegatedStatus(Plugin $plugin, $value, array $thresholdWarning, array $thresholdCritical)
+    {
         /* OK */
-        if (   ($thresholdWarning['start'] > $value && $value < $thresholdCritical['start'])
-            || ($thresholdWarning['end'] < $value && $value > $thresholdCritical['end'])) {
+        if (($thresholdWarning['start'] > $value && $value < $thresholdCritical['start'])
+            || ($thresholdWarning['end'] < $value && $value > $thresholdCritical['end'])
+        ) {
 
             $plugin->setStatusFlags(true, false, false);
 
@@ -284,8 +321,9 @@ class StatusCalculator {
         }
 
         /* WARNING */
-        if (   ($thresholdWarning['start'] <= $value && $value > $thresholdCritical['start'])
-            && ($thresholdWarning['end'] >= $value && $value > $thresholdCritical['end'])) {
+        if (($thresholdWarning['start'] <= $value && $value > $thresholdCritical['start'])
+            && ($thresholdWarning['end'] >= $value && $value > $thresholdCritical['end'])
+        ) {
 
             $plugin->setStatusFlags(false, true, false);
 
@@ -293,8 +331,9 @@ class StatusCalculator {
         }
 
         /* CRITICAL */
-        if (   ($thresholdWarning['start'] < $value && $value > $thresholdCritical['start'])
-            && ($thresholdWarning['end'] >= $value && $value <= $thresholdCritical['end'])) {
+        if (($thresholdWarning['start'] < $value && $value > $thresholdCritical['start'])
+            && ($thresholdWarning['end'] >= $value && $value <= $thresholdCritical['end'])
+        ) {
 
             $plugin->setStatusFlags(false, false, true);
 

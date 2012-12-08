@@ -13,7 +13,8 @@ namespace Nagixx;
  *
  * @package lib
  */
-class Status {
+class Status
+{
 
     /**
      * The int values, Nagios evaluates to the check result.
@@ -75,8 +76,12 @@ class Status {
      * @param string $statusText
      * @param string $message
      */
-    public function __construct($statusNumber = self::NAGIOS_STATUS_NUMBER_OK, $shortDescription = '',
-                                $statusText = self::NAGIOS_STATUS_TEXT_SERVICE_OK, $message = '') {
+    public function __construct(
+        $statusNumber = self::NAGIOS_STATUS_NUMBER_OK,
+        $shortDescription = '',
+        $statusText = self::NAGIOS_STATUS_TEXT_SERVICE_OK,
+        $message = ''
+    ) {
         $this->setStatusNumber($statusNumber);
         $this->setShortPluginDescription($shortDescription);
         $this->setStatusText($statusText);
@@ -89,8 +94,9 @@ class Status {
      * @param int $statusNumber
      *
      */
-    public function setStatusNumber($statusNumber) {
-        $this->statusNumber = (int) $statusNumber;
+    public function setStatusNumber($statusNumber)
+    {
+        $this->statusNumber = (int)$statusNumber;
     }
 
     /**
@@ -99,8 +105,9 @@ class Status {
      * @return int
      *
      */
-    public function getStatusNumber() {
-        return (int) $this->statusNumber;
+    public function getStatusNumber()
+    {
+        return (int)$this->statusNumber;
     }
 
     /**
@@ -109,7 +116,8 @@ class Status {
      * @param string $shortDescription
      *
      */
-    public function setShortPluginDescription($shortDescription) {
+    public function setShortPluginDescription($shortDescription)
+    {
         $this->shortDescription = $shortDescription;
     }
 
@@ -119,7 +127,8 @@ class Status {
      * @param string $statusText
      *
      */
-    public function setStatusText($statusText) {
+    public function setStatusText($statusText)
+    {
         $this->statusText = ' ' . $statusText;
     }
 
@@ -129,7 +138,8 @@ class Status {
      * @return string
      *
      */
-    public function getStatusText() {
+    public function getStatusText()
+    {
         return $this->statusText . ' - ';
     }
 
@@ -139,7 +149,8 @@ class Status {
      * @return string
      *
      */
-    public function getShortPluginDescription() {
+    public function getShortPluginDescription()
+    {
         return $this->shortDescription;
     }
 
@@ -149,7 +160,8 @@ class Status {
      * @param string $message
      *
      */
-    public function setStatusMessage($message) {
+    public function setStatusMessage($message)
+    {
         $this->statusMessage = $message;
     }
 
@@ -159,7 +171,8 @@ class Status {
      * @return string
      *
      */
-    public function getStatusMessage() {
+    public function getStatusMessage()
+    {
         if (strlen(trim($this->statusMessage))) {
             return $this->statusMessage;
         }
