@@ -5,7 +5,7 @@ Toolset for developing Nagios-Plugins in an OO-Way with PHP.
 
 
 
-Release v1.1.3 :: 2012-0x-xx
+Release v1.1.3 :: 2012-08-12
 ----------------------------
 
 - Added Nagios-Command definitions
