@@ -8,7 +8,7 @@
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category tests
+ * @package tests
  */
 
 $directory = realpath(__DIR__ . '/../');

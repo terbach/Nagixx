@@ -9,6 +9,8 @@
  * @version 1.0.0
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
+ *
+ * @package nagios
  */
 
 /**

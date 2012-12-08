@@ -18,7 +18,7 @@ use Nagixx\Logging\Adapter\File;
  * @since 0.5.0.3
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category Oxx
+ * @package Oxx
  * @package Tests
  */
 class FileTest extends \PHPUnit_Framework_TestCase {

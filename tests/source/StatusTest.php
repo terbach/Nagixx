@@ -12,7 +12,7 @@ use Nagixx\Status;
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category tests
+ * @package tests
  */
 class StatusTest extends \PHPUnit_Framework_TestCase {
 

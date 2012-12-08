@@ -13,12 +13,12 @@ use Nagixx\Exception;
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category tests
+ * @package tests
  */
 class ExceptionTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Nagixx\Exception
+     * @var \Nagixx\Exception
      */
     private $NagixxException;
 

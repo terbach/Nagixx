@@ -12,9 +12,7 @@ use Nagixx\Logging\Adapter\LoggingAdapterInterface;
  * @since 0.5.0.1
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category Lib
- * @package Website
- * @subpackage Logging
+ * @package tests\Logging\Adapter
  */
 class FileTestClass implements LoggingAdapterInterface {
 
@@ -48,7 +46,7 @@ class FileTestClass implements LoggingAdapterInterface {
         $fHandle = fopen($this->file, 'a');
 
         if (! $fHandle) {
-            throw new \Exception(LoggingAdapter::NOFILEMESSAGE . $this->file, LoggingAdapter::NOFILE);
+            throw new \Exception(LoggingAdapterInterface::NOFILEMESSAGE . $this->file, LoggingAdapterInterface::NOFILE);
         }
 
         fwrite($fHandle, $date . ' :: ' . strtoupper($severity) . ' :: ' . trim($message));

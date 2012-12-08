@@ -11,9 +11,7 @@ namespace Nagixx\Logging\Adapter;
  * @since 1.1.3
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category lib
- * @package Logging
- * @subpackage Adapter
+ * @package lib\Logging\Adapter
  */
 class File implements LoggingAdapterInterface{
 
@@ -42,7 +40,7 @@ class File implements LoggingAdapterInterface{
      * @throws \Exception
      */
     public function log($message, $severity) {
-        $date = date('d.m.Y');
+        $date = date('d.m.Y (H:i:s)');
 
         $fHandle = fopen($this->file, 'a');
 

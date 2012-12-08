@@ -15,7 +15,7 @@ use Nagixx\PerformanceData;
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category tests
+ * @package tests
  */
 class FormatterTest extends \PHPUnit_Framework_TestCase {
 

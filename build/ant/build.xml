@@ -9,7 +9,7 @@
  @since 1.0.0
  @copyright 2012 netbixx GmbH (http://www.netbixx.com)
 
- @category build
+ @package build
  @package ant
 -->
 <project name="nagixx" default="ci" basedir="../..">
@@ -43,7 +43,7 @@
         <antcall target="pdepend" />
         <antcall target="phpmd" />
         <antcall target="phploc" />
-        <!-- <antcall target="phpcs" /> -->
+        <antcall target="phpcs" />
     </target>
 
     <target name="phpcpd">
@@ -51,7 +51,7 @@
               failonerror="false"
               dir="${projectFolder}">
 
-            <arg line="--suffixes php,phtml
+            <arg line="--names *.php
                        --exclude build
                        --exclude tests
                        --exclude vendor
@@ -102,11 +102,12 @@
               failonerror="false"
               dir="${projectFolder}">
 
-            <arg line="--tab-width=4
+            <arg line="--extensions=php
                        --encoding=UTF-8
-                       --standard=PEAR
+                       --standard=PSR2
                        --report=checkstyle
                        --report-file=${logFolder}/phpcs.xml
+                       --ignore=tests/**,vendor/**
                        ${projectFolder}" />
         </exec>
     </target>
@@ -140,7 +141,6 @@
         <mkdir dir="${logFolder}" />
         <mkdir dir="${codeCoverageFolder}" />
         <mkdir dir="${docsFolder}" />
-        <mkdir dir="${schemaSpyDocFolder}" />
     </target>
 
     <target name="clean">

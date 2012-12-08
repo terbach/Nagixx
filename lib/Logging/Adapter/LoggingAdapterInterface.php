@@ -11,9 +11,7 @@ namespace Nagixx\Logging\Adapter;
  * @since 1.1.3
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category lib
- * @package Logging
- * @subpackage Adapter
+ * @package lib\Logging\Adapter
  */
 interface LoggingAdapterInterface {
 

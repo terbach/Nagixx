@@ -8,6 +8,8 @@
  * @version 1.1.0
  * @since 1.1.2
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
+ *
+ * @package nagios
  */
 
 spl_autoload_register('_autoloader');

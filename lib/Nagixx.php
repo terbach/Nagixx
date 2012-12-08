@@ -2,7 +2,6 @@
 
 namespace Nagixx;
 
-use Nagixx\PerformanceData;
 use Nagixx\Status;
 use Nagixx\Formatter;
 
@@ -15,7 +14,7 @@ use Nagixx\Formatter;
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category lib
+ * @package lib
  */
 class Nagixx {
 
@@ -81,7 +80,7 @@ class Nagixx {
     /**
      * Inject the formatter.
      *
-     * @param Nagixx\Formatter $formatter
+     * @param \Nagixx\Formatter $formatter
      */
     public function setFormatter(Formatter $formatter) {
         $this->formatter = $formatter;
@@ -90,7 +89,7 @@ class Nagixx {
     /**
      * Returns the formatter
      *
-     * @return Nagixx\Formatter
+     * @return \Nagixx\Formatter
      */
     public function getFormatter() {
         return $this->formatter;

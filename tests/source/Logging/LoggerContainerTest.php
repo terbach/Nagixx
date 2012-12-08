@@ -5,7 +5,6 @@ namespace Nagixx\Tests\Logging;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamFile;
 
 use Nagixx\Logging\LoggerContainer;
 
@@ -19,8 +18,7 @@ use Nagixx\Tests\Logging\Adapter\FileTestClass;
  * @since 0.5.0.3
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category Oxx
- * @package Tests
+ * @package tests\Logging
  */
 class LoggerContainerTest extends \PHPUnit_Framework_TestCase {
 

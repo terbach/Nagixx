@@ -13,7 +13,7 @@ use Nagixx\Plugin;
  * @since 1.1.2
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category lib
+ * @package lib
  */
 class StatusCalculator {
 

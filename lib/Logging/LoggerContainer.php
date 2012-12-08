@@ -14,8 +14,7 @@ use Nagixx\Logging\Adapter\LoggingAdapterInterface;
  * @since 1.1.3
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category lib
- * @package Logging
+ * @package lib\Logging
  */
 class LoggerContainer {
 
@@ -100,7 +99,7 @@ class LoggerContainer {
     /**
      * Add a new adapter to the loggingContainer
      *
-     * @param Nagixx\Logging\Adapter\LoggingAdapterInterface $newAdapter
+     * @param \Nagixx\Logging\Adapter\LoggingAdapterInterface $newAdapter
      *
      * @return void
      */

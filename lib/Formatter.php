@@ -11,7 +11,7 @@ namespace Nagixx;
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category lib
+ * @package lib
  */
 class Formatter {
 
@@ -50,7 +50,7 @@ class Formatter {
     /**
      * Inject the performanceData object.
      *
-     * @param Status $status
+     * @param PerformanceData $perfromanceData
      */
     public function setPerformanceData(PerformanceData $perfromanceData) {
         $this->performanceData = $perfromanceData;

@@ -4,7 +4,7 @@ use Nagixx\Plugin;
 use Nagixx\Status;
 
 /**
- * Our basic custom plugin.
+ * The basic custom plugin.
  *
  * @author terbach <terbach@netbixx.com>
  * @license See licence file LICENCE.md
@@ -12,7 +12,7 @@ use Nagixx\Status;
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category lib
+ * @package nagios
  */
 class SimplePlugin extends Plugin {
 
@@ -24,7 +24,7 @@ class SimplePlugin extends Plugin {
     }
 
     /**
-     *
+     * The execution point (entry point) of the plugin.
      */
     public function execute() {
         /**

@@ -2,9 +2,7 @@
 
 namespace Nagixx\Tests;
 
-use Nagixx\Plugin;
 use Nagixx\Logging\LoggerContainer;
-use Nagixx\Logging\Adapter\File;
 
 require_once 'PluginMock.php';
 
@@ -17,7 +15,7 @@ require_once 'PluginMock.php';
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category tests
+ * @package tests
  */
 class PluginTest extends \PHPUnit_Framework_TestCase {
 

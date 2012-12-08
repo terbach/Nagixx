@@ -11,7 +11,7 @@ use Nagixx\Exception;
  * @since 1.1.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category lib
+ * @package lib
  */
 class PerformanceData {
 
@@ -108,7 +108,7 @@ class PerformanceData {
      *
      * @return array
      *
-     * @throw \Exception
+     * @throws Exception
      */
     public function getPerformanceData($key) {
         $found = false;

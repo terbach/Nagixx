@@ -11,7 +11,7 @@ namespace Nagixx;
  * @since 1.0.0
  * @copyright 2012 netbixx GmbH (http://www.netbixx.com)
  *
- * @category lib
+ * @package lib
  */
 class Exception extends \Exception {
 }
