@@ -12,14 +12,14 @@
  * @package nagios
  */
 
-spl_autoload_register('_autoloader');
+spl_autoload_register('nagixxAutoloader');
 
 /**
  * The callback for a new autoloader function for the spl stack.
  *
  * @param string $class
  */
-function _autoloader($class)
+function nagixxAutoloader($class)
 {
     set_include_path(
         get_include_path() . PATH_SEPARATOR
