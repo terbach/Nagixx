@@ -1,5 +1,5 @@
-Nagixx
-======
+ Nagixx
+========
 
 Toolset for developing Nagios-Plugins in an OO-Way with PHP.
 

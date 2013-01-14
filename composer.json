@@ -17,9 +17,8 @@
 
     "dist": {
         "type": "git",
-        "url": "ssh://git@netbixx.net:2012/Nagixx.git"
+        "url": "https://github.com/terbach/Nagixx"
     },
-    "notify_batch": "/downloads/",
 
     "autoload": {
         "psr-0": {"Nagixx": "vendor/lib/"}
