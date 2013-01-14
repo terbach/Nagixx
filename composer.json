@@ -1,7 +1,7 @@
 {
     "name": "netbixx/nagixx",
     "description": "PHP-Plugin-Framework for Nagios",
-    "license": "GPL Version 2, June 1991",
+    "license": "GPL Version 2 - June 1991",
     "homepage": "https://github.com/terbach/Nagixx",
     "authors": [
         {

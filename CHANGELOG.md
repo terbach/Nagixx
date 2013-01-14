@@ -1,7 +1,14 @@
- Nagixx
-========
+Nagixx
+======
 
 Toolset for developing Nagios-Plugins in an OO-Way with PHP.
+
+
+
+Release v1.1.4 :: 2013-01-14
+----------------------------
+
+- Prepared the package to work with packagist
 
 
 
