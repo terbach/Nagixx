@@ -5,6 +5,13 @@ Toolset for developing Nagios-Plugins in an OO-Way with PHP.
 
 
 
+Release v1.1.4 :: 2013-xx-xx
+----------------------------
+
+- Prepared the package to work with packagist
+
+
+
 Release v1.1.3 :: 2012-08-12
 ----------------------------
 

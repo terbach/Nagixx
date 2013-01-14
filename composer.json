@@ -1,15 +1,37 @@
 {
-    "name": "Nagixx",
+    "name": "netbixx/nagixx",
     "description": "PHP-Plugin-Framework for Nagios",
     "license": "GPL Version 2, June 1991",
+    "homepage": "https://github.com/terbach/Nagixx",
+    "authors": [
+        {
+            "name": "Timo Erbach",
+            "email": "terbach@netbixx.com",
+            "homepage": "http://www.netbixx.com"
+        }
+    ],
     "keywords": [
         "Nagios",
         "PHP"
     ],
-    "homepage": "https://github.com/terbach/Nagixx",
+
+    "dist": {
+        "type": "git",
+        "url": "ssh://git@netbixx.net:2012/Nagixx.git"
+    },
+    "notify_batch": "/downloads/",
+
+    "autoload": {
+        "psr-0": {"Nagixx": "vendor/lib/"}
+    },
+
     "minimum-stability": "beta",
+
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.3.3"
+    },
+
+    "require-dev": {
         "mikey179/vfsStream": ">=1.1.0"
     }
 }
