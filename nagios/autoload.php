@@ -23,12 +23,12 @@ function nagixxAutoloader($class)
 {
     set_include_path(
         get_include_path() . PATH_SEPARATOR
-            . dirname(__FILE__) . '/../lib/' . PATH_SEPARATOR
-            . dirname(__FILE__) . '/../lib/Logging' . PATH_SEPARATOR
-            . dirname(__FILE__) . '/../lib/Logging/Adapter' . PATH_SEPARATOR
-            . dirname(__FILE__) . '/../tests/source' . PATH_SEPARATOR
-            . dirname(__FILE__) . '/../tests/source/Logging' . PATH_SEPARATOR
-            . dirname(__FILE__) . '/../tests/source/Logging/Adapter' . PATH_SEPARATOR
+        . dirname(__FILE__) . '/../lib/' . PATH_SEPARATOR
+        . dirname(__FILE__) . '/../lib/Logging' . PATH_SEPARATOR
+        . dirname(__FILE__) . '/../lib/Logging/Adapter' . PATH_SEPARATOR
+        . dirname(__FILE__) . '/../tests/source' . PATH_SEPARATOR
+        . dirname(__FILE__) . '/../tests/source/Logging' . PATH_SEPARATOR
+        . dirname(__FILE__) . '/../tests/source/Logging/Adapter' . PATH_SEPARATOR
     );
 
     $tmp = explode('\\', $class);
