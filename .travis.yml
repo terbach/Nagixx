@@ -6,6 +6,7 @@ php:
   - 5.6
 before_script:
   - pear install Console_CommandLine
+  - php composer.phar self-update
   - php composer.phar install --dev
   - phpenv rehash
 script: phpunit --configuration ./tests/phpunit.xml
