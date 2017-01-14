@@ -24,6 +24,7 @@ function nagixxAutoloader($class)
     set_include_path(
         get_include_path() . PATH_SEPARATOR
         . dirname(__FILE__) . '/../lib/' . PATH_SEPARATOR
+        . dirname(__FILE__) . '/../lib/Console_CommandLine' . PATH_SEPARATOR
         . dirname(__FILE__) . '/../lib/Logging' . PATH_SEPARATOR
         . dirname(__FILE__) . '/../lib/Logging/Adapter' . PATH_SEPARATOR
         . dirname(__FILE__) . '/../tests/source' . PATH_SEPARATOR
@@ -34,7 +35,7 @@ function nagixxAutoloader($class)
     $tmp = explode('\\', $class);
     $clazz = end($tmp);
     $clazz = str_replace('_', '/', $clazz);
-    $requiredFile = (string)$clazz . '.php';
+    $requiredFile = (string) $clazz . '.php';
 
     $paths = explode(PATH_SEPARATOR, get_include_path());
     foreach ($paths as $path) {
