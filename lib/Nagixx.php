@@ -22,7 +22,7 @@ class Nagixx
     /**
      * The actual version of the Nagixx.
      */
-    const VERSION = '1.1.3';
+    const VERSION = '1.1.5';
 
     /**
      * The concrete plugin to make the check.
