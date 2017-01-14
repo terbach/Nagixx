@@ -4,6 +4,20 @@ Nagixx
 Toolset for developing Nagios-Plugins in an OO-Way with PHP.
 
 
+Release v1.1.5 :: 2017-01-14
+----------------------------
+
+- Much more enhanced documentation
+- Updated composer.json with newest informations
+- Added Console_CommandLine to lib-folder. So the correct version is shipped and used.
+    * Current: v1.2.2
+- Added phpunit.phar to tests-folder. So the correct version is shipped and used.
+    * Current: v5.7.5
+- Added vfsStream to tests-folder. So the correct version is shipped and used.
+    * Current: v1.6.4
+- Corrected class-names to be used in examples
+
+
 
 Release v1.1.4 :: 2013-01-14
 ----------------------------

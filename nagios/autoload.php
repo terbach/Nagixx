@@ -24,19 +24,39 @@ function nagixxAutoloader($class)
     set_include_path(
         get_include_path() . PATH_SEPARATOR
         . dirname(__FILE__) . '/../lib/' . PATH_SEPARATOR
+        . dirname(__FILE__) . '/../lib/Console_CommandLine' . PATH_SEPARATOR
         . dirname(__FILE__) . '/../lib/Logging' . PATH_SEPARATOR
         . dirname(__FILE__) . '/../lib/Logging/Adapter' . PATH_SEPARATOR
+        . dirname(__FILE__) . '/../tests/lib/vfsStream' . PATH_SEPARATOR
         . dirname(__FILE__) . '/../tests/source' . PATH_SEPARATOR
         . dirname(__FILE__) . '/../tests/source/Logging' . PATH_SEPARATOR
         . dirname(__FILE__) . '/../tests/source/Logging/Adapter' . PATH_SEPARATOR
     );
 
+    /**
+     * This we need for the Nagixx-Classes
+     */
     $tmp = explode('\\', $class);
     $clazz = end($tmp);
     $clazz = str_replace('_', '/', $clazz);
-    $requiredFile = (string)$clazz . '.php';
+    $requiredFile = (string) $clazz . '.php';
 
     $paths = explode(PATH_SEPARATOR, get_include_path());
+    foreach ($paths as $path) {
+        $path .= '/';
+
+        if (file_exists($path . $requiredFile)) {
+            require_once $path . $requiredFile;
+
+            return;
+        }
+    }
+
+    /**
+     * This we need for PSR-0-Classes in lib-directories
+     */
+    $requiredFile = (string) $class . '.php';
+    $requiredFile = str_replace('\\', '/', $requiredFile);
     foreach ($paths as $path) {
         $path .= '/';
 

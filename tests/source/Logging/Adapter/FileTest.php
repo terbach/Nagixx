@@ -2,10 +2,9 @@
 
 namespace NagixxTests\Logging\Adapter;
 
-use org\bovigo\vfs\vfsStreamDirectory;
-use org\bovigo\vfs\vfsStreamWrapper;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamFile;
+use \org\bovigo\vfs\vfsStreamDirectory;
+use \org\bovigo\vfs\vfsStreamWrapper;
+use \org\bovigo\vfs\vfsStream;
 
 use Nagixx\Logging\LoggerContainer;
 use Nagixx\Logging\Adapter\File;

@@ -11,9 +11,5 @@
  * @package tests
  */
 
-$directory = realpath(__DIR__ . '/../');
-$command = 'cd ' . $directory . ' && php composer.phar install --dev';
-shell_exec($command);
-
 require_once __DIR__ . '/../nagios/autoload.php';
-require_once __DIR__ . '/../vendor/autoload.php';
+
