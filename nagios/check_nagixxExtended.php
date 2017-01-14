@@ -27,7 +27,7 @@ require_once 'ExtendedPlugin.php';
  * Our logger object.
  */
 $logger = new Nagixx\Logging\LoggerContainer();
-$logger->setAdapters(array(new File(dirname(__FILE__) . '/../nagios/nagixx.log')));
+$logger->setAdapters(array(new Nagixx\Logging\Adapter\File(dirname(__FILE__) . '/../nagios/nagixx.log')));
 $logger->setSeverity(Nagixx\Logging\LoggerContainer::LOGLEVEL_INFO);
 
 /**
