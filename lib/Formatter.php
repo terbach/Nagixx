@@ -130,7 +130,6 @@ class Formatter
         $html = '';
 
         if (null !== $this->getPerformanceData() && count($this->getPerformanceData()->getPerformanceDatas())) {
-
             $html = $this->formatPerformanceData();
         }
 
