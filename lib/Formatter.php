@@ -123,8 +123,6 @@ class Formatter
     /**
      * Return the information from the status object to be evaluated by Nagios.
      *
-     * @param bool $printPerformanceData
-     *
      * @return string
      */
     public function getPerformanceOutput()
