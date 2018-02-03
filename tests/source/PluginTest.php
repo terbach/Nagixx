@@ -3,6 +3,7 @@
 namespace Nagixx\Tests;
 
 use Nagixx\Logging\LoggerContainer;
+use Nagixx\Logging\Adapter\File;
 
 require_once 'PluginMock.php';
 
@@ -30,6 +31,8 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     protected function setUp () {
 
         $logger = new LoggerContainer();
+        $logger->setAdapters(array(new File(dirname(__FILE__) . '/nagixxTest.log')));
+        $logger->setSeverity(LoggerContainer::LOGLEVEL_INFO);
         $this->NagixxPluginMock = new PluginMock($logger);
     }
 

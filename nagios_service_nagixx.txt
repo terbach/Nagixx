@@ -1,0 +1,27 @@
+###############################################################################
+#
+# NAGIXX SERVICE DEFINITIONS
+#
+# The service definition for nagios (e.g. /etc/nagios/objects/nagixx.cfg)
+#
+# @author terbach <terbach@netbixx.com>
+# @license See licence file LICENCE.md
+# @version 1.0.0
+# @since 1.1.5
+# @copyright 2017 netbixx GmbH (https://www.netbixx.com/de)
+#
+###############################################################################
+
+define service {
+    use                 local-service ; Name of service template to use
+    host_name           Nagixx-Local
+    service_description exampleSimple
+	check_command		check_nagixx_simple!15!20
+}
+
+define service {
+    use                 local-service ; Name of service template to use
+    host_name           Nagixx-Local
+    service_description exampleExtended
+	check_command		check_nagixx_extended
+}

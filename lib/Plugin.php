@@ -158,7 +158,6 @@ abstract class Plugin
 
         if (null != $logger) {
             $this->logger = $logger;
-            $logger->setAdapters(array(new File(dirname(__FILE__) . '/nagixx.log')));
         }
 
         try {

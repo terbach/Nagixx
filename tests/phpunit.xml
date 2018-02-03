@@ -3,7 +3,7 @@
 
  @author terbach <terbach@netbixx.com>
  @license See licence file LICENCE.md
- @version 1.0.0
+ @version 1.0.1
  @since 1.0.0
  @copyright 2012 netbixx GmbH (http://www.netbixx.com)
 
@@ -43,6 +43,7 @@
         <whitelist>
             <directory suffix=".php">../lib</directory>
             <exclude>
+                <directory suffix=".php">../lib/Console_CommandLine</directory>
             </exclude>
         </whitelist>
 
@@ -53,7 +54,7 @@
     <!-- Logging -->
     <logging>
         <log type="coverage-html"
-             target="../../build/codeCoverage"
+             target="../qa/codeCoverage"
              title="Nagixx"
              charset="UTF-8"
              yui="true"
@@ -62,10 +63,10 @@
              highLowerBound="70" />
 
         <log type="coverage-clover"
-             target="../../build/logs/clover.xml" />
+             target="../qa/logs/clover.xml" />
 
         <log type="junit"
-             target="../../build/logs/phpunit.xml"
+             target="../qa/logs/phpunit.xml"
              logIncompleteSkipped="true" />
     </logging>
 </phpunit>

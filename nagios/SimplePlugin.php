@@ -47,9 +47,9 @@ class SimplePlugin extends Plugin
          */
         // if ($this->isOk()) {
         $this->status->setStatusNumber(Status::NAGIOS_STATUS_NUMBER_OK);
-        $this->status->setShortPluginDescription('SimplePlugin');
         $this->status->setStatusText(Status::NAGIOS_STATUS_TEXT_SERVICE_OK);
-        $this->status->setStatusMessage("Nagios-SimplePlugin-Check finished successfully!");
+        $this->status->setShortPluginDescription('SimplePlugin');
+        $this->status->setStatusMessage('Nagios-SimplePlugin-Check finished successfully!');
         /* } else if ($this->isWarning()) {
          * ...
          * } else if ($this->isCritical()) {
