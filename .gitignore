@@ -4,3 +4,4 @@
 nagixx.log
 vendor
 /composer.lock
+/qa/

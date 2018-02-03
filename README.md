@@ -1,5 +1,5 @@
-Nagixx
-======
+Nagixx by netbixx GmbH
+======================
 
 Toolset for developing Nagios-Plugins in an OO-Way with PHP.
 

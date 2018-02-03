@@ -9,6 +9,8 @@ Release v1.1.5 :: 2017-01-14
 
 - Much more enhanced documentation
 - Updated composer.json with newest informations
+- Added nagios_service_nagixx.txt as example for service definitions
+- Renamed nagios_check_nagixx.txt to nagios_command_nagixx.txt as example for command definitions
 - Added Console_CommandLine to lib-folder. So the correct version is shipped and used.
     * Current: v1.2.2
 - Added phpunit.phar to tests-folder. So the correct version is shipped and used.
@@ -22,7 +24,7 @@ Release v1.1.5 :: 2017-01-14
 Release v1.1.4 :: 2013-01-14
 ----------------------------
 
-- Prepared the package to work with packagist
+- Package now works with packagist
 
 
 
