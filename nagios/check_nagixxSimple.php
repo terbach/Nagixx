@@ -27,7 +27,7 @@ require_once 'SimplePlugin.php';
  * Our logger object.
  */
 $logger = new Nagixx\Logging\LoggerContainer();
-$logger->setAdapters(array(new Nagixx\Logging\Adapter\File(dirname(__FILE__) . '/../nagios/nagixx.log')));
+$logger->setAdapters(array(new Nagixx\Logging\Adapter\File(dirname(__FILE__) . '/nagixx.log')));
 $logger->setSeverity(Nagixx\Logging\LoggerContainer::LOGLEVEL_INFO);
 
 /**
@@ -35,7 +35,7 @@ $logger->setSeverity(Nagixx\Logging\LoggerContainer::LOGLEVEL_INFO);
  *
  * @var Nagixx\Plugin
  */
-$plugin = new SimplePlugin($logger);
+$plugin = new SimplePlugin();
 
 /**
  * The formatter of the console output. This output is eveluated by Nagios.

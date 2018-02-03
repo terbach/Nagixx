@@ -47,9 +47,9 @@ class ExtendedPlugin extends Plugin
          */
         if ($this->isOk()) {
             $this->status->setStatusNumber(Status::NAGIOS_STATUS_NUMBER_OK);
-            $this->status->setShortPluginDescription('ExtendedPlugin');
             $this->status->setStatusText(Status::NAGIOS_STATUS_TEXT_SERVICE_OK);
-            $this->status->setStatusMessage("Nagios-ExtendedPlugin-Check finished successfully!");
+            $this->status->setShortPluginDescription('ExtendedPlugin');
+            $this->status->setStatusMessage('Nagios-ExtendedPlugin-Check finished successfully');
         } /* else if ($this->isWarning()) {
          * ...
          * } else if ($this->isCritical()) {

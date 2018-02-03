@@ -27,7 +27,7 @@ require_once 'ExtendedPlugin.php';
  * Our logger object.
  */
 $logger = new Nagixx\Logging\LoggerContainer();
-$logger->setAdapters(array(new Nagixx\Logging\Adapter\File(dirname(__FILE__) . '/../nagios/nagixx.log')));
+$logger->setAdapters(array(new Nagixx\Logging\Adapter\File(dirname(__FILE__) . '/nagixx.log')));
 $logger->setSeverity(Nagixx\Logging\LoggerContainer::LOGLEVEL_INFO);
 
 /**
@@ -35,7 +35,7 @@ $logger->setSeverity(Nagixx\Logging\LoggerContainer::LOGLEVEL_INFO);
  *
  * @var Nagixx\Plugin
  */
-$plugin = new ExtendedPlugin($logger);
+$plugin = new ExtendedPlugin();
 
 /**
  * The formatter of the console output. This output is eveluated by Nagios.
@@ -55,8 +55,8 @@ $nagixx = new Nagixx\Nagixx($plugin, $formatter);
  * Now we run the plugin and get back a formatter which holds a status object and a performanceData object.
  */
 $resultFormatter = $nagixx->execute();
-echo $resultFormatter->getOutput();
-echo $resultFormatter->getPerformanceOutput();
+echo trim($resultFormatter->getOutput()) . ' ';
+echo trim($resultFormatter->getPerformanceOutput());
 
 /* This exit code is evaluated by Nagios and very important! */
 echo "\n";
