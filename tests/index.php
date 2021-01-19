@@ -11,5 +11,4 @@
  * @package tests
  */
 
-require_once __DIR__ . '/../nagios/autoload.php';
-
+require_once dirname(__FILE__) . '/../nagios/autoload.php';
