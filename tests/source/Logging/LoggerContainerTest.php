@@ -20,7 +20,7 @@ use Nagixx\Tests\Logging\Adapter\FileTestClass;
  *
  * @package tests\Logging
  */
-class LoggerContainerTest extends \PHPUnit_Framework_TestCase {
+class LoggerContainerTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var string
@@ -35,7 +35,7 @@ class LoggerContainerTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group all
      */
-    public function setUp() {
+    public function setUp() :void {
         parent::setup();
         $this->logFileName = 'testLogging.log';
 
@@ -47,7 +47,7 @@ class LoggerContainerTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group all
      */
-    public function tearDown() {
+    public function tearDown() :void {
         parent::tearDown();
 
         $this->logFile = null;
@@ -101,7 +101,7 @@ class LoggerContainerTest extends \PHPUnit_Framework_TestCase {
         $container = new LoggerContainer();
         $this->assertEmpty($container->getAdapters());
 
-        $this->setExpectedException('Nagixx\Exception', 'Wrong class type for adapter!');
+        $this->expectException('Nagixx\Exception', 'Wrong class type for adapter!');
 
         $container->setAdapters(array(new FileTestClass($this->logFile), new \stdClass()));
     }
@@ -132,7 +132,7 @@ class LoggerContainerTest extends \PHPUnit_Framework_TestCase {
         $container = new LoggerContainer();
         $this->assertEmpty($container->getAdapters());
 
-        $this->setExpectedException('Nagixx\Exception');
+        $this->expectException('Nagixx\Exception');
         $container->log('', $container::LOGLEVEL_CRITICAL);
     }
 
@@ -150,8 +150,8 @@ class LoggerContainerTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(file_exists($this->logFile));
         $logContent = file_get_contents($this->logFile);
 
-        $this->assertContains('MyMessage', $logContent);
-        $this->assertContains(':: 2 ::', $logContent); // Loglevel::Info
+        $this->assertStringContainsString('MyMessage', $logContent);
+        $this->assertStringContainsString(':: 2 ::', $logContent); // Loglevel::Info
     }
 
     /**
@@ -174,10 +174,10 @@ class LoggerContainerTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(file_exists($this->logFile));
         $logContent = file_get_contents($this->logFile);
 
-        $this->assertContains('MyMessage', $logContent);
-        $this->assertContains('MyMessage2', $logContent);
-        $this->assertContains(':: 1 ::', $logContent); // Loglevel::Debug
-        $this->assertContains(':: 2 ::', $logContent); // Loglevel::Info
+        $this->assertStringContainsString('MyMessage', $logContent);
+        $this->assertStringContainsString('MyMessage2', $logContent);
+        $this->assertStringContainsString(':: 1 ::', $logContent); // Loglevel::Debug
+        $this->assertStringContainsString(':: 2 ::', $logContent); // Loglevel::Info
     }
 
     /**

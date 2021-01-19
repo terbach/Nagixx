@@ -1,9 +1,8 @@
 language: php
 php:
-  - 7.0
-  - 7.1
-  - 7.2
+  - 7.3
+  - 7.4
 before_script:
   - php composer.phar self-update
   - phpenv rehash
-script: ./tests/phpunit.phar --configuration ./tests/phpunit.xml
+script: ./vendor/phpunit/phpunit/phpunit --configuration ./tests/phpunit.xml

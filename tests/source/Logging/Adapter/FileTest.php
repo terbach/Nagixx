@@ -20,7 +20,7 @@ use Nagixx\Logging\Adapter\File;
  * @package Oxx
  * @package Tests
  */
-class FileTest extends \PHPUnit_Framework_TestCase {
+class FileTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var string
@@ -30,7 +30,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group all
      */
-    public function setUp() {
+    public function setUp() :void {
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('rootDir'));
         $this->logFile = vfsStream::url('rootDir/myLogFile.log');
@@ -39,7 +39,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
     /**
      * @group all
      */
-    public function tearDown() {
+    public function tearDown() :void {
     }
 
     /**
@@ -61,7 +61,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 
         $logContent = file_get_contents($this->logFile);
 
-        $this->assertContains('MyMessage', $logContent);
-        $this->assertContains(':: 2 ::', $logContent); // Loglevel::Info
+        $this->assertStringContainsString('MyMessage', $logContent);
+        $this->assertStringContainsString(':: 2 ::', $logContent); // Loglevel::Info
     }
 }

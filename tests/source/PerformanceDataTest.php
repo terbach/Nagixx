@@ -16,7 +16,7 @@ use Nagixx\PerformanceData;
  *
  * @package tests
  */
-class PerformanceDataTest extends \PHPUnit_Framework_TestCase {
+class PerformanceDataTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var PerformanceData
@@ -26,14 +26,14 @@ class PerformanceDataTest extends \PHPUnit_Framework_TestCase {
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp () {
+    protected function setUp () :void {
         $this->NagixxPerformanceData = new PerformanceData();
     }
 
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown () {
+    protected function tearDown () :void {
         $this->NagixxPerformanceData = null;
     }
 
@@ -121,7 +121,7 @@ class PerformanceDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertArrayHasKey('min', $this->NagixxPerformanceData->getPerformanceData('testKey'));
         $this->assertArrayHasKey('max', $this->NagixxPerformanceData->getPerformanceData('testKey'));
 
-        $this->setExpectedException('Nagixx\Exception', 'Key testKeyFourth not existing!');
+        $this->expectException('Nagixx\Exception', 'Key testKeyFourth not existing!');
 
         $valueObject = $this->NagixxPerformanceData->getPerformanceData('testKeyFourth');
     }

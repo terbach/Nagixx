@@ -5,3 +5,7 @@ nagixx.log
 vendor
 /composer.lock
 /qa/
+/Docker_Nagios4-4-5_PHP7-0/
+/Docker_PHP7-4/
+/Docker_PHP8-0/
+/makefile

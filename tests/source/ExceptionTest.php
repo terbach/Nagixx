@@ -15,7 +15,7 @@ use Nagixx\Exception;
  *
  * @package tests
  */
-class ExceptionTest extends \PHPUnit_Framework_TestCase {
+class ExceptionTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var \Nagixx\Exception
@@ -25,14 +25,14 @@ class ExceptionTest extends \PHPUnit_Framework_TestCase {
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp () {
+    protected function setUp () :void {
         $this->NagixxException = new Exception('Testing the exception!');
     }
 
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown () {
+    protected function tearDown () :void{
         $this->NagixxException = null;
     }
 
@@ -47,6 +47,6 @@ class ExceptionTest extends \PHPUnit_Framework_TestCase {
      * Test the correct message.
      */
     public function testMessage() {
-        $this->assertContains('Testing the exception!', $this->NagixxException->getMessage());
+        $this->assertStringContainsString('Testing the exception!', $this->NagixxException->getMessage());
     }
 }

@@ -14,7 +14,7 @@ use Nagixx\Status;
  *
  * @package tests
  */
-class StatusTest extends \PHPUnit_Framework_TestCase {
+class StatusTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var Status
@@ -24,14 +24,14 @@ class StatusTest extends \PHPUnit_Framework_TestCase {
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp () {
+    protected function setUp () :void {
         $this->NagixxStatus = new Status();
     }
 
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown () {
+    protected function tearDown () :void {
         $this->NagixxStatus = null;
     }
 

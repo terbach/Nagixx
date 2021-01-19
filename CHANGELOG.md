@@ -4,6 +4,13 @@ Nagixx
 Toolset for developing Nagios-Plugins in an OO-Way with PHP.
 
 
+Release v1.3.0 :: 2021-01-19
+----------------------------
+
+- Updated sources and PHPUnit to run with PHP >= 7.3 (PHP <= 7.2 not supported any longer)
+
+
+
 Release v1.1.5 :: 2017-01-14
 ----------------------------
 
