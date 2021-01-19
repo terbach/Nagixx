@@ -14,21 +14,16 @@
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
          bootstrap="index.php"
-         cacheTokens="false"
          colors="true"
          convertErrorsToExceptions="false"
          convertNoticesToExceptions="false"
          convertWarningsToExceptions="false"
          forceCoversAnnotation="false"
-         mapTestClassNameToCoveredClassName="false"
-         printerClass="PHPUnit_TextUI_ResultPrinter"
          processIsolation="false"
          stopOnError="true"
          stopOnFailure="true"
          stopOnIncomplete="false"
          stopOnSkipped="false"
-         testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
-         strict="false"
          verbose="true">
 
     <!-- TestSuite(s) -->
@@ -39,7 +34,7 @@
     </testsuites>
 
     <!-- CodeCoverage -->
-    <filter>
+<!--    <filter>
         <whitelist>
             <directory suffix=".php">../lib</directory>
             <exclude>
@@ -49,11 +44,11 @@
 
         <blacklist>
         </blacklist>
-    </filter>
+    </filter>-->
 
     <!-- Logging -->
     <logging>
-        <log type="coverage-html"
+        <!--<log type="coverage-html"
              target="../qa/codeCoverage"
              title="Nagixx"
              charset="UTF-8"
@@ -67,6 +62,6 @@
 
         <log type="junit"
              target="../qa/logs/phpunit.xml"
-             logIncompleteSkipped="true" />
+             logIncompleteSkipped="true" />-->
     </logging>
 </phpunit>
