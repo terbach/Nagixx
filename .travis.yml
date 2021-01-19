@@ -4,5 +4,6 @@ php:
   - 7.4
 before_script:
   - php composer.phar self-update
+  - php composer.phar install
   - phpenv rehash
 script: ./vendor/phpunit/phpunit/phpunit --configuration ./tests/phpunit.xml
