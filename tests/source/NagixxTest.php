@@ -20,7 +20,7 @@ require_once 'PluginMockNoStatus.php';
  *
  * @package tests
  */
-class NagixxTest extends \PHPUnit_Framework_TestCase {
+class NagixxTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var Nagixx
@@ -30,7 +30,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp () {
+    protected function setUp () :void {
         $plugin = new PluginMock();
         $formatter = new Formatter();
         $this->Nagixx = new Nagixx($plugin, $formatter);
@@ -39,7 +39,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown () {
+    protected function tearDown () :void {
         $this->Nagixx = null;
     }
 
@@ -62,7 +62,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
         $version = Nagixx::version();
         $regEx = '~[0-9]{1,2}.[0-9]{1,2}.[0-9]{1,3}~';
 
-        $this->assertRegExp($regEx, $version);
+        $this->assertMatchesRegularExpression($regEx, $version);
     }
 
     /**
@@ -114,7 +114,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
         $resultFormatter = $Nagixx->execute();
 
         $this->assertInstanceOf('Nagixx\Formatter', $resultFormatter);
-        $this->assertContains('OK', $resultFormatter->getOutput());
+        $this->assertStringContainsString('OK', $resultFormatter->getOutput());
     }
 
     /**
@@ -129,7 +129,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
         $resultFormatter = $Nagixx->execute();
 
         $this->assertInstanceOf('Nagixx\Formatter', $resultFormatter);
-        $this->assertContains('OK', $resultFormatter->getOutput());
+        $this->assertStringContainsString('OK', $resultFormatter->getOutput());
     }
 
     /**
@@ -138,7 +138,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
     public function testExecuteNoPluginAndFormatter() {
         $Nagixx = new Nagixx();
 
-        $this->setExpectedException('Nagixx\Exception');
+        $this->expectException('Nagixx\Exception');
 
         $Nagixx->execute();
     }
@@ -150,7 +150,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
         $plugin = new PluginMock();
         $Nagixx = new Nagixx($plugin);
 
-        $this->setExpectedException('Nagixx\Exception');
+        $this->expectException('Nagixx\Exception');
 
         $Nagixx->execute();
     }
@@ -162,7 +162,7 @@ class NagixxTest extends \PHPUnit_Framework_TestCase {
         $plugin = new PluginMockNoStatus();
         $Nagixx = new Nagixx($plugin);
 
-        $this->setExpectedException('Nagixx\Exception');
+        $this->expectException('Nagixx\Exception');
 
         $Nagixx->execute();
     }

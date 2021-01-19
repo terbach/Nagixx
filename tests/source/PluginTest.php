@@ -18,7 +18,7 @@ require_once 'PluginMock.php';
  *
  * @package tests
  */
-class PluginTest extends \PHPUnit_Framework_TestCase {
+class PluginTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var PluginMock
@@ -28,7 +28,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp () {
+    protected function setUp () :void {
 
         $logger = new LoggerContainer();
         $logger->setAdapters(array(new File(dirname(__FILE__) . '/nagixxTest.log')));
@@ -39,7 +39,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase {
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown () {
+    protected function tearDown () :void {
         $this->NagixxPluginMock = null;
     }
 

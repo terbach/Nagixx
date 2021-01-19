@@ -17,7 +17,7 @@ use Nagixx\PerformanceData;
  *
  * @package tests
  */
-class FormatterTest extends \PHPUnit_Framework_TestCase {
+class FormatterTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var Formatter
@@ -27,7 +27,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp () {
+    protected function setUp () :void {
         $this->NagixxFormatter = new Formatter();
         $pfd = new PerformanceData;
         $pfd->usesUnits(false);
@@ -36,7 +36,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown () {
+    protected function tearDown () :void {
         $this->NagixxFormatter = null;
     }
 
@@ -74,7 +74,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
         $status = new Status();
 
         $this->NagixxFormatter->setStatus($status);
-        $this->assertContains('OK', $this->NagixxFormatter->getOutput());
+        $this->assertEquals(' OK - ', $this->NagixxFormatter->getOutput());
     }
 
     /**
@@ -93,8 +93,8 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
         $this->NagixxFormatter->setStatus($status);
         $this->NagixxFormatter->setPerformanceData($performanceData);
 
-        $this->assertContains('UP', $this->NagixxFormatter->getOutput());
-        $this->assertContains('|', $this->NagixxFormatter->getPerformanceOutput());
+        $this->assertStringContainsString('UP', $this->NagixxFormatter->getOutput());
+        $this->assertStringContainsString('|', $this->NagixxFormatter->getPerformanceOutput());
     }
 
     /**
@@ -115,9 +115,9 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
         $this->NagixxFormatter->setStatus($status);
         $this->NagixxFormatter->setPerformanceData($performanceData);
 
-        $this->assertContains('UP', $this->NagixxFormatter->getOutput());
-        $this->assertContains('|', $this->NagixxFormatter->getPerformanceOutput());
-        $this->assertContains('%', $this->NagixxFormatter->getPerformanceOutput());
+        $this->assertStringContainsString('UP', $this->NagixxFormatter->getOutput());
+        $this->assertStringContainsString('|', $this->NagixxFormatter->getPerformanceOutput());
+        $this->assertStringContainsString('%', $this->NagixxFormatter->getPerformanceOutput());
     }
 
     /**
@@ -134,7 +134,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
         $this->NagixxFormatter->setStatus($status);
         $this->NagixxFormatter->setPerformanceData($performanceData);
 
-        $this->assertContains('UP', $this->NagixxFormatter->getOutput());
-        $this->assertNotContains('|', $this->NagixxFormatter->getPerformanceOutput());
+        $this->assertStringContainsString('UP', $this->NagixxFormatter->getOutput());
+        $this->assertStringNotContainsString('|', $this->NagixxFormatter->getPerformanceOutput());
     }
 }
